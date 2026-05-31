@@ -1,0 +1,476 @@
+/* ============================================
+   EXPLORE.CSS - Page Exploration des Pistes
+   ============================================ */
+
+.explore-container {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: var(--spacing-8);
+    min-height: calc(100vh - 200px);
+}
+
+.explore-sidebar {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-6);
+    height: fit-content;
+    position: sticky;
+    top: 100px;
+}
+
+.filter-group {
+    margin-bottom: var(--spacing-6);
+}
+
+.filter-title {
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--text-sm);
+    color: var(--gray-700);
+    margin-bottom: var(--spacing-3);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+}
+
+.filter-checkbox {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    cursor: pointer;
+    font-size: var(--text-sm);
+}
+
+.piste-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-6);
+}
+
+.piste-card {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-6);
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.piste-card:hover {
+    box-shadow: var(--shadow-lg);
+    border-color: var(--cdg-navy);
+    transform: translateY(-2px);
+}
+
+.piste-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-4);
+}
+
+.piste-id {
+    background: var(--gray-100);
+    padding: var(--spacing-2) var(--spacing-3);
+    border-radius: var(--radius-sm);
+    font-weight: var(--font-weight-bold);
+    color: var(--cdg-navy);
+    font-size: var(--text-sm);
+}
+
+.piste-priority {
+    display: inline-block;
+}
+
+.piste-titre {
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--gray-900);
+    margin-bottom: var(--spacing-2);
+}
+
+.piste-description {
+    color: var(--gray-600);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    margin-bottom: var(--spacing-4);
+}
+
+.piste-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-4);
+    padding: var(--spacing-4);
+    background: var(--gray-50);
+    border-radius: var(--radius-md);
+}
+
+.piste-stat {
+    text-align: center;
+}
+
+.piste-stat-label {
+    font-size: var(--text-xs);
+    color: var(--gray-600);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--spacing-1);
+}
+
+.piste-stat-value {
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--cdg-navy);
+}
+
+.piste-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+    margin-top: var(--spacing-4);
+}
+
+.piste-tag {
+    display: inline-block;
+    padding: var(--spacing-1) var(--spacing-3);
+    background: var(--gray-100);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    color: var(--gray-700);
+}
+
+/* ============================================
+   SIMULATE.CSS - Page Simulation
+   ============================================ */
+
+.simulate-container {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: var(--spacing-8);
+}
+
+.simulate-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+}
+
+.simulate-panel {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-6);
+}
+
+.scenario-builder {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+}
+
+.budget-visualization {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+}
+
+.budget-bar {
+    width: 100%;
+    height: 20px;
+    background: var(--gray-200);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    position: relative;
+}
+
+.budget-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--cdg-navy), var(--cdg-orange));
+    transition: width 0.3s ease;
+}
+
+.budget-text {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--text-sm);
+    color: var(--gray-600);
+}
+
+.impact-chart {
+    width: 100%;
+    height: 300px;
+}
+
+.scenario-summary {
+    background: var(--gray-50);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-6);
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--spacing-3) 0;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.summary-item:last-child {
+    border-bottom: none;
+}
+
+.summary-label {
+    color: var(--gray-600);
+    font-size: var(--text-sm);
+}
+
+.summary-value {
+    font-weight: var(--font-weight-semibold);
+    color: var(--cdg-navy);
+}
+
+/* ============================================
+   COMPARE.CSS - Page Comparaison
+   ============================================ */
+
+.compare-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: var(--spacing-6);
+}
+
+.compare-scenario {
+    background: white;
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-6);
+    transition: all var(--transition-base);
+}
+
+.compare-scenario.selected {
+    border-color: var(--cdg-navy);
+    box-shadow: var(--shadow-lg);
+}
+
+.compare-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-6);
+    padding-bottom: var(--spacing-6);
+    border-bottom: 2px solid var(--gray-200);
+}
+
+.compare-title {
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-bold);
+    flex: 1;
+}
+
+.compare-selector {
+    accent-color: var(--cdg-navy);
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.compare-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+}
+
+.metric-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--spacing-4);
+    padding: var(--spacing-3);
+    background: var(--gray-50);
+    border-radius: var(--radius-md);
+}
+
+.metric-label {
+    font-size: var(--text-sm);
+    color: var(--gray-600);
+}
+
+.metric-value {
+    font-weight: var(--font-weight-bold);
+    color: var(--cdg-navy);
+    text-align: right;
+}
+
+.comparison-matrix {
+    width: 100%;
+    margin-top: var(--spacing-8);
+}
+
+.comparison-row {
+    display: grid;
+    grid-template-columns: 200px repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--spacing-4);
+    padding: var(--spacing-4);
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.comparison-row.header {
+    background: var(--gray-100);
+    font-weight: var(--font-weight-semibold);
+}
+
+/* ============================================
+   DECIDE.CSS - Page Validation/Export
+   ============================================ */
+
+.decide-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+}
+
+.validation-panel {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-6);
+}
+
+.validation-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-6);
+}
+
+.validation-icon {
+    font-size: 2rem;
+}
+
+.validation-title {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-bold);
+}
+
+.validation-status {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    padding: var(--spacing-2) var(--spacing-4);
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+}
+
+.validation-items {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+}
+
+.validation-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-4);
+    padding: var(--spacing-4);
+    background: var(--gray-50);
+    border-radius: var(--radius-md);
+}
+
+.validation-item-icon {
+    color: var(--success);
+    flex-shrink: 0;
+}
+
+.validation-item-content {
+    flex: 1;
+}
+
+.validation-item-title {
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-1);
+}
+
+.validation-item-text {
+    font-size: var(--text-sm);
+    color: var(--gray-600);
+}
+
+.export-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-4);
+    margin-top: var(--spacing-6);
+    padding-top: var(--spacing-6);
+    border-top: 2px solid var(--gray-200);
+}
+
+.export-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-3);
+    padding: var(--spacing-6);
+    background: var(--gray-50);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.export-button:hover {
+    background: var(--cdg-navy);
+    color: white;
+    border-color: var(--cdg-navy);
+}
+
+.export-icon {
+    font-size: 2rem;
+}
+
+.export-label {
+    font-weight: var(--font-weight-semibold);
+    text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .explore-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .explore-sidebar {
+        position: relative;
+        top: 0;
+    }
+    
+    .simulate-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .compare-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .piste-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .piste-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .export-buttons {
+        grid-template-columns: 1fr;
+    }
+}

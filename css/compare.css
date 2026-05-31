@@ -1,0 +1,34 @@
+/* COMPARE.CSS - Specific styles for Compare page */
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.comparison-table th,
+.comparison-table td {
+    padding: var(--spacing-3);
+    text-align: left;
+    border: 1px solid var(--gray-200);
+}
+
+.comparison-table thead {
+    background: var(--gray-100);
+}
+
+.scenario-diff {
+    display: inline-block;
+    padding: var(--spacing-1) var(--spacing-2);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+}
+
+.scenario-diff.positive {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+}
+
+.scenario-diff.negative {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+}

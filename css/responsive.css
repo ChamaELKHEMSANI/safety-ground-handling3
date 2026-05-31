@@ -1,0 +1,364 @@
+/* ============================================
+   RESPONSIVE.CSS - Mobile & Tablet Breakpoints
+   ============================================ */
+
+/* Small screens (mobile) - up to 640px */
+@media (max-width: 640px) {
+    .container {
+        padding: 0 var(--spacing-4);
+    }
+    
+    h1 {
+        font-size: var(--text-3xl);
+    }
+    
+    h2 {
+        font-size: var(--text-2xl);
+    }
+    
+    h3 {
+        font-size: var(--text-xl);
+    }
+    
+    /* Grid adjustments */
+    .grid-cols-2, .grid-cols-3, .grid-cols-4, .grid-cols-6 {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+    
+    /* Spacing reduction */
+    .section {
+        padding: var(--spacing-8) 0;
+    }
+    
+    .p-8 { padding: var(--spacing-4); }
+    .px-8 { padding-left: var(--spacing-4); padding-right: var(--spacing-4); }
+    .py-8 { padding-top: var(--spacing-4); padding-bottom: var(--spacing-4); }
+    
+    .gap-8 { gap: var(--spacing-4); }
+    .gap-6 { gap: var(--spacing-4); }
+    
+    /* Table adjustments */
+    table {
+        font-size: var(--text-sm);
+    }
+    
+    th, td {
+        padding: var(--spacing-2);
+    }
+    
+    /* Modal adjustments */
+    .modal {
+        width: 95%;
+        max-height: 95vh;
+    }
+    
+    .modal-sm, .modal-lg {
+        max-width: 100%;
+    }
+    
+    /* Button adjustments */
+    .btn-full {
+        width: 100%;
+    }
+    
+    .btn-group {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-2);
+    }
+    
+    .btn-group .btn {
+        width: 100%;
+    }
+    
+    /* Navigation */
+    .nav-desktop {
+        display: none !important;
+    }
+    
+    .nav-mobile {
+        display: block !important;
+    }
+    
+    /* Hide large components on mobile */
+    .hide-mobile {
+        display: none !important;
+    }
+    
+    /* Cards */
+    .card {
+        padding: var(--spacing-4);
+    }
+    
+    /* Flex wrapping on mobile */
+    .flex-responsive {
+        flex-direction: column;
+    }
+}
+
+/* Medium screens (tablet) - 641px to 1024px */
+@media (min-width: 641px) and (max-width: 1024px) {
+    .container {
+        padding: 0 var(--spacing-6);
+    }
+    
+    /* Grid adjustments for tablet */
+    .grid-cols-3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    
+    .grid-cols-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    
+    .grid-cols-6 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    
+    /* Show tablet navigation */
+    .nav-tablet {
+        display: block !important;
+    }
+    
+    .nav-desktop {
+        display: none !important;
+    }
+}
+
+/* Large screens - 1025px and up */
+@media (min-width: 1025px) {
+    .hide-desktop {
+        display: none !important;
+    }
+    
+    .nav-desktop {
+        display: block !important;
+    }
+    
+    .nav-mobile, .nav-tablet {
+        display: none !important;
+    }
+}
+
+/* Print styles */
+@media print {
+    body {
+        background-color: white;
+    }
+    
+    header, footer, .no-print {
+        display: none;
+    }
+    
+    main {
+        padding: 0;
+    }
+    
+    .card, .modal {
+        page-break-inside: avoid;
+        border: 1px solid #ccc;
+    }
+    
+    table {
+        width: 100%;
+    }
+    
+    .page-break {
+        page-break-after: always;
+    }
+}
+
+/* Landscape mode adjustments */
+@media (orientation: landscape) and (max-height: 500px) {
+    .section {
+        padding: var(--spacing-4) 0;
+    }
+    
+    h1 {
+        font-size: var(--text-2xl);
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: more) {
+    :root {
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+    }
+    
+    .btn, .card, .alert {
+        border-width: 2px;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Dark mode support (optional future enhancement) */
+@media (prefers-color-scheme: dark) {
+    /* Can be implemented later if needed */
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .btn {
+        padding: var(--spacing-3) var(--spacing-6);
+        min-height: 44px;
+    }
+    
+    .btn-sm {
+        min-height: 40px;
+    }
+    
+    .form-input, .form-select, .form-textarea {
+        min-height: 44px;
+    }
+    
+    .page-link {
+        min-width: 44px;
+        min-height: 44px;
+    }
+    
+    /* Remove hover effects on touch */
+    .btn:hover {
+        box-shadow: var(--shadow-sm);
+    }
+    
+    .card:hover {
+        box-shadow: var(--shadow-sm);
+    }
+}
+
+/* Specific layout adjustments */
+@media (max-width: 768px) {
+    .modal-footer {
+        flex-direction: column-reverse;
+    }
+    
+    .modal-footer .btn {
+        width: 100%;
+    }
+    
+    .tabs {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .tab-item {
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+}
+
+/* Specific adjustments for very small screens */
+@media (max-width: 480px) {
+    h1 {
+        font-size: var(--text-2xl);
+    }
+    
+    .m-auto {
+        margin-left: var(--spacing-2);
+        margin-right: var(--spacing-2);
+    }
+    
+    .badge-lg {
+        padding: var(--spacing-1) var(--spacing-2);
+        font-size: var(--text-xs);
+    }
+    
+    .btn-group {
+        flex-direction: column;
+    }
+}
+
+/* Extra large screens - 1440px and up */
+@media (min-width: 1440px) {
+    .container-lg {
+        max-width: 1600px;
+    }
+}
+
+/* Super high resolution displays */
+@media (min-width: 2560px) {
+    :root {
+        font-size: 18px;
+    }
+}
+
+/* Retina displays */
+@media (-webkit-min-device-pixel-ratio: 2),
+       (min-resolution: 192dpi) {
+    body {
+        -webkit-font-smoothing: subpixel-antialiased;
+    }
+}
+
+/* Landscape tablets */
+@media (min-width: 1024px) and (orientation: landscape) {
+    .section {
+        padding: var(--spacing-12) 0;
+    }
+}
+
+/* Utility classes for responsive design */
+.show-mobile {
+    display: none;
+}
+
+.show-tablet {
+    display: none;
+}
+
+.show-desktop {
+    display: block;
+}
+
+@media (max-width: 640px) {
+    .show-mobile {
+        display: block;
+    }
+    
+    .show-tablet {
+        display: none;
+    }
+    
+    .show-desktop {
+        display: none;
+    }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+    .show-mobile {
+        display: none;
+    }
+    
+    .show-tablet {
+        display: block;
+    }
+    
+    .show-desktop {
+        display: none;
+    }
+}
+
+@media (min-width: 1025px) {
+    .show-mobile {
+        display: none;
+    }
+    
+    .show-tablet {
+        display: none;
+    }
+    
+    .show-desktop {
+        display: block;
+    }
+}

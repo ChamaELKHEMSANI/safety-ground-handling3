@@ -1,0 +1,60 @@
+/* DECIDE.CSS - Specific styles for Decision page */
+.validation-checklist {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+}
+
+.checklist-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    padding: var(--spacing-4);
+    background: var(--gray-50);
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--gray-300);
+}
+
+.checklist-item.completed {
+    background: rgba(16, 185, 129, 0.05);
+    border-left-color: var(--success);
+}
+
+.checklist-checkbox {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    accent-color: var(--cdg-navy);
+}
+
+.export-preview {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-6);
+    margin-top: var(--spacing-6);
+}
+
+.export-format-tabs {
+    display: flex;
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-6);
+    border-bottom: 2px solid var(--gray-200);
+}
+
+.export-format-tab {
+    padding: var(--spacing-3) var(--spacing-4);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: var(--font-weight-medium);
+    color: var(--gray-600);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all var(--transition-base);
+}
+
+.export-format-tab.active {
+    color: var(--cdg-navy);
+    border-bottom-color: var(--cdg-navy);
+}
