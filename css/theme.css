@@ -4,36 +4,59 @@
 
 :root {
     /* Brand Colors */
-    --cdg-navy: #003D82;
-    --cdg-orange: #FF6B35;
-    --cdg-dark: #1F2937;
-    --cdg-light: #F9FAFB;
+    --cdg-navy: #002859;
+    --cdg-blue: #003D82;
+    --cdg-orange: #AB3500;
+    --cdg-orange-bright: #FE6A34;
+    --cdg-dark: #0B1C30;
+    --cdg-light: #F8F9FF;
+
+    /* Material-inspired palette from modele.html */
+    --surface: #F8F9FF;
+    --surface-container-lowest: #FFFFFF;
+    --surface-container-low: #EFF4FF;
+    --surface-container: #E5EEFF;
+    --surface-container-high: #DCE9FF;
+    --surface-container-highest: #D3E4FE;
+    --surface-variant: #D3E4FE;
+    --outline: #737782;
+    --outline-variant: #C3C6D2;
+    --on-surface: #0B1C30;
+    --on-surface-variant: #434751;
+    --on-primary: #FFFFFF;
+    --primary-fixed: #D7E2FF;
+    --primary-fixed-dim: #ACC7FF;
+    --secondary-fixed: #FFDBD0;
+    --secondary-fixed-dim: #FFB59D;
+    --tertiary-fixed: #FFDBCC;
+    --inverse-surface: #213145;
+    --inverse-on-surface: #EAF1FF;
     
     /* Semantic Colors */
-    --success: #10B981;
-    --warning: #F59E0B;
-    --danger: #EF4444;
-    --info: #3B82F6;
+    --success: #0F8F64;
+    --warning: #D97706;
+    --danger: #BA1A1A;
+    --info: #325DA4;
     
     /* Neutral */
     --white: #FFFFFF;
     --black: #000000;
-    --gray-50: #F9FAFB;
-    --gray-100: #F3F4F6;
-    --gray-200: #E5E7EB;
-    --gray-300: #D1D5DB;
-    --gray-400: #9CA3AF;
-    --gray-500: #6B7280;
-    --gray-600: #4B5563;
-    --gray-700: #374151;
-    --gray-800: #1F2937;
-    --gray-900: #111827;
+    --gray-50: #F8F9FF;
+    --gray-100: #EFF4FF;
+    --gray-200: #E5EEFF;
+    --gray-300: #C3C6D2;
+    --gray-400: #737782;
+    --gray-500: #64748B;
+    --gray-600: #434751;
+    --gray-700: #213145;
+    --gray-800: #0B1C30;
+    --gray-900: #071426;
     
     /* Shadows */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    --shadow-sm: 0 1px 2px 0 rgba(11, 28, 48, 0.04);
+    --shadow-md: 0 4px 8px -2px rgba(11, 28, 48, 0.08);
+    --shadow-lg: 0 12px 24px -12px rgba(11, 28, 48, 0.18);
+    --shadow-xl: 0 22px 44px -24px rgba(11, 28, 48, 0.22);
     --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     
     /* Spacing */
@@ -50,8 +73,8 @@
     --spacing-24: 6rem;
     
     /* Typography */
-    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --font-mono: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    --font-sans: 'Work Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
     
     --text-xs: 0.75rem;
     --text-sm: 0.875rem;
@@ -72,11 +95,11 @@
     --font-weight-extrabold: 800;
     
     /* Border Radius */
-    --radius-sm: 0.375rem;
-    --radius-md: 0.5rem;
-    --radius-lg: 0.75rem;
-    --radius-xl: 1rem;
-    --radius-2xl: 1.5rem;
+    --radius-sm: 0.125rem;
+    --radius-md: 0.25rem;
+    --radius-lg: 0.5rem;
+    --radius-xl: 0.75rem;
+    --radius-2xl: 0.75rem;
     --radius-full: 9999px;
     
     /* Transitions */
@@ -116,13 +139,13 @@ body {
     font-family: var(--font-sans);
     font-size: var(--text-base);
     line-height: 1.6;
-    color: var(--gray-900);
-    background-color: var(--gray-50);
+    color: var(--on-surface);
+    background-color: var(--surface);
     -webkit-tap-highlight-color: transparent;
 }
 
 :where(a, button, input, select, textarea, [tabindex]):focus-visible {
-    outline: 3px solid var(--cdg-orange);
+    outline: 3px solid var(--cdg-orange-bright);
     outline-offset: 2px;
 }
 
@@ -231,7 +254,7 @@ input, textarea, select {
 input:focus, textarea:focus, select:focus {
     outline: none;
     border-color: var(--cdg-navy);
-    box-shadow: 0 0 0 3px rgba(0, 61, 130, 0.1);
+    box-shadow: 0 0 0 3px rgba(50, 93, 164, 0.16);
 }
 
 input:disabled, textarea:disabled, select:disabled {

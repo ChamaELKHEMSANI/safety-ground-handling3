@@ -425,15 +425,16 @@ body {
     position: sticky;
     top: 0;
     z-index: var(--z-sticky);
-    background: white;
-    border-bottom: 1px solid var(--gray-200);
+    background: var(--surface-container-lowest);
+    border-bottom: 1px solid var(--outline-variant);
+    box-shadow: var(--shadow-sm);
 }
 
 /* Footer */
 .app-footer {
-    background-color: var(--gray-900);
-    color: var(--gray-300);
+    background-color: var(--inverse-surface);
+    color: var(--inverse-on-surface);
     padding: var(--spacing-12) 0;
     margin-top: var(--spacing-20);
-    border-top: 1px solid var(--gray-800);
+    border-top: 1px solid rgba(234, 241, 255, 0.12);
 }

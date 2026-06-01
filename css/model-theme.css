@@ -1,0 +1,336 @@
+/* Visual alignment with site/modele.html */
+
+body {
+    background: var(--surface) !important;
+    color: var(--on-surface);
+}
+
+.app-main,
+#page-content,
+.home-page,
+.explore-page,
+.compare-page,
+.decide-page,
+.simulate-page,
+.simulateur-page,
+.diagnostic-page,
+.support-page,
+.documentation-page,
+.modeemploi-page,
+.admin-page,
+.connexion-page,
+.detail-wrapper {
+    background: var(--surface) !important;
+}
+
+.card,
+.stat-card,
+.metric-card,
+.scenario-card,
+.simulation-card,
+.piste-card,
+.summary-box,
+.info-card,
+.section,
+.panel,
+.modal,
+.tracks-table-section,
+.dimensions-section,
+.decision-timeline,
+.recommendation-card,
+.comparison-card,
+.filter-panel,
+.table-wrapper {
+    background: var(--surface-container-lowest) !important;
+    border-color: var(--outline-variant) !important;
+    box-shadow: var(--shadow-sm) !important;
+}
+
+.card:hover,
+.scenario-card:hover,
+.simulation-card:hover,
+.piste-card:hover,
+.recommendation-card:hover {
+    border-color: var(--cdg-blue) !important;
+    box-shadow: var(--shadow-md) !important;
+}
+
+.section-title,
+.main-title,
+.table-title,
+.summary-title,
+.card-title,
+.page-title,
+h1,
+h2,
+h3 {
+    color: var(--cdg-navy);
+}
+
+.page-subtitle,
+.main-subtitle,
+.header-subtitle,
+.card-text,
+.stat-label,
+.metric-label,
+.summary-label,
+.description,
+p {
+    color: var(--on-surface-variant);
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-export,
+.btn-export-pdf,
+.btn-login,
+.btn-register,
+.btn-pdf,
+.btn-back,
+.btn-back-nav,
+.btn-submit,
+.btn-contact {
+    background: var(--surface-container-lowest) !important;
+    color: var(--cdg-navy) !important;
+    border: 1px solid var(--outline) !important;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-export:hover,
+.btn-export-pdf:hover,
+.btn-login:hover,
+.btn-register:hover,
+.btn-pdf:hover,
+.btn-back:hover,
+.btn-back-nav:hover,
+.btn-submit:hover,
+.btn-contact:hover {
+    background: var(--surface-container-low) !important;
+    color: var(--cdg-navy) !important;
+    border-color: var(--cdg-navy) !important;
+}
+
+.btn-primary.is-prominent,
+.btn-secondary.is-prominent {
+    background: var(--cdg-navy) !important;
+    color: var(--on-primary) !important;
+    border-color: var(--cdg-navy) !important;
+}
+
+.badge,
+.chip,
+.tag,
+.validation-badge,
+.priority-badge {
+    border-radius: var(--radius-full);
+}
+
+input,
+select,
+textarea,
+.form-control,
+.simulation-select,
+.search-input {
+    background: var(--surface-container-lowest) !important;
+    border-color: var(--outline-variant) !important;
+    color: var(--on-surface) !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+.form-control:focus,
+.simulation-select:focus,
+.search-input:focus {
+    border-color: var(--cdg-blue) !important;
+    box-shadow: 0 0 0 3px rgba(50, 93, 164, 0.16) !important;
+}
+
+table,
+.tracks-table,
+.summary-tracks-table {
+    background: var(--surface-container-lowest);
+}
+
+thead,
+.comparison-row.header,
+.table-header {
+    background: var(--surface-container-low) !important;
+}
+
+th {
+    color: var(--on-surface-variant) !important;
+}
+
+td {
+    border-color: var(--outline-variant) !important;
+}
+
+.app-footer {
+    background: var(--inverse-surface) !important;
+    color: var(--inverse-on-surface) !important;
+}
+
+/* Large panels aligned with site/modele.html: light surfaces, blue as accent only. */
+.home-hero,
+.hero-section,
+.apropos-hero,
+.documentation-hero,
+.doc-header,
+.mode-emploi-header,
+.problematique-header,
+.support-header,
+.admin-header,
+.edition-header,
+.simulateur-header,
+.simulate-header,
+.compare-header,
+.decide-header,
+.diagnostic-hero,
+.diagnostic-header,
+.explore-header,
+.connexion-left,
+.connexion-sidebar,
+.detail-wrapper > .header,
+.scenario-detail .header,
+.piste-detail .header,
+.container > .header,
+#pdf-content > .header {
+    background: var(--surface-container-lowest) !important;
+    color: var(--on-surface) !important;
+    border: 1px solid var(--outline-variant) !important;
+    box-shadow: var(--shadow-sm) !important;
+}
+
+.home-hero::before,
+.home-hero::after,
+.hero-section::before,
+.hero-section::after,
+.apropos-hero::before,
+.apropos-hero::after,
+.documentation-hero::before,
+.documentation-hero::after,
+.doc-header::before,
+.doc-header::after,
+.problematique-header::before,
+.problematique-header::after,
+.diagnostic-hero::before,
+.diagnostic-hero::after,
+.connexion-left::before,
+.connexion-left::after,
+.connexion-sidebar::before,
+.connexion-sidebar::after {
+    background: transparent !important;
+}
+
+.home-hero h1,
+.hero-section h1,
+.apropos-hero h1,
+.documentation-hero h1,
+.doc-header h1,
+.mode-emploi-header h1,
+.problematique-header h1,
+.support-header h1,
+.admin-header h1,
+.edition-header h1,
+.simulateur-header h1,
+.simulate-header h1,
+.compare-header h1,
+.decide-header h1,
+.diagnostic-hero h1,
+.diagnostic-header h1,
+.explore-header h1,
+.detail-wrapper > .header h1,
+.scenario-detail .header h1,
+.piste-detail .header h1,
+.container > .header h1,
+#pdf-content > .header h1 {
+    color: var(--cdg-navy) !important;
+}
+
+.home-hero p,
+.hero-section p,
+.apropos-hero p,
+.documentation-hero p,
+.doc-header p,
+.mode-emploi-header p,
+.problematique-header p,
+.support-header p,
+.admin-header p,
+.edition-header p,
+.simulateur-header p,
+.simulate-header p,
+.compare-header p,
+.decide-header p,
+.diagnostic-hero p,
+.diagnostic-header p,
+.explore-header p,
+.connexion-sidebar p,
+.detail-wrapper > .header p,
+.scenario-detail .header p,
+.piste-detail .header p,
+.container > .header p,
+#pdf-content > .header p {
+    color: var(--on-surface-variant) !important;
+}
+
+.hero-badge,
+.page-badge,
+.piste-badge,
+.scenario-badge,
+.feature-icon,
+.stat-icon,
+.metric-icon-box,
+.dimension-icon,
+.step-number,
+.member-avatar,
+.partner-logo,
+.logo-box {
+    background: var(--primary-fixed) !important;
+    color: var(--cdg-navy) !important;
+}
+
+.section-band,
+.stats-section,
+.indicators-section,
+.cta-section,
+.timeline-section,
+.objectif-final,
+.implementation-section,
+.recommendations-section {
+    background: var(--surface-container-low) !important;
+    color: var(--on-surface) !important;
+}
+
+.home-page .btn-primary,
+.home-page .btn-secondary,
+.home-page .btn-outline,
+.home-hero .btn-primary,
+.home-hero .btn-secondary,
+.home-hero .btn-outline,
+.cta-section .btn-primary,
+.cta-section .btn-secondary,
+.cta-section .btn-outline,
+.track-card .btn-view {
+    background: var(--surface-container-lowest) !important;
+    color: var(--cdg-navy) !important;
+    border: 1px solid var(--outline) !important;
+    box-shadow: none !important;
+}
+
+.home-page .btn-primary:hover,
+.home-page .btn-secondary:hover,
+.home-page .btn-outline:hover,
+.home-hero .btn-primary:hover,
+.home-hero .btn-secondary:hover,
+.home-hero .btn-outline:hover,
+.cta-section .btn-primary:hover,
+.cta-section .btn-secondary:hover,
+.cta-section .btn-outline:hover,
+.track-card .btn-view:hover {
+    background: var(--surface-container-low) !important;
+    color: var(--cdg-navy) !important;
+    border-color: var(--cdg-navy) !important;
+    box-shadow: var(--shadow-sm) !important;
+}

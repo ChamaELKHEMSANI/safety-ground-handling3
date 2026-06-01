@@ -11,8 +11,8 @@
     padding: var(--spacing-2) var(--spacing-4);
     font-size: var(--text-base);
     font-weight: var(--font-weight-semibold);
-    border: none;
-    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    border-radius: var(--radius-lg);
     cursor: pointer;
     transition: all var(--transition-base);
     text-decoration: none;
@@ -36,33 +36,38 @@
 /* Button Variants */
 .btn-primary {
     background-color: var(--cdg-navy);
-    color: white;
+    color: var(--on-primary);
+    border-color: var(--cdg-navy);
 }
 
 .btn-primary:hover {
-    background-color: #002855;
-    box-shadow: var(--shadow-lg);
+    background-color: var(--cdg-orange);
+    border-color: var(--cdg-orange);
+    box-shadow: var(--shadow-md);
 }
 
 .btn-secondary {
     background-color: var(--cdg-orange);
-    color: white;
+    color: var(--on-primary);
+    border-color: var(--cdg-orange);
 }
 
 .btn-secondary:hover {
-    background-color: #E55A28;
-    box-shadow: var(--shadow-lg);
+    background-color: var(--cdg-orange-bright);
+    border-color: var(--cdg-orange-bright);
+    box-shadow: var(--shadow-md);
 }
 
 .btn-outline {
-    background-color: transparent;
+    background-color: var(--surface-container-lowest);
     color: var(--cdg-navy);
-    border: 2px solid var(--cdg-navy);
+    border: 1px solid var(--outline);
 }
 
 .btn-outline:hover {
-    background-color: var(--cdg-navy);
-    color: white;
+    background-color: var(--surface-container-low);
+    color: var(--cdg-navy);
+    border-color: var(--cdg-navy);
 }
 
 .btn-ghost {
@@ -71,7 +76,7 @@
 }
 
 .btn-ghost:hover {
-    background-color: var(--gray-100);
+    background-color: var(--surface-container-low);
 }
 
 .btn-success {
@@ -108,8 +113,8 @@
 
 /* CARDS */
 .card {
-    background-color: white;
-    border: 1px solid var(--gray-200);
+    background-color: var(--surface-container-lowest);
+    border: 1px solid var(--outline-variant);
     border-radius: var(--radius-lg);
     padding: var(--spacing-6);
     box-shadow: var(--shadow-sm);
@@ -117,12 +122,12 @@
 }
 
 .card:hover {
-    box-shadow: var(--shadow-lg);
-    border-color: var(--cdg-navy);
+    box-shadow: var(--shadow-md);
+    border-color: var(--cdg-blue);
 }
 
 .card-header {
-    border-bottom: 1px solid var(--gray-200);
+    border-bottom: 1px solid var(--outline-variant);
     padding-bottom: var(--spacing-4);
     margin-bottom: var(--spacing-4);
 }
@@ -132,7 +137,7 @@
 }
 
 .card-footer {
-    border-top: 1px solid var(--gray-200);
+    border-top: 1px solid var(--outline-variant);
     padding-top: var(--spacing-4);
     margin-top: var(--spacing-4);
 }
@@ -145,7 +150,7 @@
 }
 
 .card-text {
-    color: var(--gray-600);
+    color: var(--on-surface-variant);
     font-size: var(--text-sm);
 }
 
