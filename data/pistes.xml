@@ -30830,22 +30830,10 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
       </tags>
       <risques>
         <risque>
-          <nom>Perception "musée-poubelle" (on met les vieilleries)</nom>
-          <probabilite>élevée</probabilite>
-          <gravite>élevée</gravite>
-          <mitigation>Scénographie soignée ; récit positif du progrès ; valorisation des pièces</mitigation>
-        </risque>
-        <risque>
           <nom>Perception musée-poubelle on met les vieilleries</nom>
           <probabilite>élevée</probabilite>
           <gravite>élevée</gravite>
           <mitigation>Scénographie soignée. Récit positif du progrès. Valorisation des pièces.</mitigation>
-        </risque>
-        <risque>
-          <nom>Absence de dons</nom>
-          <probabilite>moyenne</probabilite>
-          <gravite>élevée</gravite>
-          <mitigation>Campagne de communication ciblée ; appel aux retraités ; convention avec les handlers</mitigation>
         </risque>
         <risque>
           <nom>Absence de dons</nom>
@@ -30857,31 +30845,13 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
           <nom>Coût de restauration</nom>
           <probabilite>élevée</probabilite>
           <gravite>modérée</gravite>
-          <mitigation>Partenariat écoles de mécanique ; mécénat de compétences</mitigation>
-        </risque>
-        <risque>
-          <nom>Coût de restauration</nom>
-          <probabilite>élevée</probabilite>
-          <gravite>modérée</gravite>
           <mitigation>Partenariat écoles de mécanique. Mécénat de compétences.</mitigation>
         </risque>
         <risque>
           <nom>Obsolescence rapide</nom>
           <probabilite>faible</probabilite>
           <gravite>faible</gravite>
-          <mitigation>Renouvellement progressif ; rotation des pièces</mitigation>
-        </risque>
-        <risque>
-          <nom>Obsolescence rapide</nom>
-          <probabilite>faible</probabilite>
-          <gravite>faible</gravite>
           <mitigation>Renouvellement progressif. Rotation des pièces.</mitigation>
-        </risque>
-        <risque>
-          <nom>Faible fréquentation</nom>
-          <probabilite>moyenne</probabilite>
-          <gravite>élevée</gravite>
-          <mitigation>Intégration obligatoire aux formations ; communication interne ; événements (journées portes ouvertes)</mitigation>
         </risque>
         <risque>
           <nom>Faible fréquentation</nom>
@@ -30896,20 +30866,8 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
           <texte>Transmission</texte>
         </avantage>
         <avantage>
-          <beneficiaire>plateforme</beneficiaire>
-          <texte>Transmission</texte>
-        </avantage>
-        <avantage>
           <beneficiaire>conducteur_nouveau</beneficiaire>
           <texte>Impact pédagogique</texte>
-        </avantage>
-        <avantage>
-          <beneficiaire>conducteur_nouveau</beneficiaire>
-          <texte>Impact pédagogique</texte>
-        </avantage>
-        <avantage>
-          <beneficiaire>conducteur_ancien</beneficiaire>
-          <texte>Reconnaissance</texte>
         </avantage>
         <avantage>
           <beneficiaire>conducteur_ancien</beneficiaire>
@@ -30920,20 +30878,8 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
           <texte>Humilité</texte>
         </avantage>
         <avantage>
-          <beneficiaire>conducteur</beneficiaire>
-          <texte>Humilité</texte>
-        </avantage>
-        <avantage>
           <beneficiaire>plateforme</beneficiaire>
           <texte>Culture</texte>
-        </avantage>
-        <avantage>
-          <beneficiaire>plateforme</beneficiaire>
-          <texte>Culture</texte>
-        </avantage>
-        <avantage>
-          <beneficiaire>employeur</beneficiaire>
-          <texte>Recrutement</texte>
         </avantage>
         <avantage>
           <beneficiaire>employeur</beneficiaire>
@@ -31249,14 +31195,6 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
             <description>Version virtuelle du musée. Visite guidée audio téléchargeable. Collection de badges 'Visiteur du musée'.</description>
           </element>
           <element>
-            <nom>P3 - Application mobile Safety Hub</nom>
-            <description>Version virtuelle du musée. Visite guidée audio téléchargeable. Collection de badges Visiteur du musée.</description>
-          </element>
-          <element>
-            <nom>P4 - Buddy system</nom>
-            <description>Le buddy emmène le nouveau au musée. Transmission par l'objet et par l'histoire.</description>
-          </element>
-          <element>
             <nom>P4 - Buddy system</nom>
             <description>Le buddy emmène le nouveau au musée. Transmission par l'objet et par l'histoire.</description>
           </element>
@@ -31265,28 +31203,12 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
             <description>Reconstitution virtuelle d'un engin des années 80. Simulation de conduite 'comme avant'.</description>
           </element>
           <element>
-            <nom>P10 - Formation VR</nom>
-            <description>Reconstitution virtuelle d'un engin des années 80. Simulation de conduite comme avant.</description>
-          </element>
-          <element>
             <nom>P17 - Tatouage sécurité</nom>
             <description>Pin's 'Mémoire vivante' pour les anciens donateurs. Collection de répliques miniatures des engins exposés.</description>
           </element>
           <element>
-            <nom>P17 - Tatouage sécurité</nom>
-            <description>Pin's Mémoire vivante pour les anciens donateurs. Collection de répliques miniatures des engins exposés.</description>
-          </element>
-          <element>
             <nom>P19 - Enquêteur mystère</nom>
             <description>Les enquêteurs sont les premiers guides du musée. Leur parole d'ancien est précieuse.</description>
-          </element>
-          <element>
-            <nom>P19 - Enquêteur mystère</nom>
-            <description>Les enquêteurs sont les premiers guides du musée. Leur parole d'ancien est précieuse.</description>
-          </element>
-          <element>
-            <nom>P24 - Parking à histoires</nom>
-            <description>Le musée est le prolongement des panneaux mémoriels. Les histoires des hotspots sont développées.</description>
           </element>
           <element>
             <nom>P24 - Parking à histoires</nom>
@@ -31301,40 +31223,16 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
             <avantage>Transmission</avantage>
           </element>
           <element>
-            <nom>Mémoire institutionnelle</nom>
-            <description>Les accidents du passé ne tombent pas dans l'oubli</description>
-            <beneficiaire>plateforme</beneficiaire>
-            <avantage>Transmission</avantage>
-          </element>
-          <element>
             <nom>Transmission émotionnelle</nom>
             <description>Un témoignage d'ancien marque plus qu'un cours</description>
             <beneficiaire>conducteur_nouveau</beneficiaire>
             <avantage>Impact pédagogique</avantage>
-          </element>
-          <element>
-            <nom>Transmission émotionnelle</nom>
-            <description>Un témoignage d'ancien marque plus qu'un cours</description>
-            <beneficiaire>conducteur_nouveau</beneficiaire>
-            <avantage>Impact pédagogique</avantage>
-          </element>
-          <element>
-            <nom>Fierté des anciens</nom>
-            <description>Leur parcours est reconnu, valorisé, exposé</description>
-            <beneficiaire>conducteur_ancien</beneficiaire>
-            <avantage>Reconnaissance</avantage>
           </element>
           <element>
             <nom>Fierté des anciens</nom>
             <description>Leur parcours est reconnu valorisé exposé</description>
             <beneficiaire>conducteur_ancien</beneficiaire>
             <avantage>Reconnaissance</avantage>
-          </element>
-          <element>
-            <nom>Conscience du progrès</nom>
-            <description>"On se plaint des caméras 360°, avant il n'y avait rien"</description>
-            <beneficiaire>conducteur</beneficiaire>
-            <avantage>Humilité</avantage>
           </element>
           <element>
             <nom>Conscience du progrès</nom>
@@ -31349,23 +31247,12 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
             <avantage>Culture</avantage>
           </element>
           <element>
-            <nom>Culture sécurité incarnée</nom>
-            <description>La sécurité a une histoire des visages des objets</description>
-            <beneficiaire>plateforme</beneficiaire>
-            <avantage>Culture</avantage>
-          </element>
-          <element>
             <nom>Attractivité du métier</nom>
             <description>"Je fais partie d'une communauté qui a une mémoire"</description>
             <beneficiaire>employeur</beneficiaire>
             <avantage>Recrutement</avantage>
           </element>
-          <element>
-            <nom>Attractivité du métier</nom>
-            <description>'Je fais partie d'une communauté qui a une mémoire'</description>
-            <beneficiaire>employeur</beneficiaire>
-            <avantage>Recrutement</avantage>
-          </element>
+
         </avantage>
         <budget>
           <element>
@@ -31373,201 +31260,121 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
             <categorie>Phase 1</categorie>
             <valeur_numerique>1000</valeur_numerique>
           </element>
-          <element>
-            <nom>Phase 1 - Appel aux dons</nom>
-            <categorie>Phase 1</categorie>
-            <valeur_numerique>1000</valeur_numerique>
-          </element>
+
           <element>
             <nom>Recherche d'archives (historien)</nom>
             <categorie>Phase 1</categorie>
             <valeur_numerique>5000</valeur_numerique>
           </element>
-          <element>
-            <nom>Phase 1 - Recherche d'archives historien</nom>
-            <categorie>Phase 1</categorie>
-            <valeur_numerique>5000</valeur_numerique>
-          </element>
+
           <element>
             <nom>Collecte témoignages (journaliste)</nom>
             <categorie>Phase 1</categorie>
             <valeur_numerique>6000</valeur_numerique>
           </element>
-          <element>
-            <nom>Phase 1 - Collecte témoignages journaliste</nom>
-            <categorie>Phase 1</categorie>
-            <valeur_numerique>6000</valeur_numerique>
-          </element>
+
           <element>
             <nom>Conception scénographique</nom>
             <categorie>Phase 1</categorie>
             <valeur_numerique>8000</valeur_numerique>
           </element>
-          <element>
-            <nom>Phase 1 - Conception scénographique</nom>
-            <categorie>Phase 1</categorie>
-            <valeur_numerique>8000</valeur_numerique>
-          </element>
+
           <element>
             <nom>Restauration 1er engin</nom>
             <categorie>Phase 1</categorie>
             <valeur_numerique>5000</valeur_numerique>
           </element>
-          <element>
-            <nom>Phase 1 - Restauration 1er engin</nom>
-            <categorie>Phase 1</categorie>
-            <valeur_numerique>5000</valeur_numerique>
-          </element>
+  
           <element>
             <nom>Création site web / vitrine virtuelle</nom>
             <categorie>Phase 1</categorie>
             <valeur_numerique>8000</valeur_numerique>
           </element>
-          <element>
-            <nom>Phase 1 - Création site web vitrine virtuelle</nom>
-            <categorie>Phase 1</categorie>
-            <valeur_numerique>8000</valeur_numerique>
-          </element>
+
           <element>
             <nom>Sous-total Phase 1</nom>
             <categorie>Phase 1</categorie>
             <valeur_numerique>33000</valeur_numerique>
           </element>
-          <element>
-            <nom>Sous-total Phase 1</nom>
-            <categorie>Phase 1</categorie>
-            <valeur_numerique>33000</valeur_numerique>
-          </element>
+
           <element>
             <nom>Aménagement espace 150m² (ADP)</nom>
             <categorie>Phase 2</categorie>
             <valeur_numerique>30000</valeur_numerique>
           </element>
-          <element>
-            <nom>Phase 2 - Aménagement espace 150m² ADP</nom>
-            <categorie>Phase 2</categorie>
-            <valeur_numerique>30000</valeur_numerique>
-          </element>
+
           <element>
             <nom>Restauration 3 engins supplémentaires</nom>
             <categorie>Phase 2</categorie>
             <valeur_numerique>12000</valeur_numerique>
           </element>
-          <element>
-            <nom>Phase 2 - Restauration 3 engins supplémentaires</nom>
-            <categorie>Phase 2</categorie>
-            <valeur_numerique>12000</valeur_numerique>
-          </element>
+
           <element>
             <nom>Fabrication mobiliers / vitrines</nom>
             <categorie>Phase 2</categorie>
             <valeur_numerique>15000</valeur_numerique>
           </element>
-          <element>
-            <nom>Phase 2 - Fabrication mobiliers vitrines</nom>
-            <categorie>Phase 2</categorie>
-            <valeur_numerique>15000</valeur_numerique>
-          </element>
+
           <element>
             <nom>Installation bornes audio/vidéo</nom>
             <categorie>Phase 2</categorie>
             <valeur_numerique>8000</valeur_numerique>
           </element>
-          <element>
-            <nom>Phase 2 - Installation bornes audio vidéo</nom>
-            <categorie>Phase 2</categorie>
-            <valeur_numerique>8000</valeur_numerique>
-          </element>
+ 
           <element>
             <nom>Formation des guides (buddies)</nom>
             <categorie>Phase 2</categorie>
             <valeur_numerique>3000</valeur_numerique>
           </element>
-          <element>
-            <nom>Phase 2 - Formation des guides buddies</nom>
-            <categorie>Phase 2</categorie>
-            <valeur_numerique>3000</valeur_numerique>
-          </element>
+
           <element>
             <nom>Inauguration</nom>
             <categorie>Phase 2</categorie>
             <valeur_numerique>5000</valeur_numerique>
           </element>
-          <element>
-            <nom>Phase 2 - Inauguration</nom>
-            <categorie>Phase 2</categorie>
-            <valeur_numerique>5000</valeur_numerique>
-          </element>
+
           <element>
             <nom>Sous-total Phase 2</nom>
             <categorie>Phase 2</categorie>
             <valeur_numerique>73000</valeur_numerique>
           </element>
-          <element>
-            <nom>Sous-total Phase 2</nom>
-            <categorie>Phase 2</categorie>
-            <valeur_numerique>73000</valeur_numerique>
-          </element>
+
           <element>
             <nom>Création exposition itinérante</nom>
             <categorie>Phase 3</categorie>
             <valeur_numerique>15000</valeur_numerique>
           </element>
-          <element>
-            <nom>Phase 3 - Création exposition itinérante</nom>
-            <categorie>Phase 3</categorie>
-            <valeur_numerique>15000</valeur_numerique>
-          </element>
+
           <element>
             <nom>Tournée Orly</nom>
             <categorie>Phase 3</categorie>
             <valeur_numerique>8000</valeur_numerique>
           </element>
-          <element>
-            <nom>Phase 3 - Tournée Orly 3 mois</nom>
-            <categorie>Phase 3</categorie>
-            <valeur_numerique>8000</valeur_numerique>
-          </element>
+
           <element>
             <nom>Tournée province (6 aéroports)</nom>
             <categorie>Phase 3</categorie>
             <valeur_numerique>25000</valeur_numerique>
           </element>
-          <element>
-            <nom>Phase 3 - Tournée province 6 aéroports</nom>
-            <categorie>Phase 3</categorie>
-            <valeur_numerique>25000</valeur_numerique>
-          </element>
+
           <element>
             <nom>Enrichissement collection</nom>
             <categorie>Phase 3</categorie>
             <valeur_numerique>5000</valeur_numerique>
           </element>
-          <element>
-            <nom>Phase 3 - Enrichissement collection</nom>
-            <categorie>Phase 3</categorie>
-            <valeur_numerique>5000</valeur_numerique>
-          </element>
+
           <element>
             <nom>Sous-total Phase 3</nom>
             <categorie>Phase 3</categorie>
             <valeur_numerique>53000</valeur_numerique>
           </element>
-          <element>
-            <nom>Sous-total Phase 3</nom>
-            <categorie>Phase 3</categorie>
-            <valeur_numerique>53000</valeur_numerique>
-          </element>
+
           <element>
             <nom>Mise à jour annuelle</nom>
             <categorie>Fonctionnement</categorie>
             <valeur_numerique>3000</valeur_numerique>
           </element>
-          <element>
-            <nom>Mise à jour annuelle</nom>
-            <categorie>Fonctionnement</categorie>
-            <valeur_numerique>3000</valeur_numerique>
-          </element>
+
           <element>
             <nom>TOTAL 3 ANS</nom>
             <categorie>Total</categorie>
@@ -31605,51 +31412,27 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
             <description>Exposition itinérante dans les dépôts, photos, objets, témoignages d'agents, focus sur l'évolution des métiers. Très forte adhésion des agents, demande de pérennisation.</description>
             <type_classement>benchmark</type_classement>
           </element>
-          <element>
-            <nom>Airbus - Musée Aéroscopia</nom>
-            <description>Musée dédié à l'histoire de l'aviation. Collection d'avions emblématiques. Espaces pédagogiques et interactifs. Résultats : 200 000 visiteurs par an, outil de formation interne et de rayonnement externe, fierté des salariés. Leçon : le patrimoine industriel est un vecteur de fierté et de transmission.</description>
-            <type_classement>benchmark</type_classement>
-          </element>
-          <element>
-            <nom>SNCF - Musée du Train</nom>
-            <description>Collection de locomotives historiques. Parcours sur l'évolution de la sécurité ferroviaire. Témoignages d'anciens cheminots. Résultats : outil pédagogique pour les nouveaux embauchés, lien intergénérationnel fort. Leçon : les anciens sont les meilleurs guides.</description>
-            <type_classement>benchmark</type_classement>
-          </element>
-          <element>
-            <nom>RATP - Exposition Mémoires de lignes</nom>
-            <description>Exposition itinérante dans les dépôts. Photos objets témoignages d'agents. Focus sur l'évolution des métiers. Résultats : très forte adhésion des agents, demande de pérennisation. Leçon : l'itinérance permet de toucher tous les terrains.</description>
-            <type_classement>benchmark</type_classement>
-          </element>
+
+
+
         </comparaison>
         <condition_reussite>
-          <element>
-            <nom>1. Authenticité</nom>
-            <description>De vrais objets, de vraies histoires, de vraies personnes</description>
-          </element>
+
           <element>
             <nom>1. Authenticité</nom>
             <description>De vrais objets de vraies histoires de vraies personnes</description>
           </element>
-          <element>
-            <nom>2. Scénographie soignée</nom>
-            <description>Pas un hangar à poussière, un lieu digne</description>
-          </element>
+
           <element>
             <nom>2. Scénographie soignée</nom>
             <description>Pas un hangar à poussière un lieu digne</description>
           </element>
-          <element>
-            <nom>3. Accessibilité</nom>
-            <description>Gratuit, ouvert, intégré aux parcours de formation</description>
-          </element>
+
           <element>
             <nom>3. Accessibilité</nom>
             <description>Gratuit ouvert intégré aux parcours de formation</description>
           </element>
-          <element>
-            <nom>4. Participation des anciens</nom>
-            <description>Ils sont les acteurs du projet, pas seulement des objets</description>
-          </element>
+ 
           <element>
             <nom>4. Participation des anciens</nom>
             <description>Ils sont les acteurs du projet pas seulement des objets</description>
@@ -31658,34 +31441,22 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
             <nom>5. Évolution</nom>
             <description>Le musée doit vivre, s'enrichir, se renouveler</description>
           </element>
-          <element>
-            <nom>5. Évolution</nom>
-            <description>Le musée doit vivre s'enrichir se renouveler</description>
-          </element>
+
           <element>
             <nom>6. Rayonnement</nom>
             <description>Communiquer, inviter, partager</description>
           </element>
-          <element>
-            <nom>6. Rayonnement</nom>
-            <description>Communiquer inviter partager</description>
-          </element>
+
         </condition_reussite>
         <conviction>
           <element>
             <nom>Notre conviction</nom>
             <description>Un métier sans mémoire est un métier sans avenir. Nos jeunes conducteurs arrivent sur des engins perfectionnés, dans des cabines climatisées, avec des caméras 360°. Ils ignorent que leurs aînés conduisaient sans visibilité, sans assistance, sans protection. Ils ignorent pourquoi les règles existent, pourquoi les procédures sont strictes, pourquoi la sécurité est devenue une obsession. Le musée de la sécurité, ce n'est pas un lieu de nostalgie. C'est un lieu de transmission. C'est montrer le chemin parcouru pour donner envie de poursuivre la route. C'est dire aux anciens : 'Nous n'avons pas oublié ce que vous avez construit.' C'est dire aux jeunes : 'Vous êtes les héritiers de cette histoire.'</description>
           </element>
-          <element>
-            <nom>Notre conviction</nom>
-            <description>Un métier sans mémoire est un métier sans avenir. Nos jeunes conducteurs arrivent sur des engins perfectionnés dans des cabines climatisées avec des caméras 360°. Ils ignorent que leurs aînés conduisaient sans visibilité sans assistance sans protection. Ils ignorent pourquoi les règles existent pourquoi les procédures sont strictes pourquoi la sécurité est devenue une obsession. Le musée de la sécurité n'est pas un lieu de nostalgie c'est un lieu de transmission. C'est montrer le chemin parcouru pour donner envie de poursuivre la route. C'est dire aux anciens : 'Nous n'avons pas oublié ce que vous avez construit.' C'est dire aux jeunes : 'Vous êtes les héritiers de cette histoire.'</description>
-          </element>
+
         </conviction>
         <engin_historique>
-          <element>
-            <nom>PUSH thermique années 80</nom>
-            <description>Période 1980-1995 - Intérêt pédagogique : visibilité quasi nulle, aucun système d'aide - État : réforme, restauration légère</description>
-          </element>
+
           <element>
             <nom>PUSH thermique années 80</nom>
             <description>Période 1980-1995. Intérêt pédagogique : visibilité quasi nulle aucun système d'aide. État : réforme restauration légère.</description>
@@ -31694,34 +31465,22 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
             <nom>LOADER première génération</nom>
             <description>Période 1985-2000 - Intérêt pédagogique : stabilité précaire, aucun capteur - État : réforme, restauration légère</description>
           </element>
-          <element>
-            <nom>LOADER première génération</nom>
-            <description>Période 1985-2000. Intérêt pédagogique : stabilité précaire aucun capteur. État : réforme restauration légère.</description>
-          </element>
+
           <element>
             <nom>TRACTEUR BAGAGES années 70</nom>
             <description>Période 1970-1985 - Intérêt pédagogique : pas de cabine, exposition intempéries - État : collectionneur</description>
           </element>
-          <element>
-            <nom>TRACTEUR BAGAGES années 70</nom>
-            <description>Période 1970-1985. Intérêt pédagogique : pas de cabine exposition intempéries. État : collectionneur.</description>
-          </element>
+
           <element>
             <nom>BUS des années 90</nom>
             <description>Période 1990-2005 - Intérêt pédagogique : angles morts critiques, aucun détecteur - État : réforme</description>
           </element>
-          <element>
-            <nom>BUS des années 90</nom>
-            <description>Période 1990-2005. Intérêt pédagogique : angles morts critiques aucun détecteur. État : réforme.</description>
-          </element>
+
           <element>
             <nom>DÉGIVREUSE historique</nom>
             <description>Période 1980-1995 - Intérêt pédagogique : système manuel, risques chimiques - État : pièce de collection</description>
           </element>
-          <element>
-            <nom>DÉGIVREUSE historique</nom>
-            <description>Période 1980-1995. Intérêt pédagogique : système manuel risques chimiques. État : pièce de collection.</description>
-          </element>
+
         </engin_historique>
         <espace_musee>
           <element>
@@ -31729,59 +31488,35 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
             <description>Collection d'engins de piste historiques : PUSH thermique années 80, LOADER première génération, TRACTEUR BAGAGES années 70, BUS années 90, DÉGIVREUSE historique. Engins accessibles, panneaux explicatifs, comparaison avec modèles actuels, QR code pour vidéos d'archives. Acquisition par dons des handlers, restauration par apprentis, prêt de collectionneurs.</description>
             <meta_donnees>{"cout":15000}</meta_donnees>
           </element>
-          <element>
-            <nom>1. ESPACE "LES ENGINS D'HIER"</nom>
-            <description>Collection d'engins de piste ayant marqué l'histoire de CDG. Engins accessibles on peut monter dedans. Panneaux explicatifs sur les évolutions. Comparaison avec les modèles actuels. QR code pour vidéos d'archives. Acquisition par dons des handlers restauration par apprentis maintenanciers prêt de collectionneurs privés. Coût 15 k€.</description>
-          </element>
+
           <element>
             <nom>2. ESPACE "LA MÉMOIRE DES ACCIDENTS"</nom>
             <description>Chronologie des accidents marquants de CDG avec les leçons tirées. Principes : sobriété, respect, focus sur les leçons, anonymat des victimes, témoignages audio des anciens. Exemple : 15 MARS 1987 - Collision PUSH/Avion - 2 blessés graves - Création de la première procédure push.</description>
             <meta_donnees>{"cout":8000}</meta_donnees>
           </element>
-          <element>
-            <nom>2. ESPACE "LA MÉMOIRE DES ACCIDENTS"</nom>
-            <description>Chronologie des accidents marquants de l'histoire de CDG et des leçons qui en ont été tirées. Principes : sobriété respect pas de sensationnalisme, focus sur les leçons tirées pas sur le drame, anonymat des victimes, témoignages audio des anciens. Exemple : 15 MARS 1987 - Collision PUSH Avion Parking T2 - 2 blessés graves avion immobilisé 3 mois - Angle mort non vérifié absence de procédure - Création de la première procédure push. Coût 8 k€.</description>
-          </element>
-          <element>
-            <nom>3. ESPACE "LE PROGRÈS EN MARCHE"</nom>
-            <description>Galerie de l'évolution des équipements de sécurité : Visibilité (rétroviseurs simples → caméras 360° → IA prédictive), Alerte (bip strident → sons intelligents P12 → alerte contextuelle), Confort (siège métal → siège ergo → cockpit bien-être P15), Communication (gestes → radio → données temps réel), Protection (casque basique → équipement complet → exosquelette). Vitrines thématiques : casques 1960-2026, gilets, chaussures, outils de communication.</description>
-            <meta_donnees>{"cout":5000}</meta_donnees>
-          </element>
+
           <element>
             <nom>3. ESPACE "LE PROGRÈS EN MARCHE"</nom>
             <description>Galerie de l'évolution des équipements de sécurité des plus archaïques aux plus innovants. Visibilité : Rétroviseurs simples → Caméras 360° → IA prédictive. Alerte : Bip strident unique → Sons intelligents P12 → Alerte contextuelle. Confort : Siège métal pas de suspension → Siège ergo climatisation → Cockpit bien-être P15. Communication : Gestes cris → Radio → Données temps réel. Protection : Casque basique → Équipement complet → Exosquelette. Vitrines thématiques : évolution des casques 1960-2026, évolution des gilets de sécurité, évolution des chaussures de sécurité, évolution des outils de communication. Coût 5 k€.</description>
           </element>
-          <element>
-            <nom>4. ESPACE "TÉMOIGNAGES ET TRANSMISSION"</nom>
-            <description>Espace dédié à la parole des anciens : Murs de portraits avec parcours de carrière, bornes audio 'Mon plus beau souvenir', 'Mon accident', 'Mon conseil aux jeunes', livre d'or des conducteurs, arbre des carrières. Projet '100 ans de carrières' : collecte de 100 témoignages d'anciens, enregistrement vidéo/audio, conservation aux archives CSCA, diffusion sur l'application P3.</description>
-            <meta_donnees>{"cout":10000}</meta_donnees>
-          </element>
+
           <element>
             <nom>4. ESPACE "TÉMOIGNAGES ET TRANSMISSION"</nom>
             <description>Espace dédié à la parole des anciens à la transmission à la fierté du métier. Murs de portraits : anciens conducteurs leur parcours leur fierté. Bornes audio : Mon plus beau souvenir Mon accident Mon conseil aux jeunes. Livre d'or des conducteurs. Arbre des carrières : visualisation des parcours entrée évolution retraite. Projet 100 ans de carrières : collecte de 100 témoignages d'anciens enregistrement vidéo audio conservation aux archives CSCA diffusion sur l'application P3. Coût 10 k€.</description>
           </element>
         </espace_musee>
         <evolution_equipement>
-          <element>
-            <nom>Visibilité</nom>
-            <description>Hier : Rétroviseurs simples - Aujourd'hui : Caméras 360° - Demain : IA prédictive</description>
-          </element>
+
           <element>
             <nom>Visibilité</nom>
             <description>Hier : Rétroviseurs simples. Aujourd'hui : Caméras 360°. Demain : IA prédictive.</description>
           </element>
-          <element>
-            <nom>Alerte</nom>
-            <description>Hier : Bip strident unique - Aujourd'hui : Sons intelligents (P12) - Demain : Alerte contextuelle</description>
-          </element>
+  
           <element>
             <nom>Alerte</nom>
             <description>Hier : Bip strident unique. Aujourd'hui : Sons intelligents P12. Demain : Alerte contextuelle.</description>
           </element>
-          <element>
-            <nom>Confort</nom>
-            <description>Hier : Siège métal, pas de suspension - Aujourd'hui : Siège ergo, climatisation - Demain : Cockpit bien-être (P15)</description>
-          </element>
+
           <element>
             <nom>Confort</nom>
             <description>Hier : Siège métal pas de suspension. Aujourd'hui : Siège ergo climatisation. Demain : Cockpit bien-être P15.</description>
@@ -31790,27 +31525,15 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
             <nom>Communication</nom>
             <description>Hier : Gestes, cris - Aujourd'hui : Radio - Demain : Données temps réel</description>
           </element>
-          <element>
-            <nom>Communication</nom>
-            <description>Hier : Gestes cris. Aujourd'hui : Radio. Demain : Données temps réel.</description>
-          </element>
+
           <element>
             <nom>Protection</nom>
             <description>Hier : Casque basique - Aujourd'hui : Équipement complet - Demain : Exosquelette ?</description>
           </element>
-          <element>
-            <nom>Protection</nom>
-            <description>Hier : Casque basique. Aujourd'hui : Équipement complet. Demain : Exosquelette.</description>
-          </element>
+
         </evolution_equipement>
         <indicateur>
-          <element>
-            <nom>Visiteurs / an</nom>
-            <cible>3500</cible>
-            <unite>nb</unite>
-            <periodicite>annuelle</periodicite>
-            <source_mesure>Compteur</source_mesure>
-          </element>
+
           <element>
             <nom>Visiteurs par an</nom>
             <cible>3500</cible>
@@ -31818,6 +31541,7 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
             <periodicite>annuelle</periodicite>
             <source_mesure>Compteur</source_mesure>
           </element>
+
           <element>
             <nom>Dont nouveaux conducteurs</nom>
             <cible>1500</cible>
@@ -31825,20 +31549,7 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
             <periodicite>annuelle</periodicite>
             <source_mesure>Registre</source_mesure>
           </element>
-          <element>
-            <nom>Dont nouveaux conducteurs</nom>
-            <cible>1500</cible>
-            <unite>nb</unite>
-            <periodicite>annuelle</periodicite>
-            <source_mesure>Registre</source_mesure>
-          </element>
-          <element>
-            <nom>Dont anciens / retraités</nom>
-            <cible>400</cible>
-            <unite>nb</unite>
-            <periodicite>annuelle</periodicite>
-            <source_mesure>Registre</source_mesure>
-          </element>
+
           <element>
             <nom>Dont anciens retraités</nom>
             <cible>400</cible>
@@ -31846,6 +31557,7 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
             <periodicite>annuelle</periodicite>
             <source_mesure>Registre</source_mesure>
           </element>
+
           <element>
             <nom>Témoignages collectés</nom>
             <cible>100</cible>
@@ -31853,13 +31565,7 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
             <periodicite>cumul</periodicite>
             <source_mesure>Archives</source_mesure>
           </element>
-          <element>
-            <nom>Témoignages collectés</nom>
-            <cible>100</cible>
-            <unite>nb</unite>
-            <periodicite>cumul</periodicite>
-            <source_mesure>Archives</source_mesure>
-          </element>
+
           <element>
             <nom>Satisfaction visiteurs</nom>
             <cible>92%</cible>
@@ -31867,20 +31573,7 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
             <periodicite>annuelle</periodicite>
             <source_mesure>Enquête</source_mesure>
           </element>
-          <element>
-            <nom>Satisfaction visiteurs</nom>
-            <cible>92%</cible>
-            <unite>%</unite>
-            <periodicite>annuelle</periodicite>
-            <source_mesure>Enquête</source_mesure>
-          </element>
-          <element>
-            <nom>Fierté déclarée (post-visite)</nom>
-            <cible>70%</cible>
-            <unite>%</unite>
-            <periodicite>annuelle</periodicite>
-            <source_mesure>Enquête</source_mesure>
-          </element>
+
           <element>
             <nom>Fierté déclarée post-visite</nom>
             <cible>70%</cible>
@@ -31888,13 +31581,7 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
             <periodicite>annuelle</periodicite>
             <source_mesure>Enquête</source_mesure>
           </element>
-          <element>
-            <nom>Expositions itinérantes</nom>
-            <cible>8</cible>
-            <unite>nb</unite>
-            <periodicite>cumul</periodicite>
-            <source_mesure>Planning</source_mesure>
-          </element>
+
           <element>
             <nom>Expositions itinérantes</nom>
             <cible>8</cible>
@@ -31904,26 +31591,17 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
           </element>
         </indicateur>
         <objectif>
-          <element>
-            <nom>Objectif 1</nom>
-            <description>Conserver la mémoire des pratiques, des accidents et des progrès</description>
-          </element>
+
           <element>
             <nom>Objectif 1</nom>
             <description>Conserver la mémoire des pratiques des accidents et des progrès</description>
           </element>
+
           <element>
             <nom>Objectif 2</nom>
             <description>Transmettre aux nouvelles générations le chemin parcouru</description>
           </element>
-          <element>
-            <nom>Objectif 2</nom>
-            <description>Transmettre aux nouvelles générations le chemin parcouru</description>
-          </element>
-          <element>
-            <nom>Objectif 3</nom>
-            <description>Valoriser le métier et ceux qui l'ont construit</description>
-          </element>
+
           <element>
             <nom>Objectif 3</nom>
             <description>Valoriser le métier et ceux qui l'ont construit</description>
@@ -31932,48 +31610,30 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
             <nom>Objectif 4</nom>
             <description>Donner du sens aux règles et procédures actuelles</description>
           </element>
-          <element>
-            <nom>Objectif 4</nom>
-            <description>Donner du sens aux règles et procédures actuelles</description>
-          </element>
+
           <element>
             <nom>Objectif 5</nom>
             <description>Créer un lieu de fierté et d'appartenance</description>
           </element>
-          <element>
-            <nom>Objectif 5</nom>
-            <description>Créer un lieu de fierté et d'appartenance</description>
-          </element>
+
         </objectif>
         <option_localisation>
-          <element>
-            <nom>1. Espace dédié CDG</nom>
-            <description>Local de 200m² sur la plateforme - Avantages : visibilité maximale, accès facile - Inconvénients : contrainte foncière - Coût : 100 k€</description>
-          </element>
+
           <element>
             <nom>1. Espace dédié CDG</nom>
             <description>Local de 200m² sur la plateforme. Avantages : visibilité maximale accès facile. Inconvénients : contrainte foncière. Coût 100 k€.</description>
           </element>
-          <element>
-            <nom>2. Hall d'accueil ADP</nom>
-            <description>Vitrines + panneaux - Avantages : faible coût, public large - Inconvénients : superficie limitée - Coût : 25 k€</description>
-          </element>
+
           <element>
             <nom>2. Hall d'accueil ADP</nom>
             <description>Vitrines + panneaux. Avantages : faible coût public large. Inconvénients : superficie limitée. Coût 25 k€.</description>
           </element>
-          <element>
-            <nom>3. Centre de formation</nom>
-            <description>Intégré à l'espace formation - Avantages : synergie pédagogique - Inconvénients : visibilité réduite - Coût : 15 k€</description>
-          </element>
+
           <element>
             <nom>3. Centre de formation</nom>
             <description>Intégré à l'espace formation. Avantages : synergie pédagogique. Inconvénients : visibilité réduite. Coût 15 k€.</description>
           </element>
-          <element>
-            <nom>4. Musée virtuel</nom>
-            <description>Site web + application - Avantages : accessible partout - Inconvénients : pas d'émotion physique - Coût : 20 k€</description>
-          </element>
+
           <element>
             <nom>4. Musée virtuel</nom>
             <description>Site web + application. Avantages : accessible partout. Inconvénients : pas d'émotion physique. Coût 20 k€.</description>
@@ -31982,10 +31642,7 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
             <nom>5. Formule itinérante</nom>
             <description>Exposition mobile - Avantages : flexible, province - Inconvénients : logistique lourde - Coût : 30 k€</description>
           </element>
-          <element>
-            <nom>5. Formule itinérante</nom>
-            <description>Exposition mobile. Avantages : flexible province. Inconvénients : logistique lourde. Coût 30 k€.</description>
-          </element>
+
         </option_localisation>
         <parcours_visite>
           <element>
@@ -31993,56 +31650,32 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
             <description>Présentation du lieu et de sa mission. Distribution du livret de visite.</description>
             <etape_duree>5 min</etape_duree>
           </element>
-          <element>
-            <nom>ACCUEIL</nom>
-            <description>Présentation du lieu et de sa mission. Distribution du livret de visite.</description>
-            <etape_duree>5 min</etape_duree>
-          </element>
+
           <element>
             <nom>ESPACE 1 - LES ENGINS D'HIER</nom>
             <description>Découverte libre ou guidée. Possibilité de monter dans un PUSH des années 80.</description>
             <etape_duree>15 min</etape_duree>
           </element>
-          <element>
-            <nom>ESPACE 1 - LES ENGINS D'HIER</nom>
-            <description>Découverte libre ou guidée. Possibilité de monter dans un PUSH des années 80.</description>
-            <etape_duree>15 min</etape_duree>
-          </element>
+
+
           <element>
             <nom>ESPACE 2 - LA MÉMOIRE DES ACCIDENTS</nom>
             <description>Chronologie commentée. Écoute d'un témoignage audio.</description>
             <etape_duree>10 min</etape_duree>
           </element>
-          <element>
-            <nom>ESPACE 2 - LA MÉMOIRE DES ACCIDENTS</nom>
-            <description>Chronologie commentée. Écoute d'un témoignage audio.</description>
-            <etape_duree>10 min</etape_duree>
-          </element>
-          <element>
-            <nom>ESPACE 3 - LE PROGRÈS EN MARCHE</nom>
-            <description>Vitrines thématiques. Comparaison hier/aujourd'hui/demain.</description>
-            <etape_duree>10 min</etape_duree>
-          </element>
+
           <element>
             <nom>ESPACE 3 - LE PROGRÈS EN MARCHE</nom>
             <description>Vitrines thématiques. Comparaison hier aujourd'hui demain.</description>
             <etape_duree>10 min</etape_duree>
           </element>
+
           <element>
             <nom>ESPACE 4 - TÉMOIGNAGES ET TRANSMISSION</nom>
             <description>Mur des portraits. Livre d'or.</description>
             <etape_duree>5 min</etape_duree>
           </element>
-          <element>
-            <nom>ESPACE 4 - TÉMOIGNAGES ET TRANSMISSION</nom>
-            <description>Mur des portraits. Livre d'or.</description>
-            <etape_duree>5 min</etape_duree>
-          </element>
-          <element>
-            <nom>CONCLUSION</nom>
-            <description>Message de l'ancien du jour. Engagement du visiteur.</description>
-            <etape_duree>5 min</etape_duree>
-          </element>
+
           <element>
             <nom>CONCLUSION</nom>
             <description>Message de l'ancien du jour. Engagement du visiteur.</description>
@@ -32050,14 +31683,7 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
           </element>
         </parcours_visite>
         <phase>
-          <element>
-            <nom>Phase 1 - Collecte et conception</nom>
-            <etape_numero>1</etape_numero>
-            <etape_duree>6 mois</etape_duree>
-            <activites>Appel aux dons (engins, équipements, archives). Recherche d'archives (photos, vidéos, rapports) par historien (5 k€). Collecte des témoignages de 20 anciens par journaliste (6 k€). Conception scénographique (8 k€). Restauration du 1er engin (PUSH années 80) par mécanicien (5 k€). Création site web / vitrine virtuelle (8 k€).</activites>
-            <objectifs_etape>Constituer la collection et concevoir le parcours</objectifs_etape>
-            <livrable_etape>Collection constituée, scénario validé, site vitrine</livrable_etape>
-          </element>
+
           <element>
             <nom>Phase 1 - Collecte et conception</nom>
             <etape_numero>1</etape_numero>
@@ -32066,14 +31692,7 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
             <objectifs_etape>Constituer la collection et concevoir le parcours</objectifs_etape>
             <livrable_etape>Collection constituée scénario validé site vitrine</livrable_etape>
           </element>
-          <element>
-            <nom>Phase 2 - Installation CDG</nom>
-            <etape_numero>2</etape_numero>
-            <etape_duree>12 mois</etape_duree>
-            <activites>Aménagement espace 150m² par ADP (30 k€). Restauration de 3 engins supplémentaires (12 k€). Fabrication mobiliers / vitrines (15 k€). Installation bornes audio/vidéo (8 k€). Formation des guides (buddies) par formateur (3 k€). Inauguration (5 k€).</activites>
-            <objectifs_etape>Ouvrir le musée au centre de formation</objectifs_etape>
-            <livrable_etape>Musée physique opérationnel</livrable_etape>
-          </element>
+
           <element>
             <nom>Phase 2 - Installation CDG</nom>
             <etape_numero>2</etape_numero>
@@ -32082,14 +31701,7 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
             <objectifs_etape>Ouvrir le musée au centre de formation</objectifs_etape>
             <livrable_etape>Musée physique opérationnel</livrable_etape>
           </element>
-          <element>
-            <nom>Phase 3 - Itinérance et pérennisation</nom>
-            <etape_numero>3</etape_numero>
-            <etape_duree>12-18 mois</etape_duree>
-            <activites>Création exposition itinérante (10 panneaux, 1 engin) - 15 k€. Tournée Orly (3 mois) - 8 k€. Tournée province (6 aéroports) - 25 k€. Enrichissement collection (nouveaux dons) - 5 k€. Mise à jour annuelle - 3 k€/an.</activites>
-            <objectifs_etape>Faire rayonner la mémoire sur toutes les plateformes</objectifs_etape>
-            <livrable_etape>Rayonnement national</livrable_etape>
-          </element>
+
           <element>
             <nom>Phase 3 - Itinérance et pérennisation</nom>
             <etape_numero>3</etape_numero>
@@ -32104,56 +31716,35 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
             <nom>Musée-cimetière</nom>
             <description>Mettre en avant le progrès, pas la nostalgie</description>
           </element>
-          <element>
-            <nom>Musée-cimetière</nom>
-            <description>Mettre en avant le progrès pas la nostalgie</description>
-          </element>
+  
           <element>
             <nom>Objets sans histoires</nom>
             <description>Chaque pièce doit avoir un récit</description>
           </element>
-          <element>
-            <nom>Objets sans histoires</nom>
-            <description>Chaque pièce doit avoir un récit</description>
-          </element>
-          <element>
-            <nom>Oubli du public jeune</nom>
-            <description>Supports interactifs, QR codes, vidéos</description>
-          </element>
+
+
           <element>
             <nom>Oubli du public jeune</nom>
             <description>Supports interactifs QR codes vidéos</description>
           </element>
+
           <element>
             <nom>Entretien négligé</nom>
             <description>Plan de maintenance des collections</description>
           </element>
-          <element>
-            <nom>Entretien négligé</nom>
-            <description>Plan de maintenance des collections</description>
-          </element>
-          <element>
-            <nom>Élitiser</nom>
-            <description>Ouvert à tous, pas seulement aux cadres</description>
-          </element>
+
           <element>
             <nom>Élitiser</nom>
             <description>Ouvert à tous pas seulement aux cadres</description>
           </element>
         </piege>
         <problematique>
-          <element>
-            <nom>Ce que les jeunes voient aujourd'hui</nom>
-            <description>PUSH électriques avec caméras 360°, Cabines climatisées, sièges ergonomiques, Équipements de sécurité individuels, Procédures formalisées, 20 accidents corporels par an</description>
-          </element>
+  
           <element>
             <nom>Ce que les jeunes voient aujourd'hui</nom>
             <description>PUSH électriques avec caméras 360°, Cabines climatisées sièges ergonomiques, Équipements de sécurité individuels, Procédures formalisées audits, 20 accidents corporels par an</description>
           </element>
-          <element>
-            <nom>Ce que les jeunes n'ont pas connu</nom>
-            <description>PUSH thermiques des années 90 sans visibilité, Postes ouverts avec vibrations et bruit permanent, Casques basiques sans gilets, 'On se débrouillait', 50-100 accidents par an</description>
-          </element>
+
           <element>
             <nom>Ce que les jeunes n'ont pas connu</nom>
             <description>PUSH thermiques des années 90 sans visibilité, Postes ouverts vibrations bruit permanent, Casques basiques absence de gilets, 'On se débrouillait', 50 80 100 accidents par an</description>
@@ -32162,94 +31753,61 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
             <nom>Conséquences</nom>
             <description>Ingratitude inconsciente, Perte de mémoire accidentologique, Désincarnation des accidents, Absence de fierté, Perte de 40 ans d'expérience avec les départs en retraite</description>
           </element>
-          <element>
-            <nom>Conséquences</nom>
-            <description>Ingratitude inconsciente : 'La sécurité c'est encore pas assez' sans mesurer le progrès. Perte de mémoire accidentologique : on ne sait plus pourquoi les règles existent. Désincarnation : les accidents sont des chiffres pas des histoires. Absence de fierté : on ne voit pas le chemin parcouru seulement le chemin restant. Départ des anciens = perte de la mémoire : 40 ans d'expérience s'éteignent avec les lumières du vestiaire.</description>
-          </element>
+
           <element>
             <nom>Notre hypothèse</nom>
             <description>Montrer le passé c'est faire comprendre le présent et donner envie d'aller vers l'avenir. Un jeune qui voit un engin des années 80 comprend pourquoi la sécurité a progressé. Un ancien qui voit son ancien matériel exposé est fier d'avoir contribué à cette évolution. Un collectif qui se remémore les accidents du passé ne les répète pas. Le musée de la sécurité n'est pas un lieu de nostalgie c'est un lieu de mémoire et de transmission.</description>
           </element>
         </problematique>
         <proposition_concrete>
+
           <element>
             <nom>Proposition 1</nom>
             <description>Lancer un appel aux dons auprès des handlers et des retraités</description>
           </element>
-          <element>
-            <nom>Proposition 1</nom>
-            <description>Lancer un appel aux dons auprès des handlers et des retraités</description>
-          </element>
-          <element>
-            <nom>Proposition 2</nom>
-            <description>Collecter 20 témoignages d'anciens conducteurs (6 k€)</description>
-          </element>
+
           <element>
             <nom>Proposition 2</nom>
             <description>Collecter 20 témoignages d'anciens conducteurs 6 k€</description>
           </element>
-          <element>
-            <nom>Proposition 3</nom>
-            <description>Restaurer un premier engin emblématique (PUSH années 80)</description>
-          </element>
+
           <element>
             <nom>Proposition 3</nom>
             <description>Restaurer un premier engin emblématique PUSH années 80</description>
           </element>
-          <element>
-            <nom>Proposition 4</nom>
-            <description>Aménager un espace de 150m² au centre de formation (30 k€)</description>
-          </element>
+
           <element>
             <nom>Proposition 4</nom>
             <description>Aménager un espace de 150m² au centre de formation 30 k€</description>
           </element>
-          <element>
-            <nom>Proposition 5</nom>
-            <description>Préparer une exposition itinérante pour Orly et la province</description>
-          </element>
+
           <element>
             <nom>Proposition 5</nom>
             <description>Préparer une exposition itinérante pour Orly et la province</description>
           </element>
         </proposition_concrete>
         <question>
+
           <element>
             <nom>Question 1</nom>
             <description>Le concept de musée de la sécurité vous paraît-il pertinent ?</description>
           </element>
-          <element>
-            <nom>Question 1</nom>
-            <description>Le concept de musée de la sécurité vous paraît-il pertinent ?</description>
-          </element>
-          <element>
-            <nom>Question 2</nom>
-            <description>Acceptez-vous de financer la phase de collecte (33 k€) ?</description>
-          </element>
+
           <element>
             <nom>Question 2</nom>
             <description>Acceptez-vous de financer la phase de collecte 33 k€ ?</description>
           </element>
+
           <element>
             <nom>Question 3</nom>
             <description>ADP peut-il mettre à disposition un espace de 150m² ?</description>
           </element>
-          <element>
-            <nom>Question 3</nom>
-            <description>ADP peut-il mettre à disposition un espace de 150m² ?</description>
-          </element>
+
           <element>
             <nom>Question 4</nom>
             <description>Les handlers sont-ils prêts à donner des engins réformés ?</description>
           </element>
-          <element>
-            <nom>Question 4</nom>
-            <description>Les handlers sont-ils prêts à donner des engins réformés ?</description>
-          </element>
-          <element>
-            <nom>Question 5</nom>
-            <description>Faut-il ouvrir le musée au grand public ou le réserver aux professionnels ?</description>
-          </element>
+
           <element>
             <nom>Question 5</nom>
             <description>Faut-il ouvrir le musée au grand public ou le réserver aux professionnels ?</description>
@@ -32260,66 +31818,38 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
             <nom>Recommandation</nom>
             <description>Option 3 (Centre de formation) + Option 5 (Itinérant)</description>
           </element>
-          <element>
-            <nom>Recommandation</nom>
-            <description>Option 3 Centre de formation + Option 5 Itinérant</description>
-          </element>
+
         </recommandation>
         <risque>
-          <element>
-            <risque>Perception "musée-poubelle" (on met les vieilleries)</risque>
-            <probabilite>élevée</probabilite>
-            <gravite>élevée</gravite>
-            <mitigation>Scénographie soignée ; récit positif du progrès ; valorisation des pièces</mitigation>
-          </element>
+
           <element>
             <risque>Perception musée-poubelle on met les vieilleries</risque>
             <probabilite>élevée</probabilite>
             <gravite>élevée</gravite>
             <mitigation>Scénographie soignée. Récit positif du progrès. Valorisation des pièces.</mitigation>
           </element>
-          <element>
-            <risque>Absence de dons</risque>
-            <probabilite>moyenne</probabilite>
-            <gravite>élevée</gravite>
-            <mitigation>Campagne de communication ciblée ; appel aux retraités ; convention avec les handlers</mitigation>
-          </element>
+
           <element>
             <risque>Absence de dons</risque>
             <probabilite>moyenne</probabilite>
             <gravite>élevée</gravite>
             <mitigation>Campagne de communication ciblée. Appel aux retraités. Convention avec les handlers.</mitigation>
           </element>
-          <element>
-            <risque>Coût de restauration</risque>
-            <probabilite>élevée</probabilite>
-            <gravite>modérée</gravite>
-            <mitigation>Partenariat écoles de mécanique ; mécénat de compétences</mitigation>
-          </element>
+
           <element>
             <risque>Coût de restauration</risque>
             <probabilite>élevée</probabilite>
             <gravite>modérée</gravite>
             <mitigation>Partenariat écoles de mécanique. Mécénat de compétences.</mitigation>
           </element>
-          <element>
-            <risque>Obsolescence rapide</risque>
-            <probabilite>faible</probabilite>
-            <gravite>faible</gravite>
-            <mitigation>Renouvellement progressif ; rotation des pièces</mitigation>
-          </element>
+
           <element>
             <risque>Obsolescence rapide</risque>
             <probabilite>faible</probabilite>
             <gravite>faible</gravite>
             <mitigation>Renouvellement progressif. Rotation des pièces.</mitigation>
           </element>
-          <element>
-            <risque>Faible fréquentation</risque>
-            <probabilite>moyenne</probabilite>
-            <gravite>élevée</gravite>
-            <mitigation>Intégration obligatoire aux formations ; communication interne ; événements (journées portes ouvertes)</mitigation>
-          </element>
+
           <element>
             <risque>Faible fréquentation</risque>
             <probabilite>moyenne</probabilite>
@@ -32332,56 +31862,35 @@ CONTRÔLE POSITIF (Alcool/Stupéfiants)
             <nom>Karim, conducteur PUSH, 3 ans</nom>
             <description>Je suis rentré dans ce musée en râlant contre mon push qui n'avait pas la dernière caméra. Je suis ressorti en réalisant que j'avais un engin 100 fois plus sûr que celui de mon père. J'ai appelé mon père pour lui dire merci.</description>
           </element>
-          <element>
-            <nom>Karim conducteur PUSH 3 ans</nom>
-            <description>Je suis rentré dans ce musée en râlant contre mon push qui n'avait pas la dernière caméra. Je suis ressorti en réalisant que j'avais un engin 100 fois plus sûr que celui de mon père. J'ai appelé mon père pour lui dire merci.</description>
-          </element>
+
           <element>
             <nom>Gérard, ancien conducteur, retraité</nom>
             <description>Quand on m'a demandé de donner mon vieux casque pour le musée, j'ai hésité. Il était moche, cabossé. Et puis j'ai compris que ce casque, c'était mon histoire. Aujourd'hui, il est dans une vitrine. Mes petits-enfants sont venus le voir. Ils étaient fiers.</description>
           </element>
-          <element>
-            <nom>Gérard ancien conducteur retraité</nom>
-            <description>Quand on m'a demandé de donner mon vieux casque pour le musée j'ai hésité. Il était moche cabossé. Et puis j'ai compris que ce casque c'était mon histoire. Aujourd'hui il est dans une vitrine. Mes petits-enfants sont venus le voir. Ils étaient fiers.</description>
-          </element>
+ 
           <element>
             <nom>Philippe, formateur, 25 ans</nom>
             <description>J'utilise le musée dans mes formations. Je ne commence jamais par les règles. Je commence par l'espace des accidents. Je montre 1987, 1995, 2002. Je dis : 'Voilà pourquoi on fait comme ça aujourd'hui'. Les jeunes écoutent.</description>
           </element>
-          <element>
-            <nom>Philippe formateur 25 ans</nom>
-            <description>J'utilise le musée dans mes formations. Je ne commence jamais par les règles. Je commence par l'espace des accidents. Je montre 1987 1995 2002. Je dis : 'Voilà pourquoi on fait comme ça aujourd'hui'. Les jeunes écoutent.</description>
-          </element>
+
         </temoignage>
         <vitrine>
-          <element>
-            <nom>Casques de sécurité</nom>
-            <description>Évolution des casques de 1960 à 2026</description>
-          </element>
+
           <element>
             <nom>Casques de sécurité</nom>
             <description>L'évolution des casques de 1960 à 2026</description>
           </element>
-          <element>
-            <nom>Gilets de sécurité</nom>
-            <description>Évolution des gilets de sécurité</description>
-          </element>
+
           <element>
             <nom>Gilets de sécurité</nom>
             <description>L'évolution des gilets de sécurité</description>
           </element>
-          <element>
-            <nom>Chaussures de sécurité</nom>
-            <description>Évolution des chaussures de sécurité</description>
-          </element>
+
           <element>
             <nom>Chaussures de sécurité</nom>
             <description>L'évolution des chaussures de sécurité</description>
           </element>
-          <element>
-            <nom>Outils de communication</nom>
-            <description>Évolution des outils de communication</description>
-          </element>
+
           <element>
             <nom>Outils de communication</nom>
             <description>L'évolution des outils de communication</description>
