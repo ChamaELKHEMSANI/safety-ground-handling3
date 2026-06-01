@@ -343,19 +343,62 @@ window.pages.Diagnostic = {
                 </div>
                 ${planning.teams.map(team => `
                     <div class="diagnostic-team-row">
-                        <span>Équipe ${team.id}</span>
+                        <span>Equipe ${team.id}</span>
                         <div class="diagnostic-team-track">
-                            ${team.tasks.map(task => `
-                                <span class="diagnostic-task" style="left: ${(task.start / horizon) * 100}%; width: ${(task.duration / horizon) * 100}%"
-                                    title="${Utils.escapeHtml(task.piste.titre || task.piste.numero)} : ${task.duration} mois">
-                                    ${Utils.escapeHtml(task.piste.numero || '')}
+                            ${team.tasks.map(task => {
+                                const piste = task.piste || task.track;
+                                if (!piste) return '';
+                                const style = this.getTimelinePriorityStyle(piste);
+                                return `
+                                <span class="diagnostic-task timeline-task-priority" style="left: ${(task.start / horizon) * 100}%; width: ${(task.duration / horizon) * 100}%; background: ${style.bg}; border-left-color: ${style.text};">
+                                    ${Utils.escapeHtml(piste.numero || '')}
+                                    ${this.renderTimelineTaskTooltip(piste, task)}
                                 </span>
-                            `).join('')}
+                            `;
+                            }).join('')}
                         </div>
                     </div>
                 `).join('')}
-                <p>Hypothèse : exécution parallèle sans dépendances entre pistes.</p>
+                <p>Planning parallelise avec prise en compte des prerequis et dependances fortes.</p>
             </div>
+        `;
+    },
+
+    getTimelinePriorityStyle(piste) {
+        const priority = String(piste?.priorite || '').toLowerCase();
+        if (priority === 'p1' || priority.includes('critical')) return { bg: '#dc2626', soft: 'rgba(220, 38, 38, 0.16)', text: '#991b1b', label: 'P1', name: 'Critique' };
+        if (priority === 'p2' || priority.includes('high')) return { bg: '#f97316', soft: 'rgba(249, 115, 22, 0.16)', text: '#c2410c', label: 'P2', name: 'Haute' };
+        if (priority === 'p3' || priority.includes('medium')) return { bg: '#ca8a04', soft: 'rgba(202, 138, 4, 0.16)', text: '#854d0e', label: 'P3', name: 'Moyenne' };
+        if (priority === 'p4' || priority.includes('low')) return { bg: '#2563eb', soft: 'rgba(37, 99, 235, 0.16)', text: '#1d4ed8', label: 'P4', name: 'Basse' };
+        if (priority.includes('quick')) return { bg: '#059669', soft: 'rgba(5, 150, 105, 0.16)', text: '#065f46', label: 'QW', name: 'Quick Win' };
+        if (priority.includes('strat')) return { bg: '#d97706', soft: 'rgba(217, 119, 6, 0.16)', text: '#92400e', label: 'S', name: 'Strategique' };
+        if (priority.includes('compl')) return { bg: '#2563eb', soft: 'rgba(37, 99, 235, 0.16)', text: '#1d4ed8', label: 'C', name: 'Complementaire' };
+        if (priority.includes('long')) return { bg: '#7c3aed', soft: 'rgba(124, 58, 237, 0.16)', text: '#6d28d9', label: 'LT', name: 'Long Terme' };
+        return { bg: '#64748b', soft: 'rgba(100, 116, 139, 0.16)', text: '#475569', label: 'NA', name: 'Non definie' };
+    },
+
+    renderTimelineTaskTooltip(piste, task) {
+        const safe = value => Utils.escapeHtml(value ?? '');
+        const score = piste?.rating ?? piste?.impact_score ?? '-';
+        const priority = this.getTimelinePriorityStyle(piste).name;
+        const category = piste?.categorie || piste?.famille || 'Non definie';
+        const impact = piste?.niveau_impact ?? piste?.impact_score ?? '-';
+        const faisabilite = piste?.niveau_faisabilite ?? '-';
+        const relations = Array.isArray(piste?.relations) ? piste.relations.length : 0;
+
+        return `
+            <span class="timeline-tooltip-card" role="tooltip">
+                <strong>${safe(piste?.numero || '')} - ${safe(piste?.titre || 'Sans titre')}</strong>
+                <em>${safe(piste?.slogan || '')}</em>
+                <span><b>Score</b><i>${safe(score)}</i></span>
+                <span><b>Priorite</b><i>${safe(priority)}</i></span>
+                <span><b>Categorie</b><i>${safe(category)}</i></span>
+                <span><b>Duree</b><i>${safe(task.duration)} mois</i></span>
+                <span><b>Planning</b><i>M${safe(task.start)} - M${safe(task.end)}</i></span>
+                <span><b>Faisabilite</b><i>${safe(faisabilite)}</i></span>
+                <span><b>Impact</b><i>${safe(impact)}</i></span>
+                <span><b>Relations</b><i>${relations}</i></span>
+            </span>
         `;
     },
 
@@ -496,6 +539,90 @@ window.pages.Diagnostic = {
         return messages[this.comparisonCriterion] || messages.equilibre;
     },
 
+    normalizePisteRef(value) {
+        const raw = String(value || '').trim().toUpperCase();
+        const match = raw.match(/\d+/);
+        return match ? `P${match[0]}` : raw;
+    },
+
+    getPisteRef(piste) {
+        return this.normalizePisteRef(piste?.numero || piste?.id);
+    },
+
+    getRelationTargetRef(relation) {
+        return this.normalizePisteRef(relation?.target || relation?.piste_liee);
+    },
+
+    buildDependencyMap(pistes) {
+        const refs = new Set((pistes || []).map(piste => this.getPisteRef(piste)).filter(Boolean));
+        const dependencies = {};
+
+        refs.forEach(ref => {
+            dependencies[ref] = new Set();
+        });
+
+        (pistes || []).forEach(source => {
+            const sourceRef = this.getPisteRef(source);
+            if (!sourceRef || !dependencies[sourceRef]) return;
+
+            (source.relations || []).forEach(relation => {
+                const targetRef = this.getRelationTargetRef(relation);
+                if (!targetRef || !refs.has(targetRef)) return;
+
+                if (relation.type === 'prerequisite') {
+                    dependencies[targetRef].add(sourceRef);
+                } else if (relation.type === 'requires') {
+                    dependencies[sourceRef].add(targetRef);
+                }
+            });
+        });
+
+        return Object.fromEntries(
+            Object.entries(dependencies).map(([ref, deps]) => [ref, [...deps]])
+        );
+    },
+
+    getRelationBonus(piste) {
+        return (piste.relations || []).reduce((bonus, relation) => {
+            if (relation.type === 'synergy') return bonus + 5;
+            if (relation.type === 'feeds_data') return bonus + 3;
+            if (relation.type === 'process_flow') return bonus + 2;
+            return bonus;
+        }, 0);
+    },
+
+    selectRespectingDependencies(rankedPistes, budgetLimit, horizon, limit) {
+        const dependencyMap = this.buildDependencyMap(rankedPistes);
+        const remaining = [...rankedPistes];
+        const selected = [];
+        const selectedRefs = new Set();
+        let totalBudget = 0;
+
+        while (selected.length < limit && remaining.length > 0) {
+            const feasible = remaining.filter(piste => {
+                const budget = Number(piste.budget?.cout_3_ans || 0);
+                if (Number(piste.delai_mois || 0) > horizon) return false;
+                if (selected.length > 0 && totalBudget + budget > budgetLimit) return false;
+                return true;
+            });
+            const candidates = feasible
+                .filter(piste => (dependencyMap[this.getPisteRef(piste)] || []).every(dep => selectedRefs.has(dep)))
+                .sort((left, right) => (right._diagnosticScore || 0) - (left._diagnosticScore || 0));
+
+            if (candidates.length === 0 && feasible.length === 0) break;
+
+            const next = candidates[0] || feasible.sort((left, right) =>
+                (right._diagnosticScore || 0) - (left._diagnosticScore || 0)
+            )[0];
+            selected.push(next);
+            selectedRefs.add(this.getPisteRef(next));
+            totalBudget += Number(next.budget?.cout_3_ans || 0);
+            remaining.splice(remaining.findIndex(piste => this.getPisteRef(piste) === this.getPisteRef(next)), 1);
+        }
+
+        return { pistes: selected, totalBudget };
+    },
+
     rankPistes(pistes) {
         const tagTerms = {
             circulation: ['circulation', 'collision', 'geofencing', 'signalisation', 'vehicule'],
@@ -515,24 +642,19 @@ window.pages.Diagnostic = {
             const fastBonus = this.profile.objective === 'rapidite' && delay <= this.profile.horizon ? 20 : 0;
             const budgetBonus = this.profile.objective === 'budget' && budget <= this.profile.budget / 3 ? 18 : 0;
             const strategicBonus = this.profile.objective === 'transformation' && impact >= 80 ? 15 : 0;
-            return { piste, score: impact + riskMatch + fastBonus + budgetBonus + strategicBonus };
-        }).sort((a, b) => b.score - a.score).map(entry => entry.piste);
+            return { piste, score: impact + riskMatch + fastBonus + budgetBonus + strategicBonus + this.getRelationBonus(piste) };
+        }).sort((a, b) => b.score - a.score).map(entry => ({
+            ...entry.piste,
+            _diagnosticScore: entry.score
+        }));
     },
 
     buildRecommendation(name, description, rankedPistes, budgetFactor, limit, recommended) {
         const budgetLimit = this.profile.budget * budgetFactor;
         const horizon = name === 'Ambitieux' ? Math.max(this.profile.horizon, 24) : this.profile.horizon;
-        const pistes = [];
-        let totalBudget = 0;
-
-        rankedPistes.forEach(piste => {
-            if (pistes.length >= limit) return;
-            const budget = Number(piste.budget?.cout_3_ans || 0);
-            if (Number(piste.delai_mois || 0) > horizon) return;
-            if (pistes.length > 0 && totalBudget + budget > budgetLimit) return;
-            pistes.push(piste);
-            totalBudget += budget;
-        });
+        const selection = this.selectRespectingDependencies(rankedPistes, budgetLimit, horizon, limit);
+        const pistes = selection.pistes;
+        let totalBudget = selection.totalBudget;
 
         if (pistes.length === 0 && rankedPistes.length > 0) {
             pistes.push(rankedPistes[0]);
@@ -542,30 +664,51 @@ window.pages.Diagnostic = {
         const averageImpact = Math.round(pistes.reduce((sum, piste) => sum + Number(piste.impact_score || 0), 0) / Math.max(1, pistes.length));
         const averageDelay = Math.round(pistes.reduce((sum, piste) => sum + Number(piste.delai_mois || 0), 0) / Math.max(1, pistes.length));
         const reasons = {
-            Essentiel: 'priorise les actions rapides et un engagement financier réduit.',
-            Équilibré: `respecte votre enveloppe cible et répond au risque ${this.getRiskLabel().toLowerCase()}.`,
-            Ambitieux: 'élargit la couverture et prépare une transformation durable.'
+            Essentiel: 'priorise les actions rapides et un engagement financier reduit.',
+            Equilibre: `respecte votre enveloppe cible et repond au risque ${this.getRiskLabel().toLowerCase()}.`,
+            Ambitieux: 'elargit la couverture et prepare une transformation durable.'
         };
         const financial = this.calculateFinancialImpact(pistes, totalBudget);
 
         const planning = this.calculatePlanning(pistes);
-        return { name, description, pistes, totalBudget, averageImpact, averageDelay, reason: reasons[name], recommended, financial, planning };
+        return { name, description, pistes, totalBudget, averageImpact, averageDelay, reason: reasons[name] || reasons.Equilibre, recommended, financial, planning };
     },
 
     calculatePlanning(pistes) {
         const teamCount = Math.max(1, Math.round(Number(this.profile.equipes) || 1));
         const teams = Array.from({ length: teamCount }, (_, index) => ({ id: index + 1, availableAt: 0, tasks: [] }));
-        const tasks = [...(pistes || [])]
-            .map(piste => ({ piste, duration: Math.max(1, Math.round(Number(piste.delai_mois) || 1)) }))
-            .sort((left, right) => right.duration - left.duration);
+        const dependencyMap = this.buildDependencyMap(pistes || []);
+        const tasks = [...(pistes || [])].map(piste => ({
+            piste,
+            ref: this.getPisteRef(piste),
+            duration: Math.max(1, Math.round(Number(piste.delai_mois) || 1))
+        }));
+        const unscheduled = [...tasks];
+        const completedAt = {};
 
-        tasks.forEach(task => {
-            const team = teams.reduce((earliest, candidate) =>
-                candidate.availableAt < earliest.availableAt ? candidate : earliest, teams[0]);
-            const scheduled = { ...task, start: team.availableAt, end: team.availableAt + task.duration };
+        while (unscheduled.length > 0) {
+            const readyTasks = unscheduled
+                .filter(task => (dependencyMap[task.ref] || []).every(dep => completedAt[dep] !== undefined))
+                .sort((left, right) => {
+                    const leftScore = left.piste._diagnosticScore || left.piste.impact_score || 0;
+                    const rightScore = right.piste._diagnosticScore || right.piste.impact_score || 0;
+                    if (rightScore !== leftScore) return rightScore - leftScore;
+                    return right.duration - left.duration;
+                });
+            const task = readyTasks[0] || unscheduled[0];
+            const earliestStart = Math.max(0, ...(dependencyMap[task.ref] || []).map(dep => completedAt[dep] || 0));
+            const team = teams.reduce((best, candidate) => {
+                const bestStart = Math.max(best.availableAt, earliestStart);
+                const candidateStart = Math.max(candidate.availableAt, earliestStart);
+                return candidateStart < bestStart ? candidate : best;
+            }, teams[0]);
+            const start = Math.max(team.availableAt, earliestStart);
+            const scheduled = { piste: task.piste, duration: task.duration, start, end: start + task.duration };
             team.tasks.push(scheduled);
             team.availableAt = scheduled.end;
-        });
+            completedAt[task.ref] = scheduled.end;
+            unscheduled.splice(unscheduled.findIndex(candidate => candidate.ref === task.ref), 1);
+        }
 
         const sequentialDuration = tasks.reduce((sum, task) => sum + task.duration, 0);
         const totalDuration = teams.reduce((maximum, team) => Math.max(maximum, team.availableAt), 0);
@@ -627,7 +770,8 @@ window.pages.Diagnostic = {
                 source: 'diagnostic',
                 name: recommendation.name,
                 profile: this.profile,
-                pistes: recommendation.pistes
+                pistes: recommendation.pistes,
+                planning: recommendation.planning
             }
         });
         window.router?.navigate?.('/simulateur');

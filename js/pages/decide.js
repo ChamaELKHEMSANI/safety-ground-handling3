@@ -37,7 +37,8 @@ pages.Decide = {
             : 0;
 
         // Pistes à afficher (les 5 premières + indication des autres)
-        const displayedTracks = tracksToShow.slice(0, 5);
+        const showAllTracks = this.showAllPistesForSimulation === (selectedSim?.id || 'current');
+        const displayedTracks = showAllTracks ? tracksToShow : tracksToShow.slice(0, 5);
         const remainingCount = Math.max(0, tracksToShow.length - 5);
 
         // Statistiques par priorité
@@ -179,7 +180,7 @@ pages.Decide = {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    ${tracksToShow.map((track, idx) => `
+                                    ${displayedTracks.map((track, idx) => `
                                         <tr class="track-main-row ${this.expandedPistes.includes(track.numero) ? 'expanded' : ''}">
                                             <td class="expand-cell">
                                                 <button class="btn-expand" onclick="pages.Decide.togglePisteDetails('${track.numero}')">
@@ -274,7 +275,7 @@ pages.Decide = {
                                         ` : ''}
                                     `).join('')}
                                     
-                                    ${remainingCount > 0 ? `
+                                    ${remainingCount > 0 && !showAllTracks ? `
                                         <tr class="other-tracks-row">
                                             <td colspan="8" class="text-center">
                                                 ... et ${remainingCount} autres pistes sélectionnées
@@ -553,6 +554,44 @@ pages.Decide = {
         return { teamCount, teams, sequentialDuration, totalDuration, savedMonths: sequentialDuration - totalDuration };
     },
 
+
+    getTimelinePriorityStyle(piste) {
+        const priority = String(piste?.priorite || '').toLowerCase();
+        if (priority === 'p1' || priority.includes('critical')) return { bg: '#dc2626', soft: 'rgba(220, 38, 38, 0.16)', text: '#991b1b', label: 'P1', name: 'Critique' };
+        if (priority === 'p2' || priority.includes('high')) return { bg: '#f97316', soft: 'rgba(249, 115, 22, 0.16)', text: '#c2410c', label: 'P2', name: 'Haute' };
+        if (priority === 'p3' || priority.includes('medium')) return { bg: '#ca8a04', soft: 'rgba(202, 138, 4, 0.16)', text: '#854d0e', label: 'P3', name: 'Moyenne' };
+        if (priority === 'p4' || priority.includes('low')) return { bg: '#2563eb', soft: 'rgba(37, 99, 235, 0.16)', text: '#1d4ed8', label: 'P4', name: 'Basse' };
+        if (priority.includes('quick')) return { bg: '#059669', soft: 'rgba(5, 150, 105, 0.16)', text: '#065f46', label: 'QW', name: 'Quick Win' };
+        if (priority.includes('strat')) return { bg: '#d97706', soft: 'rgba(217, 119, 6, 0.16)', text: '#92400e', label: 'S', name: 'Strategique' };
+        if (priority.includes('compl')) return { bg: '#2563eb', soft: 'rgba(37, 99, 235, 0.16)', text: '#1d4ed8', label: 'C', name: 'Complementaire' };
+        if (priority.includes('long')) return { bg: '#7c3aed', soft: 'rgba(124, 58, 237, 0.16)', text: '#6d28d9', label: 'LT', name: 'Long Terme' };
+        return { bg: '#64748b', soft: 'rgba(100, 116, 139, 0.16)', text: '#475569', label: 'NA', name: 'Non definie' };
+    },
+
+    renderTimelineTaskTooltip(piste, task) {
+        const safe = value => Utils.escapeHtml(value ?? '');
+        const score = piste?.rating ?? piste?.impact_score ?? '-';
+        const priority = this.getTimelinePriorityStyle(piste).name;
+        const category = piste?.categorie || piste?.famille || 'Non definie';
+        const impact = piste?.niveau_impact ?? piste?.impact_score ?? '-';
+        const faisabilite = piste?.niveau_faisabilite ?? '-';
+        const relations = Array.isArray(piste?.relations) ? piste.relations.length : 0;
+
+        return `
+            <span class="timeline-tooltip-card" role="tooltip">
+                <strong>${safe(piste?.numero || '')} - ${safe(piste?.titre || 'Sans titre')}</strong>
+                <em>${safe(piste?.slogan || '')}</em>
+                <span><b>Score</b><i>${safe(score)}</i></span>
+                <span><b>Priorite</b><i>${safe(priority)}</i></span>
+                <span><b>Categorie</b><i>${safe(category)}</i></span>
+                <span><b>Duree</b><i>${safe(task.duration)} mois</i></span>
+                <span><b>Planning</b><i>M${safe(task.start)} - M${safe(task.end)}</i></span>
+                <span><b>Faisabilite</b><i>${safe(faisabilite)}</i></span>
+                <span><b>Impact</b><i>${safe(impact)}</i></span>
+                <span><b>Relations</b><i>${relations}</i></span>
+            </span>
+        `;
+    },
     renderPlanningTimeline(planning) {
         const horizon = Math.max(1, planning.totalDuration);
         return `
@@ -575,10 +614,11 @@ pages.Decide = {
                                 ${team.tasks.map(task => {
                                     const piste = task.piste || task.track;
                                     if (!piste) return '';
+                                    const style = this.getTimelinePriorityStyle(piste);
                                     return `
-                                    <span class="decision-task" style="left: ${(task.start / horizon) * 100}%; width: ${(task.duration / horizon) * 100}%"
-                                        title="${Utils.escapeHtml(piste.titre || piste.numero)} : ${task.duration} mois">
+                                    <span class="decision-task timeline-task-priority" style="left: ${(task.start / horizon) * 100}%; width: ${(task.duration / horizon) * 100}%; background: ${style.bg}; border-left-color: ${style.text};">
                                         ${Utils.escapeHtml(piste.numero || '')} <small>${task.duration}m</small>
+                                        ${this.renderTimelineTaskTooltip(piste, task)}
                                     </span>
                                 `;
                                 }).join('')}
@@ -614,6 +654,7 @@ pages.Decide = {
 
     changeSimulation(simulationId) {
         this.selectedSimulationId = simulationId;
+        this.showAllPistesForSimulation = null;
         this.expandedPistes = []; // Replier toutes les pistes
         this.rerender();
     },
@@ -650,9 +691,8 @@ pages.Decide = {
     },
 
     showAllTracks() {
-        // Dans une version améliorée, on pourrait afficher toutes les pistes
-        // Pour l'instant, on peut simplement étendre la table
-        alert('Fonctionnalité à venir : affichage de toutes les pistes');
+        this.showAllPistesForSimulation = this.selectedSimulationId;
+        this.rerender();
     },
 
     getImpactLevel(impact) {
@@ -676,55 +716,517 @@ pages.Decide = {
         return amount + ' €';
     },
 
+    getSelectedSimulationForExport() {
+        const state = appStore ? appStore.getState() : {};
+        const currentTracks = state.currentScenario || [];
+        const currentPlanning = state.currentScenarioPlanning || null;
+        const currentConstraints = state.currentScenarioConstraints || null;
+        const scenarios = state.scenarios || [];
+        const simulations = [
+            { id: 'current', name: 'Scénario en cours', pistes: currentTracks, createdAt: new Date(), planning: currentPlanning, constraints: currentConstraints },
+            ...scenarios.map(scenario => ({
+                id: scenario.id,
+                name: scenario.name,
+                pistes: scenario.pistes || [],
+                createdAt: new Date(scenario.createdAt || Date.now()),
+                planning: scenario.planning,
+                constraints: scenario.constraints
+            }))
+        ].filter(simulation => simulation.pistes.length > 0);
+
+        return simulations.find(simulation => simulation.id === this.selectedSimulationId) || simulations[0] || null;
+    },
+
+    normalizeTask(task) {
+        const piste = task.piste || task.track || {};
+        const duration = Math.max(1, Math.round(Number(task.duration ?? piste.delai_mois) || 1));
+        const start = Math.max(0, Math.round(Number(task.start) || 0));
+        const end = Math.max(start + duration, Math.round(Number(task.end) || (start + duration)));
+        return { ...task, piste, duration, start, end };
+    },
+
+    buildProjectPhases(planning) {
+        const tasks = (planning.teams || [])
+            .flatMap(team => (team.tasks || []).map(task => ({ ...this.normalizeTask(task), teamId: team.id })))
+            .sort((left, right) => left.start - right.start || left.end - right.end);
+        const horizon = Math.max(1, planning.totalDuration || tasks.reduce((max, task) => Math.max(max, task.end), 0));
+        const phaseLength = Math.max(1, Math.ceil(horizon / 3));
+        const phaseLabels = ['Cadrage et lancement', 'Déploiement opérationnel', 'Stabilisation et transfert'];
+
+        return phaseLabels.map((label, index) => {
+            const start = index * phaseLength;
+            const end = index === phaseLabels.length - 1 ? horizon : Math.min(horizon, (index + 1) * phaseLength);
+            const phaseTasks = tasks.filter(task => task.start < end && task.end > start);
+            const budget = phaseTasks.reduce((sum, task) => sum + (task.piste.budget?.cout_3_ans || 0), 0);
+            return { label, start, end, tasks: phaseTasks, budget };
+        }).filter(phase => phase.start < phase.end);
+    },
+
+    getPhasingPeriodConfig(totalDuration) {
+        if (totalDuration <= 3) return { unit: 'quinzaine', months: 0.5 };
+        if (totalDuration <= 18) return { unit: 'mois', months: 1 };
+        return { unit: 'trimestre', months: 3 };
+    },
+
+    formatPhasingPeriodLabel(index, start, end, periodConfig) {
+        if (periodConfig.unit === 'quinzaine') {
+            const month = Math.floor(start) + 1;
+            const half = start % 1 === 0 ? 1 : 2;
+            return `M${month} - quinzaine ${half}`;
+        }
+        if (periodConfig.unit === 'trimestre') {
+            return `T${index + 1} - M${Math.floor(start)} à M${Math.ceil(end)}`;
+        }
+        return `Mois ${index + 1} - M${Math.floor(start)} à M${Math.ceil(end)}`;
+    },
+
+    getPeriodTaskStatus(task, start, end) {
+        const startsHere = task.start >= start && task.start < end;
+        const endsHere = task.end > start && task.end <= end;
+        if (startsHere && endsHere) return 'Lancer et finaliser';
+        if (startsHere) return 'Lancer';
+        if (endsHere) return 'Finaliser';
+        return 'Piloter';
+    },
+
+    getPeriodTaskInstruction(task, start, end) {
+        const status = this.getPeriodTaskStatus(task, start, end);
+        const piste = task.piste || {};
+        const numero = piste.numero || 'Action';
+        const title = piste.titre || 'Action planifiée';
+        const category = piste.categorie || piste.famille || 'Non définie';
+        const budget = this.formatCurrency(piste.budget?.cout_3_ans || 0);
+
+        if (status === 'Lancer') {
+            return {
+                status,
+                text: `${numero} - ${title}`,
+                detail: `Cadrer le périmètre, confirmer les responsables, engager le budget ${budget} et sécuriser les prérequis (${category}).`
+            };
+        }
+        if (status === 'Finaliser') {
+            return {
+                status,
+                text: `${numero} - ${title}`,
+                detail: `Valider les livrables, mesurer l'impact sécurité, documenter les écarts et préparer le passage en exploitation.`
+            };
+        }
+        if (status === 'Lancer et finaliser') {
+            return {
+                status,
+                text: `${numero} - ${title}`,
+                detail: 'Exécuter en cycle court : cadrage, réalisation, validation terrain et bilan dans la période.'
+            };
+        }
+        return {
+            status,
+            text: `${numero} - ${title}`,
+            detail: 'Suivre l’avancement, lever les blocages, contrôler le consommé budgétaire et préparer le prochain jalon.'
+        };
+    },
+
+    buildDetailedPhasing(planning) {
+        const tasks = (planning.teams || [])
+            .flatMap(team => (team.tasks || []).map(task => ({ ...this.normalizeTask(task), teamId: team.id })))
+            .sort((left, right) => left.start - right.start || left.end - right.end);
+        const totalDuration = Math.max(1, planning.totalDuration || tasks.reduce((max, task) => Math.max(max, task.end), 0));
+        const periodConfig = this.getPhasingPeriodConfig(totalDuration);
+        const periodCount = Math.ceil(totalDuration / periodConfig.months);
+
+        return Array.from({ length: periodCount }, (_, index) => {
+            const start = index * periodConfig.months;
+            const end = Math.min(totalDuration, start + periodConfig.months);
+            const activeTasks = tasks
+                .filter(task => task.start < end && task.end > start)
+                .map(task => {
+                    const instruction = this.getPeriodTaskInstruction(task, start, end);
+                    return {
+                        ...instruction,
+                        teamId: task.teamId,
+                        priority: this.getTimelinePriorityStyle(task.piste).name,
+                        start: task.start,
+                        end: task.end
+                    };
+                });
+            const budget = tasks
+                .filter(task => task.start >= start && task.start < end)
+                .reduce((sum, task) => sum + (task.piste.budget?.cout_3_ans || 0), 0);
+
+            return {
+                label: this.formatPhasingPeriodLabel(index, start, end, periodConfig),
+                start,
+                end,
+                budget,
+                actions: activeTasks,
+                decisions: activeTasks
+                    .filter(action => action.status !== 'Piloter')
+                    .map(action => `${action.status} ${action.text.split(' - ')[0]}`)
+            };
+        }).filter(period => period.actions.length > 0);
+    },
+
+    buildProjectMilestones(planning) {
+        const tasks = (planning.teams || [])
+            .flatMap(team => (team.tasks || []).map(task => ({ ...this.normalizeTask(task), teamId: team.id })))
+            .sort((left, right) => left.end - right.end || left.start - right.start);
+
+        if (tasks.length === 0) return [];
+
+        const milestones = [
+            { label: 'Lancement du programme', month: 0, detail: 'Validation du périmètre, des ressources et du calendrier de référence.' },
+            ...tasks.slice(0, 8).map(task => ({
+                label: `${task.piste.numero || 'Action'} - ${task.piste.titre || 'Action planifiée'}`,
+                month: task.end,
+                detail: `Fin prévisionnelle équipe ${task.teamId}.`
+            }))
+        ];
+
+        const finalMonth = Math.max(...tasks.map(task => task.end));
+        milestones.push({
+            label: 'Comité de clôture et passage en run',
+            month: finalMonth,
+            detail: 'Bilan de déploiement, mesure des gains sécurité et transfert aux équipes opérationnelles.'
+        });
+
+        return milestones;
+    },
+
+    renderPDFPlanTimeline(planning) {
+        const horizon = Math.max(1, planning.totalDuration);
+        return `
+            <div class="pdf-plan-gantt">
+                ${(planning.teams || []).map(team => `
+                    <div class="pdf-plan-team">
+                        <strong>Équipe ${team.id}</strong>
+                        <div class="pdf-plan-track">
+                            ${(team.tasks || []).map(rawTask => {
+                                const task = this.normalizeTask(rawTask);
+                                const style = this.getTimelinePriorityStyle(task.piste);
+                                return `
+                                    <span class="pdf-plan-task" style="left:${(task.start / horizon) * 100}%;width:${Math.max(6, (task.duration / horizon) * 100)}%;background:${style.bg};">
+                                        ${Utils.escapeHtml(task.piste.numero || '')}
+                                    </span>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    },
+
+    generateActionPlanPDFHTML(simulation) {
+        const safe = value => Utils.escapeHtml(value ?? '');
+        const pistes = simulation?.pistes || [];
+        const planning = this.calculatePlanning(pistes, simulation || {});
+        const detailedPhasing = this.buildDetailedPhasing(planning);
+        const milestones = this.buildProjectMilestones(planning);
+        const priorityStats = this.calculatePriorityStats(pistes);
+        const totalBudget = pistes.reduce((sum, piste) => sum + (piste.budget?.cout_3_ans || 0), 0);
+        const totalAccidents = pistes.reduce((sum, piste) => sum + (piste.impact_accidents_evites || 0), 0);
+        const totalEconomies = pistes.reduce((sum, piste) => sum + (piste.impact_economies || 0), 0);
+        const averageImpact = pistes.length
+            ? Math.round(pistes.reduce((sum, piste) => sum + (piste.impact_score || 0), 0) / pistes.length)
+            : 0;
+        const averageRoi = pistes.filter(piste => Number(piste.roi_mois)).length
+            ? Math.round(pistes.reduce((sum, piste) => sum + (Number(piste.roi_mois) || 0), 0) / pistes.filter(piste => Number(piste.roi_mois)).length)
+            : null;
+        const generatedAt = new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' });
+        const configId = `SEC-${new Date().getFullYear()}-${String(simulation?.id || 'current').toUpperCase().slice(0, 8)}-${new Date().toISOString().slice(0, 10).replace(/-/g, '')}`;
+        const styleOpen = '<' + 'style>';
+        const styleClose = '</' + 'style>';
+
+        return `
+            <div class="pdf-action-plan">
+                ${styleOpen}
+                    .pdf-action-plan { width: 720px; box-sizing: border-box; padding: 28px; background: #fff; color: #172033; font-family: Arial, sans-serif; font-size: 11px; line-height: 1.45; }
+                    .pdf-action-plan * { box-sizing: border-box; }
+                    .pdf-cover { border-bottom: 3px solid #003D82; padding-bottom: 16px; margin-bottom: 18px; }
+                    .pdf-eyebrow { color: #64748b; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+                    .pdf-cover h1 { margin: 6px 0 8px; color: #003D82; font-size: 26px; line-height: 1.15; }
+                    .pdf-cover p { margin: 0; color: #475569; font-size: 12px; }
+                    .pdf-meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
+                    .pdf-meta div, .pdf-kpi, .pdf-phase, .pdf-box { border: 1px solid #dbe3ef; border-radius: 6px; padding: 10px; background: #f8fafc; }
+                    .pdf-meta span, .pdf-kpi span { display: block; color: #64748b; font-size: 9px; text-transform: uppercase; font-weight: 700; }
+                    .pdf-meta strong, .pdf-kpi strong { display: block; color: #0f172a; font-size: 14px; margin-top: 3px; }
+                    .pdf-section { page-break-inside: avoid; margin-top: 18px; }
+                    .pdf-section h2 { color: #003D82; font-size: 15px; margin: 0 0 9px; padding-bottom: 5px; border-bottom: 1px solid #dbe3ef; }
+                    .pdf-kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+                    .pdf-kpi strong { font-size: 16px; }
+                    .pdf-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+                    .pdf-box ul, .pdf-period ul { margin: 8px 0 0 16px; padding: 0; }
+                    .pdf-box li, .pdf-period li { margin: 3px 0; }
+                    .pdf-period { border: 1px solid #dbe3ef; border-radius: 6px; padding: 10px; background: #f8fafc; margin-bottom: 8px; page-break-inside: avoid; }
+                    .pdf-period h3 { margin: 0 0 5px; color: #0f172a; font-size: 12px; }
+                    .pdf-period-head { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; }
+                    .pdf-period-meta { color: #64748b; font-size: 9px; font-weight: 700; text-align: right; text-transform: uppercase; }
+                    .pdf-period-action { border-top: 1px solid #e2e8f0; padding-top: 7px; margin-top: 7px; }
+                    .pdf-period-action strong { color: #0f172a; }
+                    .pdf-period-action span { color: #64748b; font-size: 9px; font-weight: 700; }
+                    .pdf-period-action p { margin: 3px 0 0; color: #475569; }
+                    .pdf-period-decisions { margin-top: 7px; padding: 7px; border-radius: 5px; background: #fff7ed; color: #9a3412; }
+                    .pdf-plan-gantt { border: 1px solid #dbe3ef; border-radius: 6px; padding: 8px; background: #fff; }
+                    .pdf-plan-team { display: grid; grid-template-columns: 70px 1fr; gap: 8px; align-items: center; margin: 6px 0; }
+                    .pdf-plan-team strong { font-size: 10px; color: #334155; }
+                    .pdf-plan-track { position: relative; height: 22px; background: #eef2f7; border-radius: 4px; overflow: hidden; }
+                    .pdf-plan-task { position: absolute; top: 3px; height: 16px; border-radius: 3px; color: #fff; font-size: 8px; font-weight: 700; padding: 3px 4px; overflow: hidden; white-space: nowrap; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+                    .pdf-table { width: 100%; border-collapse: collapse; }
+                    .pdf-table th { background: #003D82; color: #fff; padding: 7px; text-align: left; font-size: 9px; }
+                    .pdf-table td { border-bottom: 1px solid #e2e8f0; padding: 7px; vertical-align: top; }
+                    .pdf-table tr { page-break-inside: avoid; }
+                    .pdf-pill { display: inline-block; padding: 2px 6px; border-radius: 999px; background: #eef2ff; color: #1d4ed8; font-size: 9px; font-weight: 700; }
+                    .pdf-milestone { display: grid; grid-template-columns: 52px 1fr; gap: 8px; padding: 7px 0; border-bottom: 1px solid #e2e8f0; }
+                    .pdf-milestone strong { color: #003D82; }
+                    .pdf-signatures { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px; }
+                    .pdf-signatures div { min-height: 54px; border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px; }
+                    .pdf-footer { margin-top: 18px; color: #64748b; font-size: 9px; text-align: right; }
+                ${styleClose}
+
+                <section class="pdf-cover">
+                    <div class="pdf-eyebrow">Plan d'action sécurité CDG</div>
+                    <h1>${safe(simulation?.name || 'Scénario en cours')}</h1>
+                    <p>Document de pilotage projet : actions retenues, phasage, jalons, charges budgétaires et points de gouvernance.</p>
+                    <div class="pdf-meta">
+                        <div><span>Date</span><strong>${safe(generatedAt)}</strong></div>
+                        <div><span>Configuration</span><strong>${safe(configId)}</strong></div>
+                        <div><span>Périmètre</span><strong>${pistes.length} action(s)</strong></div>
+                    </div>
+                </section>
+
+                <section class="pdf-section">
+                    <h2>1. Synthèse exécutive</h2>
+                    <div class="pdf-kpis">
+                        <div class="pdf-kpi"><span>Budget 3 ans</span><strong>${this.formatCurrency(totalBudget)}</strong></div>
+                        <div class="pdf-kpi"><span>Impact moyen</span><strong>${averageImpact}/100</strong></div>
+                        <div class="pdf-kpi"><span>Durée planifiée</span><strong>${planning.totalDuration} mois</strong></div>
+                        <div class="pdf-kpi"><span>Équipes</span><strong>${planning.teamCount}</strong></div>
+                    </div>
+                    <div class="pdf-columns" style="margin-top:10px;">
+                        <div class="pdf-box">
+                            <strong>Objectif opérationnel</strong>
+                            <p>Déployer les pistes retenues dans un ordre pilotable, en respectant les contraintes de ressources et en rendant visibles les bénéfices sécurité attendus.</p>
+                        </div>
+                        <div class="pdf-box">
+                            <strong>Gains attendus</strong>
+                            <ul>
+                                <li>${totalAccidents} accident(s) évité(s) par an</li>
+                                <li>${this.formatCurrency(totalEconomies)} d'économies annuelles estimées</li>
+                                <li>${averageRoi ? `${averageRoi} mois de retour moyen` : 'Retour sur investissement à confirmer action par action'}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="pdf-section">
+                    <h2>2. Phasage du plan</h2>
+                    <p>Lecture chef de projet : chaque période indique les actions à lancer, piloter ou finaliser, l'équipe responsable et les décisions à préparer.</p>
+                    <div class="pdf-periods">
+                        ${detailedPhasing.map(period => `
+                            <div class="pdf-period">
+                                <div class="pdf-period-head">
+                                    <h3>${safe(period.label)}</h3>
+                                    <div class="pdf-period-meta">
+                                        ${period.actions.length} action(s)<br>
+                                        Budget engagé : ${this.formatCurrency(period.budget)}
+                                    </div>
+                                </div>
+                                ${period.actions.map(action => `
+                                    <div class="pdf-period-action">
+                                        <span>${safe(action.status)} - Équipe ${safe(action.teamId)} - Priorité ${safe(action.priority)}</span>
+                                        <strong>${safe(action.text)}</strong>
+                                        <p>${safe(action.detail)}</p>
+                                    </div>
+                                `).join('')}
+                                ${period.decisions.length ? `
+                                    <div class="pdf-period-decisions">
+                                        <strong>Décisions / jalons de période :</strong>
+                                        ${period.decisions.map(decision => safe(decision)).join(' ; ')}
+                                    </div>
+                                ` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                </section>
+
+                <section class="pdf-section">
+                    <h2>3. Calendrier de déploiement</h2>
+                    ${this.renderPDFPlanTimeline(planning)}
+                    <p>Durée séquentielle : ${planning.sequentialDuration} mois. Gain lié à la parallélisation : ${planning.savedMonths} mois.</p>
+                </section>
+
+                <section class="pdf-section">
+                    <h2>4. Jalons de pilotage</h2>
+                    ${milestones.map(milestone => `
+                        <div class="pdf-milestone">
+                            <strong>M${milestone.month}</strong>
+                            <div><b>${safe(milestone.label)}</b><br><span>${safe(milestone.detail)}</span></div>
+                        </div>
+                    `).join('')}
+                </section>
+
+                <section class="pdf-section">
+                    <h2>5. Récapitulatif des actions</h2>
+                    <table class="pdf-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Action</th>
+                                <th>Priorité</th>
+                                <th>Budget</th>
+                                <th>Durée</th>
+                                <th>Impact</th>
+                                <th>Point de pilotage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${pistes.map(piste => {
+                                const priority = this.getTimelinePriorityStyle(piste).name;
+                                const budget = this.formatCurrency(piste.budget?.cout_3_ans || 0);
+                                const duration = Math.max(1, Math.round(Number(piste.delai_mois) || 1));
+                                const pilotage = piste.relations?.length
+                                    ? `${piste.relations.length} relation(s) à coordonner`
+                                    : (piste.roi_mois ? `ROI estimé ${piste.roi_mois} mois` : 'Suivi avancement mensuel');
+                                return `
+                                    <tr>
+                                        <td><strong>${safe(piste.numero || '')}</strong></td>
+                                        <td>${safe(piste.titre || 'Sans titre')}</td>
+                                        <td><span class="pdf-pill">${safe(priority)}</span></td>
+                                        <td>${budget}</td>
+                                        <td>${duration} mois</td>
+                                        <td>${piste.impact_score || 0}/100</td>
+                                        <td>${safe(pilotage)}</td>
+                                    </tr>
+                                `;
+                            }).join('')}
+                        </tbody>
+                    </table>
+                </section>
+
+                <section class="pdf-section">
+                    <h2>6. Gouvernance et points de vigilance</h2>
+                    <div class="pdf-columns">
+                        <div class="pdf-box">
+                            <strong>Priorisation</strong>
+                            <ul>
+                                <li>Critique : ${priorityStats.P1 || 0} action(s)</li>
+                                <li>Haute : ${priorityStats.P2 || 0} action(s)</li>
+                                <li>Moyenne : ${priorityStats.P3 || 0} action(s)</li>
+                                <li>Basse : ${priorityStats.P4 || 0} action(s)</li>
+                            </ul>
+                        </div>
+                        <div class="pdf-box">
+                            <strong>Rituels projet recommandés</strong>
+                            <ul>
+                                <li>Comité projet mensuel : avancement, risques, arbitrages.</li>
+                                <li>Revue budgétaire trimestrielle : consommé, reste à engager, écarts.</li>
+                                <li>Mesure sécurité : accidents évités, adoption terrain, économies observées.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="pdf-signatures">
+                        <div><strong>Sponsor</strong><br><br>Signature :</div>
+                        <div><strong>Chef de projet</strong><br><br>Signature :</div>
+                        <div><strong>Validation sécurité</strong><br><br>Signature :</div>
+                    </div>
+                </section>
+
+                <div class="pdf-footer">Document généré automatiquement depuis le simulateur sécurité CDG - ${safe(configId)}</div>
+            </div>
+        `;
+    },
+
+    generatePrintableActionPlanHTML(simulation) {
+        const title = Utils.escapeHtml(`Plan d'action - ${simulation?.name || 'Scénario en cours'}`);
+        const styleOpen = '<' + 'style>';
+        const styleClose = '</' + 'style>';
+        const scriptOpen = '<' + 'script>';
+        const scriptClose = '</' + 'script>';
+        return `<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>${title}</title>
+    ${styleOpen}
+        @page { size: A4; margin: 12mm; }
+        html, body { margin: 0; padding: 0; background: #f1f5f9; }
+        body { display: flex; justify-content: center; }
+        .pdf-action-plan { box-shadow: 0 20px 60px rgba(15, 23, 42, .16); margin: 24px 0; }
+        .print-toolbar {
+            position: fixed;
+            top: 12px;
+            right: 12px;
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+        .print-toolbar button {
+            border: 0;
+            border-radius: 6px;
+            padding: 10px 14px;
+            background: #003D82;
+            color: #fff;
+            font: 700 13px Arial, sans-serif;
+            cursor: pointer;
+        }
+        .print-toolbar button.secondary { background: #475569; }
+        @media print {
+            html, body { background: #fff; display: block; }
+            .print-toolbar { display: none; }
+            .pdf-action-plan {
+                width: auto !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+            }
+            .pdf-section { break-inside: avoid; }
+            .pdf-table tr, .pdf-phase, .pdf-box, .pdf-kpi { break-inside: avoid; }
+        }
+    ${styleClose}
+</head>
+<body>
+    <div class="print-toolbar">
+        <button type="button" onclick="window.print()">Imprimer / Enregistrer en PDF</button>
+        <button type="button" class="secondary" onclick="window.close()">Fermer</button>
+    </div>
+    ${this.generateActionPlanPDFHTML(simulation)}
+    ${scriptOpen}
+        window.addEventListener('load', function () {
+            setTimeout(function () { window.print(); }, 300);
+        });
+    ${scriptClose}
+</body>
+</html>`;
+    },
+
     async exportPDF() {
         try {
-            // Afficher un indicateur de chargement
-            const loadingMsg = document.createElement('div');
-            loadingMsg.className = 'pdf-loading';
-            loadingMsg.innerHTML = `
-                <div class="pdf-loading-content">
-                    <div class="spinner"></div>
-                    <p>Génération du PDF en cours...</p>
-                </div>
-            `;
-            document.body.appendChild(loadingMsg);
-
-            // Charger html2pdf si nécessaire
-            if (typeof window.html2pdf === 'undefined') {
-                await this.loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js');
+            const selectedSim = this.getSelectedSimulationForExport();
+            if (!selectedSim || !selectedSim.pistes.length) {
+                if (window.Notifications) Notifications.warning('Aucun plan à exporter');
+                return;
             }
 
-            const element = document.querySelector('.decide-wrapper');
-            
-            // Options pour le PDF
-            const opt = {
-                margin:        [0.5, 0.5, 0.5, 0.5],
-                filename:      `plan-action-${this.selectedSimulationId}-${new Date().toISOString().slice(0,10)}.pdf`,
-                image:         { type: 'jpeg', quality: 0.98 },
-                html2canvas:   {
-                    scale: 2,
-                    letterRendering: true,
-                    useCORS: true,
-                    logging: false,
-                    backgroundColor: '#ffffff'
-                },
-                jsPDF:         { unit: 'in', format: 'a4', orientation: 'portrait' }
-            };
+            const documentHtml = this.generatePrintableActionPlanHTML(selectedSim);
+            const blob = new Blob([documentHtml], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const printWindow = window.open(url, '_blank', 'noopener,noreferrer');
 
-            // Générer le PDF
-            await html2pdf().set(opt).from(element).save();
-
-            document.body.removeChild(loadingMsg);
+            if (!printWindow) {
+                URL.revokeObjectURL(url);
+                if (window.Notifications) {
+                    Notifications.error('Ouverture bloquée par le navigateur. Autorisez les pop-ups puis réessayez.');
+                }
+                return;
+            }
 
             if (window.Notifications) {
-                Notifications.success('PDF généré avec succès !');
+                Notifications.success('Plan ouvert dans un nouvel onglet. Utilisez Imprimer puis Enregistrer en PDF.');
             }
 
         } catch (error) {
             console.error('Erreur PDF:', error);
-            const loadingMsg = document.querySelector('.pdf-loading');
-            if (loadingMsg) document.body.removeChild(loadingMsg);
-            
+             
             if (window.Notifications) {
                 Notifications.error('Erreur lors de la génération du PDF');
             }

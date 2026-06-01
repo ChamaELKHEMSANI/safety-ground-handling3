@@ -696,6 +696,44 @@ pages.Simulateur = {
         `;
     },
 
+
+    getTimelinePriorityStyle(piste) {
+        const priority = String(piste?.priorite || '').toLowerCase();
+        if (priority === 'p1' || priority.includes('critical')) return { bg: '#dc2626', soft: 'rgba(220, 38, 38, 0.16)', text: '#991b1b', label: 'P1', name: 'Critique' };
+        if (priority === 'p2' || priority.includes('high')) return { bg: '#f97316', soft: 'rgba(249, 115, 22, 0.16)', text: '#c2410c', label: 'P2', name: 'Haute' };
+        if (priority === 'p3' || priority.includes('medium')) return { bg: '#ca8a04', soft: 'rgba(202, 138, 4, 0.16)', text: '#854d0e', label: 'P3', name: 'Moyenne' };
+        if (priority === 'p4' || priority.includes('low')) return { bg: '#2563eb', soft: 'rgba(37, 99, 235, 0.16)', text: '#1d4ed8', label: 'P4', name: 'Basse' };
+        if (priority.includes('quick')) return { bg: '#059669', soft: 'rgba(5, 150, 105, 0.16)', text: '#065f46', label: 'QW', name: 'Quick Win' };
+        if (priority.includes('strat')) return { bg: '#d97706', soft: 'rgba(217, 119, 6, 0.16)', text: '#92400e', label: 'S', name: 'Strategique' };
+        if (priority.includes('compl')) return { bg: '#2563eb', soft: 'rgba(37, 99, 235, 0.16)', text: '#1d4ed8', label: 'C', name: 'Complementaire' };
+        if (priority.includes('long')) return { bg: '#7c3aed', soft: 'rgba(124, 58, 237, 0.16)', text: '#6d28d9', label: 'LT', name: 'Long Terme' };
+        return { bg: '#64748b', soft: 'rgba(100, 116, 139, 0.16)', text: '#475569', label: 'NA', name: 'Non definie' };
+    },
+
+    renderTimelineTaskTooltip(piste, task) {
+        const safe = value => Utils.escapeHtml(value ?? '');
+        const score = piste?.rating ?? piste?.impact_score ?? '-';
+        const priority = this.getTimelinePriorityStyle(piste).name;
+        const category = piste?.categorie || piste?.famille || 'Non definie';
+        const impact = piste?.niveau_impact ?? piste?.impact_score ?? '-';
+        const faisabilite = piste?.niveau_faisabilite ?? '-';
+        const relations = Array.isArray(piste?.relations) ? piste.relations.length : 0;
+
+        return `
+            <span class="timeline-tooltip-card" role="tooltip">
+                <strong>${safe(piste?.numero || '')} - ${safe(piste?.titre || 'Sans titre')}</strong>
+                <em>${safe(piste?.slogan || '')}</em>
+                <span><b>Score</b><i>${safe(score)}</i></span>
+                <span><b>Priorite</b><i>${safe(priority)}</i></span>
+                <span><b>Categorie</b><i>${safe(category)}</i></span>
+                <span><b>Duree</b><i>${safe(task.duration)} mois</i></span>
+                <span><b>Planning</b><i>M${safe(task.start)} - M${safe(task.end)}</i></span>
+                <span><b>Faisabilite</b><i>${safe(faisabilite)}</i></span>
+                <span><b>Impact</b><i>${safe(impact)}</i></span>
+                <span><b>Relations</b><i>${relations}</i></span>
+            </span>
+        `;
+    },
     renderPlanningTimeline(planning) {
         const horizon = Math.max(1, planning.totalDuration);
         const durationWarning = this.constraints.duree.enabled && planning.totalDuration > this.constraints.duree.value
@@ -707,7 +745,7 @@ pages.Simulateur = {
                 <div class="timeline-header">
                     <div>
                         <h3>Calendrier de déploiement</h3>
-                        <p>Hypothèse : les pistes peuvent être menées en parallèle, sans dépendances entre elles.</p>
+                        <p>Planning parallélisé avec prise en compte des prérequis et dépendances fortes.</p>
                     </div>
                     <div class="timeline-summary">
                         <strong>${planning.sequentialDuration} mois</strong>
@@ -727,14 +765,17 @@ pages.Simulateur = {
                         <div class="timeline-team">
                             <strong class="team-name">Équipe ${team.id}</strong>
                             <div class="team-track">
-                                ${team.tasks.map(task => `
-                                    <div class="timeline-task"
-                                        style="left: ${(task.start / horizon) * 100}%; width: ${(task.duration / horizon) * 100}%"
-                                        title="${Utils.escapeHtml(task.piste.titre)} : mois ${task.start} à ${task.end}">
+                                ${team.tasks.map(task => {
+                                    const style = this.getTimelinePriorityStyle(task.piste);
+                                    return `
+                                    <div class="timeline-task timeline-task-priority"
+                                        style="left: ${(task.start / horizon) * 100}%; width: ${(task.duration / horizon) * 100}%; background: ${style.bg}; border-left-color: ${style.text};">
                                         <span>${Utils.escapeHtml(task.piste.numero || '')}</span>
                                         <small>${task.duration} mois</small>
+                                        ${this.renderTimelineTaskTooltip(task.piste, task)}
                                     </div>
-                                `).join('')}
+                                `;
+                                }).join('')}
                             </div>
                         </div>
                     `).join('')}
@@ -1012,6 +1053,104 @@ pages.Simulateur = {
         return Math.max(1, Math.round(Number(this.constraints.equipes.value) || 1));
     },
 
+    normalizePisteRef(value) {
+        const raw = String(value || '').trim().toUpperCase();
+        const match = raw.match(/\d+/);
+        return match ? `P${match[0]}` : raw;
+    },
+
+    getPisteRef(piste) {
+        return this.normalizePisteRef(piste?.numero || piste?.id);
+    },
+
+    getRelationTargetRef(relation) {
+        return this.normalizePisteRef(relation?.target || relation?.piste_liee);
+    },
+
+    buildDependencyMap(pistes) {
+        const refs = new Set((pistes || []).map(piste => this.getPisteRef(piste)).filter(Boolean));
+        const dependencies = {};
+
+        refs.forEach(ref => {
+            dependencies[ref] = new Set();
+        });
+
+        (pistes || []).forEach(source => {
+            const sourceRef = this.getPisteRef(source);
+            if (!sourceRef || !dependencies[sourceRef]) return;
+
+            (source.relations || []).forEach(relation => {
+                const targetRef = this.getRelationTargetRef(relation);
+                if (!targetRef || !refs.has(targetRef)) return;
+
+                if (relation.type === 'prerequisite') {
+                    dependencies[targetRef].add(sourceRef);
+                } else if (relation.type === 'requires') {
+                    dependencies[sourceRef].add(targetRef);
+                }
+            });
+        });
+
+        return Object.fromEntries(
+            Object.entries(dependencies).map(([ref, deps]) => [ref, [...deps]])
+        );
+    },
+
+    getRelationBonus(piste) {
+        return (piste.relations || []).reduce((bonus, relation) => {
+            if (relation.type === 'synergy') return bonus + 5;
+            if (relation.type === 'feeds_data') return bonus + 3;
+            if (relation.type === 'process_flow') return bonus + 2;
+            return bonus;
+        }, 0);
+    },
+
+    selectRespectingDependencies(scoredPistes, scoreKey, options = {}) {
+        const maximumPistes = this.getMaximumPistes(options.fallbackMax || 10);
+        const dependencyMap = this.buildDependencyMap(scoredPistes);
+        const remaining = [...scoredPistes];
+        const selected = [];
+        const selectedRefs = new Set();
+        let budgetUsed = 0;
+
+        while (selected.length < maximumPistes && remaining.length > 0) {
+            const feasible = remaining.filter(piste => {
+                const cost = piste.budget?.cout_3_ans || 0;
+                const fitsBudget = !this.constraints.budget.enabled || budgetUsed + cost <= this.constraints.budget.value;
+                const fitsDuration = !this.constraints.duree.enabled || (piste.delai_mois || 0) <= this.constraints.duree.value;
+                const fitsReduction = !this.constraints.reductionAccidents.enabled ||
+                    (piste.impact_score || 0) >= this.constraints.reductionAccidents.value;
+
+                return fitsBudget && fitsDuration && fitsReduction;
+            });
+            const candidates = feasible
+                .filter(piste => {
+                    const ref = this.getPisteRef(piste);
+                    const deps = dependencyMap[ref] || [];
+                    return deps.every(dep => selectedRefs.has(dep));
+                })
+                .sort((a, b) => {
+                    const scoreDiff = (b[scoreKey] || 0) - (a[scoreKey] || 0);
+                    if (scoreDiff !== 0) return scoreDiff;
+                    return (a.delai_mois || 0) - (b.delai_mois || 0);
+                });
+
+            if (candidates.length === 0 && feasible.length === 0) break;
+
+            const next = candidates[0] || feasible.sort((a, b) => {
+                const scoreDiff = (b[scoreKey] || 0) - (a[scoreKey] || 0);
+                if (scoreDiff !== 0) return scoreDiff;
+                return (a.delai_mois || 0) - (b.delai_mois || 0);
+            })[0];
+            selected.push(next);
+            selectedRefs.add(this.getPisteRef(next));
+            budgetUsed += next.budget?.cout_3_ans || 0;
+            remaining.splice(remaining.findIndex(piste => this.getPisteRef(piste) === this.getPisteRef(next)), 1);
+        }
+
+        return selected;
+    },
+
     formatTeams(count) {
         const value = Math.max(1, Math.round(Number(count) || 1));
         return `${value} équipe${value > 1 ? 's' : ''}`;
@@ -1033,6 +1172,9 @@ pages.Simulateur = {
         this.results.selectedPistes = Array.isArray(preset.pistes) ? preset.pistes : [];
         this.results.paretoFront = [];
         this.calculateAggregatedMetrics();
+        if (preset.planning && Array.isArray(preset.planning.teams)) {
+            this.results.planning = preset.planning;
+        }
         this.diagnosticSource = {
             name: preset.name || 'personnalisée',
             prospectName: profile.prospectName || ''
@@ -1127,13 +1269,12 @@ pages.Simulateur = {
             
             return {
                 ...piste,
-                _score: score / weights
+                _score: (score / weights) + this.getRelationBonus(piste)
             };
         });
         
         // Trier par score et sélectionner les meilleures
-        const sorted = scoredPistes.sort((a, b) => b._score - a._score);
-        this.results.selectedPistes = sorted.slice(0, Math.min(this.getMaximumPistes(10), sorted.length));
+        this.results.selectedPistes = this.selectRespectingDependencies(scoredPistes, '_score', { fallbackMax: 10 });
         
         // Calculer les métriques agrégées
         this.calculateAggregatedMetrics();
@@ -1192,48 +1333,16 @@ pages.Simulateur = {
 
     runBudgetFirstOptimization(allPistes) {
         if (!this.constraints.budget.enabled) {
-            alert('Le mode "Budget d\'abord" nécessite une contrainte budgétaire');
+            alert('Le mode "Budget d\'abord" necessite une contrainte budgetaire');
             return;
         }
-        
-        // Calculer l'efficacité (impact par euro)
+
         const withEfficiency = allPistes.map(piste => ({
             ...piste,
-            _efficiency: (piste.impact_score || 0) / (piste.budget?.cout_3_ans || 1)
+            _efficiency: ((piste.impact_score || 0) + this.getRelationBonus(piste)) / (piste.budget?.cout_3_ans || 1)
         }));
-        
-        // Trier par efficacité
-        const sorted = withEfficiency.sort((a, b) => b._efficiency - a._efficiency);
-        
-        // Sélectionner les meilleures dans la limite du budget
-        let budgetLeft = this.constraints.budget.value;
-        const selected = [];
-        const maximumPistes = this.getMaximumPistes();
-        
-        for (const piste of sorted) {
-            if (selected.length >= maximumPistes) break;
 
-            const cost = piste.budget?.cout_3_ans || 0;
-            
-            if (cost <= budgetLeft) {
-                // Vérifier les autres contraintes
-                if (this.constraints.duree.enabled && (piste.delai_mois || 0) > this.constraints.duree.value) {
-                    continue;
-                }
-                
-                if (this.constraints.reductionAccidents.enabled) {
-                    const reduction = (piste.impact_score || 0) / 100;
-                    if (reduction * 100 < this.constraints.reductionAccidents.value) {
-                        continue;
-                    }
-                }
-                
-                selected.push(piste);
-                budgetLeft -= cost;
-            }
-        }
-        
-        this.results.selectedPistes = selected;
+        this.results.selectedPistes = this.selectRespectingDependencies(withEfficiency, '_efficiency');
         this.calculateAggregatedMetrics();
     },
 
@@ -1324,22 +1433,43 @@ pages.Simulateur = {
             availableAt: 0,
             tasks: []
         }));
-        const tasks = [...(pistes || [])]
-            .map(piste => ({ piste, duration: Math.max(1, Math.round(Number(piste.delai_mois) || 1)) }))
-            .sort((left, right) => right.duration - left.duration);
+        const dependencyMap = this.buildDependencyMap(pistes || []);
+        const tasks = [...(pistes || [])].map(piste => ({
+            piste,
+            ref: this.getPisteRef(piste),
+            duration: Math.max(1, Math.round(Number(piste.delai_mois) || 1))
+        }));
+        const unscheduled = [...tasks];
+        const completedAt = {};
 
-        tasks.forEach(task => {
-            const team = teams.reduce((earliest, candidate) =>
-                candidate.availableAt < earliest.availableAt ? candidate : earliest, teams[0]);
+        while (unscheduled.length > 0) {
+            const readyTasks = unscheduled
+                .filter(task => (dependencyMap[task.ref] || []).every(dep => completedAt[dep] !== undefined))
+                .sort((left, right) => {
+                    const leftScore = left.piste._score || left.piste.impact_score || 0;
+                    const rightScore = right.piste._score || right.piste.impact_score || 0;
+                    if (rightScore !== leftScore) return rightScore - leftScore;
+                    return right.duration - left.duration;
+                });
+            const task = readyTasks[0] || unscheduled[0];
+            const earliestStart = Math.max(0, ...(dependencyMap[task.ref] || []).map(dep => completedAt[dep] || 0));
+            const team = teams.reduce((best, candidate) => {
+                const bestStart = Math.max(best.availableAt, earliestStart);
+                const candidateStart = Math.max(candidate.availableAt, earliestStart);
+                return candidateStart < bestStart ? candidate : best;
+            }, teams[0]);
+            const start = Math.max(team.availableAt, earliestStart);
             const scheduledTask = {
                 piste: task.piste,
                 duration: task.duration,
-                start: team.availableAt,
-                end: team.availableAt + task.duration
+                start,
+                end: start + task.duration
             };
             team.tasks.push(scheduledTask);
             team.availableAt = scheduledTask.end;
-        });
+            completedAt[task.ref] = scheduledTask.end;
+            unscheduled.splice(unscheduled.findIndex(candidate => candidate.ref === task.ref), 1);
+        }
 
         const sequentialDuration = tasks.reduce((sum, task) => sum + task.duration, 0);
         const totalDuration = teams.reduce((longest, team) => Math.max(longest, team.availableAt), 0);

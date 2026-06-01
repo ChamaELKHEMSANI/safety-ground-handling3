@@ -810,6 +810,44 @@ pages.ScenarioDetail = {
         };
     },
 
+
+    getTimelinePriorityStyle(piste) {
+        const priority = String(piste?.priorite || '').toLowerCase();
+        if (priority === 'p1' || priority.includes('critical')) return { bg: '#dc2626', soft: 'rgba(220, 38, 38, 0.16)', text: '#991b1b', label: 'P1', name: 'Critique' };
+        if (priority === 'p2' || priority.includes('high')) return { bg: '#f97316', soft: 'rgba(249, 115, 22, 0.16)', text: '#c2410c', label: 'P2', name: 'Haute' };
+        if (priority === 'p3' || priority.includes('medium')) return { bg: '#ca8a04', soft: 'rgba(202, 138, 4, 0.16)', text: '#854d0e', label: 'P3', name: 'Moyenne' };
+        if (priority === 'p4' || priority.includes('low')) return { bg: '#2563eb', soft: 'rgba(37, 99, 235, 0.16)', text: '#1d4ed8', label: 'P4', name: 'Basse' };
+        if (priority.includes('quick')) return { bg: '#059669', soft: 'rgba(5, 150, 105, 0.16)', text: '#065f46', label: 'QW', name: 'Quick Win' };
+        if (priority.includes('strat')) return { bg: '#d97706', soft: 'rgba(217, 119, 6, 0.16)', text: '#92400e', label: 'S', name: 'Strategique' };
+        if (priority.includes('compl')) return { bg: '#2563eb', soft: 'rgba(37, 99, 235, 0.16)', text: '#1d4ed8', label: 'C', name: 'Complementaire' };
+        if (priority.includes('long')) return { bg: '#7c3aed', soft: 'rgba(124, 58, 237, 0.16)', text: '#6d28d9', label: 'LT', name: 'Long Terme' };
+        return { bg: '#64748b', soft: 'rgba(100, 116, 139, 0.16)', text: '#475569', label: 'NA', name: 'Non definie' };
+    },
+
+    renderTimelineTaskTooltip(piste, task) {
+        const safe = value => Utils.escapeHtml(value ?? '');
+        const score = piste?.rating ?? piste?.impact_score ?? '-';
+        const priority = this.getTimelinePriorityStyle(piste).name;
+        const category = piste?.categorie || piste?.famille || 'Non definie';
+        const impact = piste?.niveau_impact ?? piste?.impact_score ?? '-';
+        const faisabilite = piste?.niveau_faisabilite ?? '-';
+        const relations = Array.isArray(piste?.relations) ? piste.relations.length : 0;
+
+        return `
+            <span class="timeline-tooltip-card" role="tooltip">
+                <strong>${safe(piste?.numero || '')} - ${safe(piste?.titre || 'Sans titre')}</strong>
+                <em>${safe(piste?.slogan || '')}</em>
+                <span><b>Score</b><i>${safe(score)}</i></span>
+                <span><b>Priorite</b><i>${safe(priority)}</i></span>
+                <span><b>Categorie</b><i>${safe(category)}</i></span>
+                <span><b>Duree</b><i>${safe(task.duration)} mois</i></span>
+                <span><b>Planning</b><i>M${safe(task.start)} - M${safe(task.end)}</i></span>
+                <span><b>Faisabilite</b><i>${safe(faisabilite)}</i></span>
+                <span><b>Impact</b><i>${safe(impact)}</i></span>
+                <span><b>Relations</b><i>${relations}</i></span>
+            </span>
+        `;
+    },
     renderPlanningTimeline(planning) {
         const horizon = Math.max(1, Number(planning.totalDuration) || 1);
         const teamCount = Number(planning.teamCount) || 1;
@@ -830,9 +868,11 @@ pages.ScenarioDetail = {
                                 ${team.tasks.map(task => {
                                     const piste = task.piste || task.track;
                                     if (!piste) return '';
+                                    const style = this.getTimelinePriorityStyle(piste);
                                     return `
-                                    <div class="scenario-task" style="left: ${(task.start / horizon) * 100}%; width: ${(task.duration / horizon) * 100}%">
+                                    <div class="scenario-task timeline-task-priority" style="left: ${(task.start / horizon) * 100}%; width: ${(task.duration / horizon) * 100}%; background: ${style.bg}; border-left-color: ${style.text};">
                                         ${Utils.escapeHtml(piste.numero || '')} <small>${task.duration} mois</small>
+                                        ${this.renderTimelineTaskTooltip(piste, task)}
                                     </div>
                                 `;
                                 }).join('')}
