@@ -65,7 +65,7 @@ pages.Admin = {
                 <footer class="admin-footer">
                     <div class="footer-info">
                         <span class="material-symbols-outlined">info</span>
-                        <span>Version 2.0.0 | Dernière mise à jour: ${new Date().toLocaleDateString('fr-FR')}</span>
+                        <span>Version 2.0.0 Chama EL KHEMSANI | Dernière mise à jour: ${new Date().toLocaleDateString('fr-FR')}</span>
                     </div>
                     <div class="footer-links">
                         <a href="#" onclick="pages.Admin.showHelp()">Documentation</a>
@@ -825,7 +825,7 @@ pages.Admin = {
     },
 
     showAbout() {
-        alert('CDG 2026 Safety Management System\nVersion 2.0.0\n© 2026 - Tous droits réservés');
+        alert('Safety Management System\nVersion 2.0.0\n© Chama EL KHEMSANI  - Tous droits réservés');
     },
 
     rerender() {

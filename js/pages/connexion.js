@@ -138,7 +138,7 @@ pages.Connexion = {
                 </form>
 
                 <!-- Informations de démonstration -->
-                <div class="demo-info">
+                <!--div class="demo-info">
                     <p class="demo-title">Mode démonstration : accès et droits simulés dans le navigateur.</p>
                     <p class="demo-title">Comptes de démonstration :</p>
                     <div class="demo-accounts">
@@ -151,7 +151,7 @@ pages.Connexion = {
                             <span>user@cdg2026.fr</span>
                         </div>
                     </div>
-                </div>
+                </div-->
             </div>
         `;
     },
