@@ -34,7 +34,7 @@ const Footer = {
 
                         <div class="footer-section">
                             <h4><a href="/problematique" >Informations</a></h4>
-                            <p class="footer-info">© ${currentYear} . Tous droits réservés.</p>
+                            <p class="footer-info">© ${currentYear} .Chama EL KHEMSANI . Tous droits réservés.</p>
                             <p class="footer-info">Version 2.0.0</p>
                         </div>
                     </div>
