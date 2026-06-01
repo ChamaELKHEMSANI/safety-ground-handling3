@@ -31,18 +31,6 @@ window.pages.Diagnostic = {
 
         return `
             <div class="diagnostic-page">
-                <header class="diagnostic-hero">
-                    <div>
-                        <p class="diagnostic-eyebrow">Parcours prospect</p>
-                        <h1>Diagnostic sécurité personnalisé</h1>
-                        <p>Décrivez vos priorités en moins de deux minutes. Le simulateur prépare trois feuilles de route expliquées et exportables.</p>
-                    </div>
-                    <div class="diagnostic-steps" aria-label="Étapes du diagnostic">
-                        <span class="active">1. Contexte</span>
-                        <span>2. Recommandations</span>
-                        <span>3. Présentation</span>
-                    </div>
-                </header>
 
                 <div class="diagnostic-layout">
                     <section class="diagnostic-form-card">
