@@ -682,7 +682,7 @@ pages.Apropos = {
                         <span class="version-badge">Version actuelle</span>
                         <span class="version-date">15 septembre 2026</span>
                     </div>
-                    <h3>Version 2.0.0 - Lancement officiel</h3>
+                    <h3>Version 3.0.0 - Lancement officiel</h3>
                     <div class="version-features">
                         <h4>Nouvelles fonctionnalités :</h4>
                         <ul>
