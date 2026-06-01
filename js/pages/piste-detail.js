@@ -1198,8 +1198,389 @@ pages.PisteDetail = {
         }
     },
 
+    safeText(value) {
+        return Utils.escapeHtml(value ?? '');
+    },
+
+    getElementsForPDF(piste, types, limit = 4) {
+        const elementsByType = this.groupElementsByType(piste);
+        return types.flatMap(type => (elementsByType[type] || []).map(element => ({ type, element }))).slice(0, limit);
+    },
+
+    summarizeElementForPDF(item) {
+        const element = item.element || {};
+        const title = element.nom || element.risque || element.titre || element.label || this.TYPE_TITLES[item.type] || item.type;
+        const detail = element.description || element.texte || element.valeur || element.meta_donnees || element.condition || element.avantage || '';
+        return {
+            title,
+            detail,
+            mitigation: element.mitigation || element.action || '',
+            probability: element.probabilite || '',
+            severity: element.gravite || '',
+            target: element.cible || '',
+            current: element.unite || '',
+            result: element.meta_donnees || element.meta_donnees2 || ''
+        };
+    },
+
+    uniqueProjectItems(items, fallback) {
+        const seen = new Set();
+        const unique = items
+            .filter(item => item && (item.title || item.detail || item.action))
+            .filter(item => {
+                const key = [item.title, item.detail, item.action].map(value => String(value || '').trim().toLowerCase()).join('|');
+                if (seen.has(key)) return false;
+                seen.add(key);
+                return true;
+            });
+        return unique.length ? unique : fallback;
+    },
+
+    buildProjectDeliverables(piste) {
+        const rawItems = this.getElementsForPDF(piste, ['equipement', 'developpement_contenu', 'budget_investissement', 'facteur_acceptation', 'phase', 'modalite', 'perimetre_deploiement', 'pilote', 'extension', 'generalisation'], 12)
+            .map(item => this.summarizeElementForPDF(item));
+        const deliverables = rawItems
+            .filter(item => !/^total\b/i.test(item.title || ''))
+            .slice(0, 6)
+            .map((item, index) => ({
+                title: item.title && !/^phase\s+\d+/i.test(item.title) ? item.title : `Lot ${index + 1}`,
+                action: item.detail
+                    ? `Livrer et valider : ${item.detail}`
+                    : `Formaliser le contenu du lot, son responsable, ses criteres de reception et son jalon de validation.`,
+                owner: index === 0 ? 'Chef de projet / sponsor' : 'Responsable de lot'
+            }));
+
+        return this.uniqueProjectItems(deliverables, [
+            { title: 'Note de cadrage', action: 'Valider le perimetre, les objectifs, les responsables et les criteres de succes.', owner: 'Chef de projet' },
+            { title: 'Plan de deploiement', action: 'Decouper la mise en oeuvre en lots, jalons, dependances et ressources.', owner: 'Chef de projet' },
+            { title: 'Dossier de passage en exploitation', action: 'Documenter les procedures, le suivi et les points de reprise par les equipes operationnelles.', owner: 'Referent metier' }
+        ]);
+    },
+    buildProjectRisks(piste) {
+        const topLevelRisks = Array.isArray(piste.risques)
+            ? piste.risques.map(risk => ({
+                title: risk.nom || risk.risque || 'Risque',
+                detail: [
+                    risk.probabilite ? `Probabilite : ${risk.probabilite}` : '',
+                    risk.gravite ? `Gravite : ${risk.gravite}` : ''
+                ].filter(Boolean).join(' - ') || 'Point de vigilance a qualifier pendant le cadrage.',
+                action: risk.mitigation || 'Definir une mesure de mitigation et un responsable.'
+            }))
+            : [];
+        const rawItems = this.getElementsForPDF(piste, ['risque', 'condition_juridique', 'obligation', 'obligation_prealable'], 8)
+            .map(item => this.summarizeElementForPDF(item));
+        const risks = rawItems.map((item, index) => {
+            const label = item.title && !/^risques? et mitigation$/i.test(item.title) ? item.title : `Risque ${index + 1}`;
+            const detail = [
+                item.detail,
+                item.probability ? `Probabilite : ${item.probability}` : '',
+                item.severity ? `Gravite : ${item.severity}` : ''
+            ].filter(Boolean).join(' - ') || 'Point de vigilance a qualifier pendant le cadrage.';
+            return {
+                title: label,
+                detail,
+                action: item.mitigation || `Qualifier le risque, designer un responsable et valider une mesure de mitigation avant le jalon de lancement.`
+            };
+        });
+
+        return this.uniqueProjectItems([...topLevelRisks, ...risks], [
+            { title: 'Adoption terrain', detail: 'Risque de faible appropriation par les equipes.', action: 'Prevoir communication, formation courte et relais operationnels.' },
+            { title: 'Contraintes operationnelles', detail: 'Risque de perturbation de l activite pendant le deploiement.', action: 'Planifier les interventions hors pics et suivre les impacts terrain.' }
+        ]);
+    },
+    buildProjectIndicators(piste) {
+        const rawItems = this.getElementsForPDF(piste, ['indicateur', 'indicateur_activite', 'indicateur_resultat', 'indicateur_cle', 'indicateur_impact'], 8)
+            .map(item => this.summarizeElementForPDF(item));
+        const indicators = rawItems.map(item => ({
+            title: item.title || 'Indicateur',
+            detail: item.detail || 'Valeur cible à fixer au cadrage.',
+            action: 'Mesure mensuelle en comité projet, avec comparaison cible / réalisé et décision corrective si écart.'
+        }));
+
+        return this.uniqueProjectItems(indicators, [
+            { title: 'Avancement', detail: 'Taux de réalisation des lots et respect des jalons.', action: 'Revue mensuelle chef de projet.' },
+            { title: 'Impact sécurité', detail: 'Évolution des incidents, accidents évités et signaux faibles.', action: 'Revue avec le référent sécurité.' },
+            { title: 'Budget consommé', detail: 'Consommé, engagé et reste à faire.', action: 'Revue trimestrielle avec sponsor.' }
+        ]);
+    },
+
+    buildProjectDecisions(piste) {
+        const rawItems = this.getElementsForPDF(piste, ['question_technique', 'question_operationnelle', 'demande', 'recommandation'], 6)
+            .map(item => this.summarizeElementForPDF(item));
+        const decisions = rawItems.map(item => ({
+            title: item.title || 'Décision',
+            detail: item.detail || 'Arbitrage à documenter.',
+            action: 'Décider en comité projet : responsable, échéance, budget et condition de passage au jalon suivant.'
+        }));
+
+        return this.uniqueProjectItems(decisions, [
+            { title: 'Sponsor et gouvernance', detail: 'Confirmer le sponsor, le chef de projet et le rythme de comité.', action: 'Décision à prendre avant lancement.' },
+            { title: 'Ressources et calendrier', detail: 'Valider la disponibilité des équipes, le calendrier cible et les dépendances.', action: 'Décision à prendre au cadrage.' },
+            { title: 'Critères de passage en exploitation', detail: 'Définir les livrables minimums, indicateurs et seuils d’acceptation.', action: 'Décision à prendre avant clôture.' }
+        ]);
+    },
+
+    buildPisteProjectTimeline(piste) {
+        const duration = Math.max(1, Math.round(Number(piste.delai_mois) || 3));
+        const phaseCount = duration <= 3 ? duration : Math.min(4, Math.ceil(duration / 3));
+        const phaseLength = Math.max(1, Math.ceil(duration / phaseCount));
+        const labels = ['Cadrage', 'Pilote', 'Déploiement', 'Stabilisation'];
+
+        return Array.from({ length: phaseCount }, (_, index) => {
+            const start = index * phaseLength;
+            const end = index === phaseCount - 1 ? duration : Math.min(duration, (index + 1) * phaseLength);
+            const actions = [
+                index === 0 ? 'Valider le périmètre, le sponsor, le responsable projet et les prérequis.' : null,
+                index === 0 ? 'Préparer le budget, le planning de référence et les critères de succès.' : null,
+                index > 0 && index < phaseCount - 1 ? 'Exécuter les lots prévus, suivre les risques et arbitrer les points bloquants.' : null,
+                index > 0 && index < phaseCount - 1 ? 'Organiser les retours terrain et ajuster le dispositif avant extension.' : null,
+                index === phaseCount - 1 ? 'Finaliser les livrables, mesurer les premiers résultats et préparer le passage en exploitation.' : null,
+                index === phaseCount - 1 ? 'Documenter le bilan, les décisions restantes et le plan de suivi.' : null
+            ].filter(Boolean);
+
+            return { label: labels[index] || `Phase ${index + 1}`, start, end, actions };
+        });
+    },
+
+    renderPisteProjectPDFHTML(piste) {
+        const safe = value => this.safeText(value);
+        const styleOpen = '<' + 'style>';
+        const styleClose = '</' + 'style>';
+        const timeline = this.buildPisteProjectTimeline(piste);
+        const risks = this.buildProjectRisks(piste);
+        const indicators = this.buildProjectIndicators(piste);
+        const implementation = this.buildProjectDeliverables(piste);
+        const questions = this.buildProjectDecisions(piste);
+        const priorityLabel = Utils.getPriorityLabel ? Utils.getPriorityLabel(piste.priorite) : (piste.priorite || 'Non définie');
+        const generatedAt = new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' });
+
+        return `
+            <article class="piste-project-plan">
+                ${styleOpen}
+                    .piste-project-plan { width: 720px; box-sizing: border-box; padding: 28px; background: #fff; color: #172033; font-family: Arial, sans-serif; font-size: 11px; line-height: 1.45; }
+                    .piste-project-plan * { box-sizing: border-box; }
+                    .piste-cover { border-bottom: 3px solid #003D82; padding-bottom: 16px; margin-bottom: 18px; }
+                    .piste-eyebrow { color: #64748b; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+                    .piste-cover h1 { margin: 6px 0 6px; color: #003D82; font-size: 25px; line-height: 1.15; }
+                    .piste-cover p { margin: 0; color: #475569; font-size: 12px; }
+                    .piste-meta, .piste-kpis, .piste-columns { display: grid; gap: 8px; }
+                    .piste-meta { grid-template-columns: repeat(4, 1fr); margin-top: 14px; }
+                    .piste-kpis { grid-template-columns: repeat(4, 1fr); }
+                    .piste-columns { grid-template-columns: 1fr 1fr; }
+                    .piste-card, .piste-kpi, .piste-phase { border: 1px solid #dbe3ef; border-radius: 6px; padding: 10px; background: #f8fafc; page-break-inside: avoid; }
+                    .piste-kpi span, .piste-meta span { display: block; color: #64748b; font-size: 9px; text-transform: uppercase; font-weight: 700; }
+                    .piste-kpi strong, .piste-meta strong { display: block; color: #0f172a; font-size: 14px; margin-top: 3px; }
+                    .piste-section { margin-top: 18px; page-break-inside: avoid; }
+                    .piste-section h2 { color: #003D82; font-size: 15px; margin: 0 0 9px; padding-bottom: 5px; border-bottom: 1px solid #dbe3ef; }
+                    .piste-table { width: 100%; border-collapse: collapse; }
+                    .piste-table th { background: #003D82; color: #fff; padding: 7px; text-align: left; font-size: 9px; }
+                    .piste-table td { border-bottom: 1px solid #e2e8f0; padding: 7px; vertical-align: top; }
+                    .piste-action-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+                    .piste-action-table th { background: #e8f0fb; color: #003D82; padding: 6px; text-align: left; font-size: 9px; }
+                    .piste-action-table td { border-bottom: 1px solid #e2e8f0; padding: 6px; vertical-align: top; }
+                    .piste-action-table b { color: #0f172a; }
+                    .piste-phase { margin-bottom: 8px; }
+                    .piste-phase h3 { margin: 0 0 4px; color: #0f172a; font-size: 12px; }
+                    .piste-phase small { color: #64748b; font-weight: 700; }
+                    .piste-phase ul, .piste-card ul { margin: 8px 0 0 16px; padding: 0; }
+                    .piste-pill { display: inline-block; padding: 2px 6px; border-radius: 999px; color: #fff; background: ${this.getPriorityColor(piste.priorite)}; font-weight: 700; font-size: 9px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+                    .piste-footer { margin-top: 18px; color: #64748b; font-size: 9px; text-align: right; }
+                ${styleClose}
+
+                <section class="piste-cover">
+                    <div class="piste-eyebrow">Fiche action projet sécurité CDG</div>
+                    <h1>${safe(piste.numero || '')} - ${safe(piste.titre || 'Sans titre')}</h1>
+                    <p>${safe(piste.titre_long || piste.slogan || piste.description || '')}</p>
+                    <div class="piste-meta">
+                        <div class="piste-card"><span>Date</span><strong>${safe(generatedAt)}</strong></div>
+                        <div class="piste-card"><span>Priorité</span><strong><span class="piste-pill">${safe(priorityLabel)}</span></strong></div>
+                        <div class="piste-card"><span>Catégorie</span><strong>${safe(piste.categorie || 'N/A')}</strong></div>
+                        <div class="piste-card"><span>Famille</span><strong>${safe(piste.famille || 'N/A')}</strong></div>
+                    </div>
+                </section>
+
+                <section class="piste-section">
+                    <h2>1. Synthèse de décision</h2>
+                    <div class="piste-kpis">
+                        <div class="piste-kpi"><span>Budget 3 ans</span><strong>${this.formatBudget(piste.budget?.cout_3_ans || 0)}</strong></div>
+                        <div class="piste-kpi"><span>Déploiement</span><strong>${safe(piste.delai_texte || `${piste.delai_mois || '?'} mois`)}</strong></div>
+                        <div class="piste-kpi"><span>Impact</span><strong>${piste.impact_score || 0}/100</strong></div>
+                        <div class="piste-kpi"><span>Délai retour</span><strong>${safe(piste.roi_texte || `${piste.roi_mois || '?'} mois`)}</strong></div>
+                    </div>
+                    <div class="piste-card" style="margin-top:10px;">
+                        <strong>Objectif projet</strong>
+                        <p>${safe(piste.description_longue || piste.description || 'Objectif à préciser lors du cadrage projet.')}</p>
+                    </div>
+                </section>
+
+                <section class="piste-section">
+                    <h2>2. Plan de mise en oeuvre</h2>
+                    ${timeline.map(phase => `
+                        <div class="piste-phase">
+                            <small>M${phase.start} à M${phase.end}</small>
+                            <h3>${safe(phase.label)}</h3>
+                            <ul>${phase.actions.map(action => `<li>${safe(action)}</li>`).join('')}</ul>
+                        </div>
+                    `).join('')}
+                </section>
+
+                <section class="piste-section">
+                    <h2>3. Budget et impacts attendus</h2>
+                    <table class="piste-table">
+                        <tbody>
+                            <tr><th>Poste</th><th>Valeur</th><th>Lecture chef de projet</th></tr>
+                            <tr><td>Budget 2026</td><td>${this.formatBudget(piste.budget?.cout_2026 || 0)}</td><td>Engagement initial et cadrage.</td></tr>
+                            <tr><td>Budget 2027</td><td>${this.formatBudget(piste.budget?.cout_2027 || 0)}</td><td>Déploiement et montée en charge.</td></tr>
+                            <tr><td>Budget 2028</td><td>${this.formatBudget(piste.budget?.cout_2028 || 0)}</td><td>Stabilisation et généralisation.</td></tr>
+                            <tr><td>Coût récurrent annuel</td><td>${this.formatBudget(piste.budget?.cout_recurrent_annuel || 0)}</td><td>Charge à intégrer au run.</td></tr>
+                            <tr><td>Accidents évités estimés</td><td>${piste.impact_accidents_evites || 0}/an</td><td>Indicateur de bénéfice sécurité.</td></tr>
+                            <tr><td>Économies estimées</td><td>${this.formatBudget(piste.impact_economies || 0)}/an</td><td>Mesure économique à suivre.</td></tr>
+                        </tbody>
+                    </table>
+                </section>                <section class="piste-section">
+                    <h2>4. Livrables, prerequis et points de vigilance</h2>
+                    <div class="piste-columns">
+                        <div class="piste-card">
+                            <strong>Livrables / modalites</strong>
+                            <table class="piste-action-table">
+                                <tr><th>Livrable</th><th>Action attendue</th><th>Responsable</th></tr>
+                                ${implementation.map(item => `
+                                    <tr>
+                                        <td><b>${safe(item.title)}</b></td>
+                                        <td>${safe(item.action || item.detail)}</td>
+                                        <td>${safe(item.owner || 'Chef de projet')}</td>
+                                    </tr>
+                                `).join('')}
+                            </table>
+                        </div>
+                        <div class="piste-card">
+                            <strong>Risques / prerequis</strong>
+                            <table class="piste-action-table">
+                                <tr><th>Point de vigilance</th><th>Constat</th><th>Mitigation</th></tr>
+                                ${risks.map(item => `
+                                    <tr>
+                                        <td><b>${safe(item.title)}</b></td>
+                                        <td>${safe(item.detail)}</td>
+                                        <td>${safe(item.action)}</td>
+                                    </tr>
+                                `).join('')}
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="piste-section">
+                    <h2>5. Suivi projet</h2>
+                    <div class="piste-columns">
+                        <div class="piste-card">
+                            <strong>Indicateurs a suivre</strong>
+                            <table class="piste-action-table">
+                                <tr><th>Indicateur</th><th>Lecture</th><th>Rituel</th></tr>
+                                ${indicators.map(item => `
+                                    <tr>
+                                        <td><b>${safe(item.title)}</b></td>
+                                        <td>${safe(item.detail)}</td>
+                                        <td>${safe(item.action)}</td>
+                                    </tr>
+                                `).join('')}
+                            </table>
+                        </div>
+                        <div class="piste-card">
+                            <strong>Decisions a preparer</strong>
+                            <table class="piste-action-table">
+                                <tr><th>Decision</th><th>Pourquoi</th><th>Action de gouvernance</th></tr>
+                                ${questions.map(item => `
+                                    <tr>
+                                        <td><b>${safe(item.title)}</b></td>
+                                        <td>${safe(item.detail)}</td>
+                                        <td>${safe(item.action)}</td>
+                                    </tr>
+                                `).join('')}
+                            </table>
+                        </div>
+                    </div>
+                </section>                <section class="piste-section">
+                    <h2>6. Validation</h2>
+                    <div class="piste-columns">
+                        <div class="piste-card"><strong>Sponsor</strong><br><br>Nom / signature :</div>
+                        <div class="piste-card"><strong>Chef de projet</strong><br><br>Nom / signature :</div>
+                    </div>
+                </section>
+
+                <div class="piste-footer">Document généré depuis la fiche piste ${safe(piste.numero || '')} - Safety CDG</div>
+            </article>
+        `;
+    },
+
+    generatePrintablePistePlanHTML(piste) {
+        const title = this.safeText(`Fiche action - ${piste.numero || ''} ${piste.titre || ''}`);
+        const styleOpen = '<' + 'style>';
+        const styleClose = '</' + 'style>';
+        const scriptOpen = '<' + 'script>';
+        const scriptClose = '</' + 'script>';
+
+        return `<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>${title}</title>
+    ${styleOpen}
+        @page { size: A4; margin: 12mm; }
+        html, body { margin: 0; padding: 0; background: #f1f5f9; }
+        body { display: flex; justify-content: center; }
+        .piste-project-plan { box-shadow: 0 20px 60px rgba(15, 23, 42, .16); margin: 24px 0; }
+        .print-toolbar { position: fixed; top: 12px; right: 12px; display: flex; gap: 8px; z-index: 10; }
+        .print-toolbar button { border: 0; border-radius: 6px; padding: 10px 14px; background: #003D82; color: #fff; font: 700 13px Arial, sans-serif; cursor: pointer; }
+        .print-toolbar button.secondary { background: #475569; }
+        @media print {
+            html, body { background: #fff; display: block; }
+            .print-toolbar { display: none; }
+            .piste-project-plan { width: auto !important; margin: 0 !important; padding: 0 !important; box-shadow: none !important; }
+            .piste-section, .piste-card, .piste-phase { break-inside: avoid; }
+        }
+    ${styleClose}
+</head>
+<body>
+    <div class="print-toolbar">
+        <button type="button" onclick="window.print()">Imprimer / Enregistrer en PDF</button>
+        <button type="button" class="secondary" onclick="window.close()">Fermer</button>
+    </div>
+    ${this.renderPisteProjectPDFHTML(piste)}
+    ${scriptOpen}
+        window.addEventListener('load', function () {
+            setTimeout(function () { window.print(); }, 300);
+        });
+    ${scriptClose}
+</body>
+</html>`;
+    },
+
     async exportToPDF() {
         try {
+            const piste = this.currentPiste;
+            if (!piste) {
+                throw new Error('Piste introuvable');
+            }
+
+            const html = this.generatePrintablePistePlanHTML(piste);
+            const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const printWindow = window.open(url, '_blank', 'noopener,noreferrer');
+
+            if (!printWindow) {
+                URL.revokeObjectURL(url);
+                if (window.Notifications) {
+                    Notifications.error('Ouverture bloquée par le navigateur. Autorisez les pop-ups puis réessayez.');
+                }
+                return;
+            }
+
+            if (window.Notifications) {
+                Notifications.success('Fiche action ouverte dans un nouvel onglet. Utilisez Imprimer puis Enregistrer en PDF.');
+            }
+            return;
+
             // Afficher un indicateur de chargement
             const loadingMsg = document.createElement('div');
             loadingMsg.className = 'pdf-loading';
@@ -1217,7 +1598,7 @@ pages.PisteDetail = {
             }
 
             const element = document.getElementById('pdf-content');
-            const piste = this.currentPiste;
+            const legacyPiste = this.currentPiste;
 
             if (!element) {
                 throw new Error('Contenu PDF introuvable');
@@ -1232,7 +1613,7 @@ pages.PisteDetail = {
             // Options pour le PDF
             const opt = {
                 margin:        [0.3, 0.3, 0.3, 0.3],
-                filename:      `Piste_${piste.numero}_${piste.titre.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf`,
+                filename:      `Piste_${legacyPiste.numero}_${legacyPiste.titre.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.pdf`,
                 image:         { type: 'jpeg', quality: 0.98 },
                 html2canvas:   {
                     scale: 2,
