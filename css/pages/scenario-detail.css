@@ -619,3 +619,97 @@
                     .planning-indicators { grid-template-columns: 1fr; }
                     .scenario-team-row { grid-template-columns: 1fr; }
                 }
+
+
+/* Timeline priority colors and task identity tooltip */
+.timeline-task-priority {
+  position: absolute;
+  overflow: visible !important;
+  border-left: 4px solid rgba(15, 23, 42, 0.35);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.14);
+  z-index: 2;
+}
+.timeline-task-priority:hover {
+  z-index: 20;
+}
+.timeline-priority-chip {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 800;
+  line-height: 1;
+}
+.timeline-tooltip-card {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  transform: translateX(-50%);
+  display: none;
+  width: min(270px, 80vw);
+  padding: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  border-radius: 8px;
+  background: #fff;
+  color: #0f172a;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.22);
+  font-size: 12px;
+  line-height: 1.35;
+  text-align: left;
+  white-space: normal;
+  pointer-events: none;
+  z-index: 1000;
+}
+.timeline-task-priority:hover .timeline-tooltip-card {
+  display: block;
+}
+.timeline-tooltip-card strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #003D82;
+  font-size: 13px;
+}
+.timeline-tooltip-card em {
+  display: block;
+  margin-bottom: 8px;
+  color: #475569;
+  font-style: italic;
+}
+.timeline-tooltip-card span {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 2px 0;
+  border-top: 1px solid #f1f5f9;
+}
+.timeline-tooltip-card b {
+  color: #475569;
+  font-weight: 700;
+}
+.timeline-tooltip-card i {
+  color: #0f172a;
+  font-style: normal;
+  text-align: right;
+}
+.team-track,
+.editor-team-track,
+.compare-team-track,
+.decision-track,
+.scenario-team-track {
+  overflow: visible !important;
+}
+
+.timeline-task-priority > .timeline-tooltip-card {
+  display: none !important;
+}
+
+.timeline-task-priority:hover > .timeline-tooltip-card {
+  display: block !important;
+}
