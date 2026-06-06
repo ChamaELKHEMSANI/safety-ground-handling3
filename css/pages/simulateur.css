@@ -65,7 +65,7 @@
                 }
 
                 .btn-simulate {
-                    background: #FF6B35;
+                    background: var(--cdg-navy);
                     color: white;
                 }
 

@@ -130,7 +130,7 @@
     border: none;
     border-radius: 9px;
     color: white;
-    background: #ff6b35;
+    background:var(--cdg-navy);
     font-weight: 700;
     cursor: pointer;
 }
@@ -168,7 +168,7 @@
 
 .diagnostic-empty .material-symbols-outlined {
     font-size: 54px;
-    color: #ff6b35;
+    color: var(--cdg-navy);
     margin-bottom: 14px;
 }
 

@@ -85,7 +85,7 @@
                 }
                 
                 .btn-pdf {
-                    background: var(--cdg-orange);
+                    background: var(--cdg-navy);
                     color: white;
                 }
                 
@@ -301,7 +301,7 @@
                 }
 
                 .scenario-task:nth-child(even) {
-                    background: var(--cdg-orange);
+                    background: var(--cdg-navy);
                 }
 
                 .scenario-task small {
@@ -357,7 +357,7 @@
                 }
                 
                 .priority-red { background: var(--danger); }
-                .priority-orange { background: var(--cdg-orange); }
+                .priority-orange { background: var(--cdg-navy); }
                 .priority-yellow { background: var(--warning); }
                 .priority-blue { background: var(--info); }
                 

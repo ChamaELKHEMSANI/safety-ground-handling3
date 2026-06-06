@@ -13,7 +13,7 @@
                 background: var(--cdg-navy);
                 color: white;
                 padding: 12px 20px;
-                border-bottom: 4px solid var(--cdg-orange);
+                border-bottom: 4px solid var(--cdg-navy);
                 box-shadow: 0 4px 12px rgba(0,0,0,0.12);
             }
 
@@ -40,7 +40,7 @@
                 width: 36px;
                 height: 36px;
                 border-radius: 8px;
-                background: var(--cdg-orange);
+                background: var(--cdg-navy);
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -106,7 +106,7 @@
 
             .search-input:focus {
                 outline: none;
-                border-color: var(--cdg-orange);
+                border-color: var(--cdg-navy);
                 box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.12);
             }
 
@@ -132,13 +132,13 @@
                 font-size: 12px;
                 font-weight: 600;
                 cursor: pointer;
-                color: var(--cdg-orange);
+                color: var(--cdg-navy);
                 background: rgba(255,107,53,0.12);
             }
 
             .filter-btn.active {
                 color: white;
-                background: var(--cdg-orange);
+                background: var(--cdg-navy);
             }
 
             .sidebar-top .filter-btn.filter-p1 { background-color: #fee2e2; color: #dc2626; }
@@ -168,7 +168,7 @@
             .track-item:hover { background: var(--gray-50); }
             .track-item.active {
                 background: rgba(255,107,53,0.08);
-                border-left-color: var(--cdg-orange);
+                border-left-color: var(--cdg-navy);
             }
 
             .track-header {
@@ -178,7 +178,7 @@
                 margin-bottom: 8px;
             }
 
-            .track-id { font-size: 11px; font-weight: 700; color: var(--cdg-orange); }
+            .track-id { font-size: 11px; font-weight: 700; color: var(--cdg-navy); }
             .track-title { margin: 0; font-size: 14px; font-weight: 700; color: var(--cdg-navy); }
             .track-meta { margin-top: 8px; display: flex; gap: 10px; font-size: 12px; color: var(--gray-500); }
             .meta-item { display: inline-flex; align-items: center; gap: 4px; }
@@ -218,7 +218,7 @@
 
             .panel-title { margin: 0; font-size: 26px; color: var(--cdg-navy); }
             .breadcrumb { font-size: 12px; color: var(--gray-500); margin-bottom: 10px; }
-            .breadcrumb a { color: var(--cdg-orange); text-decoration: none; }
+            .breadcrumb a { color: var(--cdg-navy); text-decoration: none; }
 
             .panel-actions {
                 display: flex;
@@ -240,7 +240,7 @@
             .btn-delete { background: #fee2e2; color: #dc2626; }
             .btn-cancel { background: var(--gray-100); color: var(--gray-700); }
             .btn-view { background: #dbeafe; color: #1d4ed8; }
-            .btn-save { background: var(--cdg-orange); color: white; margin-left: auto; }
+            .btn-save { background: var(--cdg-navy); color: white; margin-left: auto; }
 
             .form-row {
                 display: grid;
@@ -272,7 +272,7 @@
 
             .form-input:focus, .editor-content:focus, textarea:focus, select:focus {
                 outline: none;
-                border-color: var(--cdg-orange);
+                border-color: var(--cdg-navy);
                 box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.12);
             }
 
@@ -370,12 +370,12 @@
             
             .tab-btn:hover {
                 background: rgba(255,107,53,0.1);
-                color: var(--cdg-orange);
+                color: var(--cdg-navy);
             }
             
             .tab-btn.active {
                 background: white;
-                color: var(--cdg-orange);
+                color: var(--cdg-navy);
                 box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             }
             
@@ -389,7 +389,7 @@
                 color: var(--cdg-navy);
                 margin: 20px 0 16px 0;
                 padding-bottom: 8px;
-                border-bottom: 2px solid var(--cdg-orange);
+                border-bottom: 2px solid var(--cdg-navy);
             }
             
             .tags-input-container {
@@ -406,7 +406,7 @@
             }
             
             .tag-item {
-                background: var(--cdg-orange);
+                background: var(--cdg-navy);
                 color: white;
                 padding: 4px 10px;
                 border-radius: 20px;
@@ -518,7 +518,7 @@
             .btn-add-element {
                 background: transparent;
                 border: none;
-                color: var(--cdg-orange);
+                color: var(--cdg-navy);
                 cursor: pointer;
                 padding: 4px;
                 border-radius: 4px;
@@ -546,8 +546,8 @@
             }
             
             .element-empty:hover {
-                border-color: var(--cdg-orange);
-                color: var(--cdg-orange);
+                border-color: var(--cdg-navy);
+                color: var(--cdg-navy);
             }
             
             .element-item {
@@ -654,9 +654,9 @@
                 margin-top: 16px;
                 padding: 12px;
                 background: white;
-                border: 2px dashed var(--cdg-orange);
+                border: 2px dashed var(--cdg-navy);
                 border-radius: 8px;
-                color: var(--cdg-orange);
+                color: var(--cdg-navy);
                 font-weight: 600;
                 cursor: pointer;
                 display: flex;
@@ -709,9 +709,9 @@
             .btn-add-indicateur {
                 padding: 8px 16px;
                 background: white;
-                border: 1px dashed var(--cdg-orange);
+                border: 1px dashed var(--cdg-navy);
                 border-radius: 6px;
-                color: var(--cdg-orange);
+                color: var(--cdg-navy);
                 font-size: 13px;
                 cursor: pointer;
                 display: inline-flex;
@@ -810,13 +810,13 @@
             }
             
             .document-item:hover {
-                border-color: var(--cdg-orange);
+                border-color: var(--cdg-navy);
                 background: rgba(255,107,53,0.05);
             }
             
             .document-item .material-icons {
                 font-size: 32px;
-                color: var(--cdg-orange);
+                color: var(--cdg-navy);
                 margin-bottom: 8px;
             }
             
@@ -887,7 +887,7 @@
             
             .btn-add-element-small {
                 padding: 6px 12px;
-                background: var(--cdg-orange);
+                background: var(--cdg-navy);
                 color: white;
                 border: none;
                 border-radius: 4px;
