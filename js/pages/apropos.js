@@ -1,5 +1,5 @@
 ﻿/**
- * PAGES/APROPOS.JS - Page À propos du projet CDG 2026
+ * PAGES/APROPOS.JS - Page À propos du projet
  * Présentation, équipe, partenaires, mentions légales
  */
 
@@ -15,7 +15,7 @@ pages.Apropos = {
                         <div class="hero-text">
                             <h1>
                                 <span class="material-symbols-outlined">flight_takeoff</span>
-                                CDG 2026
+                                Safety Simulator
                             </h1>
                             <p class="hero-subtitle">Safety Management System</p>
                             <p class="hero-description">
@@ -77,7 +77,7 @@ pages.Apropos = {
                 <footer class="apropos-footer">
                     <div class="footer-content">
                         <div class="footer-copyright">
-                            © 2026 CDG 2026 Safety Management System. Tous droits réservés.
+                            © 2026 Safety Management System. Tous droits réservés.
                         </div>
                         <div class="footer-links">
                             <a href="#/documentation">Documentation</a>
@@ -530,7 +530,7 @@ pages.Apropos = {
                 <!-- Devenir partenaire -->
                 <div class="become-partner">
                     <h3>Devenir partenaire</h3>
-                    <p>Vous souhaitez rejoindre l'aventure CDG 2026 ? Contactez-nous pour discuter des opportunités de collaboration.</p>
+                    <p>Vous souhaitez rejoindre l'aventure Safety Simulator ? Contactez-nous pour discuter des opportunités de collaboration.</p>
                     <a href="#/contact" class="btn-partner">
                         <span class="material-symbols-outlined">handshake</span>
                         Nous contacter
@@ -612,7 +612,7 @@ pages.Apropos = {
                         </p>
                         <p>
                             Les données collectées sont exclusivement utilisées dans le cadre du projet 
-                            CDG 2026 et ne sont pas transmises à des tiers.
+                            Safety Simulator et ne sont pas transmises à des tiers.
                         </p>
                     </div>
                 </div>

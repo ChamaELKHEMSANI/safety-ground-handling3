@@ -1,5 +1,5 @@
 ﻿﻿/**
- * PAGES/ADMIN.JS - Page d'administration du système CDG 2026
+ * PAGES/ADMIN.JS - Page d'administration du système
  * Interface complète pour la gestion des données, utilisateurs et configuration
  */
 

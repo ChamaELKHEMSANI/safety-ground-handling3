@@ -1316,7 +1316,7 @@ pages.PisteDetail = {
         return this.uniqueProjectItems(decisions, [
             { title: 'Sponsor et gouvernance', detail: 'Confirmer le sponsor, le chef de projet et le rythme de comité.', action: 'Décision à prendre avant lancement.' },
             { title: 'Ressources et calendrier', detail: 'Valider la disponibilité des équipes, le calendrier cible et les dépendances.', action: 'Décision à prendre au cadrage.' },
-            { title: 'Critères de passage en exploitation', detail: 'Définir les livrables minimums, indicateurs et seuils d’acceptation.', action: 'Décision à prendre avant clôture.' }
+            { title: 'Critères de passage en exploitation', detail: 'Définir les livrables minimums, indicateurs et seuils d\'acceptation.', action: 'Décision à prendre avant clôture.' }
         ]);
     },
 

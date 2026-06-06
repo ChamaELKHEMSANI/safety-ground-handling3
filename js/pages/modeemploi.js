@@ -17,7 +17,7 @@ pages.ModeEmploi = {
                             <span class="material-symbols-outlined">school</span>
                             Mode d'emploi
                         </h1>
-                        <p class="header-subtitle">Guide pas à pas pour utiliser le simulateur de sécurité CDG 2026</p>
+                        <p class="header-subtitle">Guide pas à pas pour utiliser le simulateur de sécurité</p>
                     </div>
                 </header>
 
@@ -612,7 +612,7 @@ pages.ModeEmploi = {
                         <h3>Exemple de PDF généré</h3>
                         <div class="pdf-preview">
                             <div class="pdf-header">
-                                <span>CDG 2026 - Plan d'action sécurité</span>
+                                <span>Safety Simulator - Plan d'action sécurité</span>
                                 <span>24/02/2026</span>
                             </div>
                             <div class="pdf-content">
@@ -651,7 +651,7 @@ pages.ModeEmploi = {
                     <span class="material-symbols-outlined">celebration</span>
                     <div>
                         <h4>Félicitations !</h4>
-                        <p>Vous savez maintenant utiliser toutes les fonctionnalités du simulateur CDG 2026.</p>
+                        <p>Vous savez maintenant utiliser toutes les fonctionnalités du simulateur Safety Simulator.</p>
                     </div>
                 </div>
             </div>

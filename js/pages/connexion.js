@@ -18,7 +18,7 @@ pages.Connexion = {
                             <div class="logo-box">
                                 <span class="material-symbols-outlined">shield</span>
                             </div>
-                            <h1 class="logo-text"></h1>
+                            <h1 class="logo-text">Safety simulator</h1>
                         </div>
                         
                         <h2 class="sidebar-title">Bienvenue sur la plateforme</h2>

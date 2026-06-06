@@ -831,7 +831,7 @@ pages.Compare = {
                 </div>
 
                 <div style="text-align: center; margin-top: 40px; color: #94a3b8; font-size: 12px; border-top: 1px solid #e2e8f0; padding-top: 20px;">
-                    <p>Document généré automatiquement - CDG 2026 Safety Management System</p>
+                    <p>Document généré automatiquement - Safety Management System</p>
                 </div>
             `;
 

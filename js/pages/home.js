@@ -36,10 +36,6 @@ pages.Home = {
                     <div class="container">
                         <div class="hero-content">
                             <div class="hero-text animate-fade-in">
-                                <div class="hero-badge">
-                                    <span class="material-symbols-outlined">target</span>
-                                    Objectif Zéro Accident
-                                </div>
                                 <h1>
                                     Simulateur Sécurité
                                     <span class="text-gradient"></span>

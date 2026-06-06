@@ -1218,8 +1218,8 @@ pages.Edition = {
 
     getFilterAllStyle(isActive) {
         const base = 'border:none;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer;display:inline-block;';
-        if (isActive) return `${base}background-color:var(--cdg-orange);color:white;`;
-        return `${base}background-color:rgba(255,107,53,0.12);color:var(--cdg-orange);`;
+        if (isActive) return `${base}background-color:var(--cdg-navy);color:white;`;
+        return `${base}background-color:rgba(255,107,53,0.12);color:var(--cdg-navy);`;
     },
 
     normalizeTrackId(trackId) {

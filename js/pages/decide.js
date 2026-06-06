@@ -424,7 +424,7 @@ pages.Decide = {
                             Document généré le ${new Date().toLocaleDateString('fr-FR')}
                         </div>
                         <div class="footer-right">
-                            <span>CDG 2026 - Safety Management System</span>
+                            <span>Safety Management System</span>
                         </div>
                     </div>
                 </footer>
@@ -821,7 +821,7 @@ pages.Decide = {
         return {
             status,
             text: `${numero} - ${title}`,
-            detail: 'Suivre l’avancement, lever les blocages, contrôler le consommé budgétaire et préparer le prochain jalon.'
+            detail: 'Suivre l\'avancement, lever les blocages, contrôler le consommé budgétaire et préparer le prochain jalon.'
         };
     },
 

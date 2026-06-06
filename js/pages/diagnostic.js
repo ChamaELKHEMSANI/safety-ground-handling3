@@ -99,6 +99,7 @@ window.pages.Diagnostic = {
                                         ${this.renderOption('1', '1 équipe', String(this.profile.equipes))}
                                         ${this.renderOption('2', '2 équipes', String(this.profile.equipes))}
                                         ${this.renderOption('3', '3 équipes', String(this.profile.equipes))}
+                                        ${this.renderOption('4', '4 équipes', String(this.profile.equipes))}
                                         ${this.renderOption('5', '5 équipes', String(this.profile.equipes))}
                                     </select>
                                 </div>

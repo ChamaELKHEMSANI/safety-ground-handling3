@@ -17,7 +17,7 @@ pages.Documentation = {
                             <span class="material-symbols-outlined">menu_book</span>
                             Documentation
                         </h1>
-                        <p class="header-subtitle">Guide d'utilisation, architecture et références du système CDG 2026</p>
+                        <p class="header-subtitle">Guide d'utilisation, architecture et références du système Safety Simulator</p>
                     </div>
                     <div class="header-search">
                         <span class="material-symbols-outlined">search</span>
@@ -187,7 +187,7 @@ pages.Documentation = {
             <div class="doc-section">
                 <h2>Introduction</h2>
                 <p class="doc-intro">
-                    Bienvenue dans la documentation du système CDG 2026 Safety Management System. 
+                    Bienvenue dans la documentation du système Safety Management System. 
                     Cette plateforme a été conçue pour aider les décideurs à optimiser la sécurité 
                     aéroportuaire en sélectionnant les meilleures pistes d'amélioration.
                 </p>
