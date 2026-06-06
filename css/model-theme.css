@@ -287,7 +287,7 @@ td {
 .member-avatar,
 .partner-logo,
 .logo-box {
-    background: var(--primary-fixed) !important;
+    /*background: var(--primary-fixed) !important;*/
     color: var(--cdg-navy) !important;
 }
 

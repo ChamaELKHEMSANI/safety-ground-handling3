@@ -41,15 +41,15 @@
 }
 
 .btn-primary:hover {
-    background-color: var(--cdg-orange);
-    border-color: var(--cdg-orange);
+    background-color: var(--cdg-navy);
+    border-color: var(--cdg-navy);
     box-shadow: var(--shadow-md);
 }
 
 .btn-secondary {
-    background-color: var(--cdg-orange);
+    background-color: var(--cdg-navy);
     color: var(--on-primary);
-    border-color: var(--cdg-orange);
+    border-color: var(--cdg-navy);
 }
 
 .btn-secondary:hover {
@@ -160,7 +160,7 @@
 }
 
 .card-secondary {
-    border-left: 4px solid var(--cdg-orange);
+    border-left: 4px solid var(--cdg-navy);
 }
 
 .card-success {
@@ -195,7 +195,7 @@
 
 .badge-secondary {
     background-color: rgba(255, 107, 53, 0.1);
-    color: var(--cdg-orange);
+    color: var(--cdg-navy);
 }
 
 .badge-success {

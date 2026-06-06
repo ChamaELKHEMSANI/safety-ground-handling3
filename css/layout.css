@@ -372,7 +372,7 @@ body {
 .border-l { border-left: 1px solid var(--gray-300); }
 
 .border-primary { border-color: var(--cdg-navy); }
-.border-secondary { border-color: var(--cdg-orange); }
+.border-secondary { border-color: var(--cdg-navy); }
 .border-success { border-color: var(--success); }
 .border-danger { border-color: var(--danger); }
 
@@ -401,7 +401,7 @@ body {
 .bg-gray-200 { background-color: var(--gray-200); }
 .bg-gray-300 { background-color: var(--gray-300); }
 .bg-primary { background-color: var(--cdg-navy); }
-.bg-secondary { background-color: var(--cdg-orange); }
+.bg-secondary { background-color: var(--cdg-navy); }
 .bg-success { background-color: var(--success); }
 .bg-danger { background-color: var(--danger); }
 .bg-warning { background-color: var(--warning); }
