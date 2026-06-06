@@ -85,7 +85,7 @@ class Export {
             <body>
                 <div class="container">
                     <div class="header">
-                        <h1>Plan d'Action Sécurité CDG 2026</h1>
+                        <h1>Plan d'Action Sécurité</h1>
                         <p>Rapport de simulation - Généré le ${now}</p>
                     </div>
 
@@ -173,7 +173,7 @@ class Export {
                     </div>
 
                     <div class="footer">
-                        <p>Simulateur Sécurité CDG 2026 | v1.0.0</p>
+                        <p>Simulateur Sécurité  | v3.0.0</p>
                         <p>Document généré automatiquement - Confidentiel</p>
                     </div>
                 </div>
@@ -301,7 +301,7 @@ class Export {
                         </tbody>
                     </table>
                     <p class="note">Les montants reposent sur les hypothèses déclarées et sur une réduction estimée des pertes, plafonnée à 75%. Cette comparaison doit être confirmée lors de l'étude détaillée.</p>
-                    <footer>Simulateur Sécurité CDG 2026 - Support d'échange commercial.</footer>
+                    <footer>Simulateur Sécurité - Support d'échange commercial.</footer>
                 </main>
             </body>
             </html>
@@ -316,7 +316,7 @@ class Export {
         const riskLabels = {
             circulation: 'Collisions et circulation',
             humain: 'Comportements et formation',
-            organisation: 'Organisation et pics d’activité',
+            organisation: 'Organisation et pics d\'activité',
             technologie: 'Équipements et détection'
         };
         const financial = recommendation.financial || {};
@@ -418,7 +418,7 @@ class Export {
                             `).join('')}
                         </tbody>
                     </table>
-                    <footer>Simulateur Sécurité CDG 2026 - Synthèse préparée pour échange commercial.</footer>
+                    <footer>Simulateur Sécurité - Synthèse préparée pour échange commercial.</footer>
                 </main>
             </body>
             </html>
