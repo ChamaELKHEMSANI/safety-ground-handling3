@@ -92,7 +92,7 @@ const Footer = {
                 }
 
                 .footer-section a:hover {
-                    color: var(--cdg-orange);
+                    color: var(--cdg-navy);
                 }
 
                 .footer-info {

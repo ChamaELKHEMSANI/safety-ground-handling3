@@ -19,8 +19,8 @@ const Header = {
                         <div class="header-logo">
                             <div class="logo-icon"><span class="material-symbols-outlined">flight_takeoff</span></div>
                             <div class="logo-text">
-                                <span class="logo-main">CDG 2026</span>
-                                <span class="logo-sub">Safety Simulator</span>
+                                <span class="logo-main">Safety Simulator</span>
+                                <span class="logo-sub"></span>
                             </div>
                         </div>
 
@@ -72,7 +72,7 @@ const Header = {
                             ${isAuthenticated ? `
                                 <button class="btn btn-ghost header-logout" id="logout-btn">
                                     <span class="material-symbols-outlined">logout</span>
-                                    <span class="show-desktop">Deconnexion</span>
+                                    <span class="show-desktop">Déconnexion</span>
                                 </button>
                             ` : ''}
                         </div>
@@ -98,7 +98,7 @@ const Header = {
                     <a href="/comparer" class="mobile-nav-link ${currentPath === '/comparer' ? 'active' : ''}">Comparer</a>
                     <a href="/decider" class="mobile-nav-link ${currentPath === '/decider' ? 'active' : ''}">Decider</a>
                     ${isAdmin ? '<a href="/admin" class="mobile-nav-link">Admin</a>' : ''}
-                    <button class="mobile-nav-link mobile-logout-btn" id="mobile-logout-btn" type="button">Deconnexion</button>
+                    <button class="mobile-nav-link mobile-logout-btn" id="mobile-logout-btn" type="button">Déconnexion</button>
                 ` : `
                     <a href="/connexion" class="mobile-nav-link ${currentPath === '/connexion' ? 'active' : ''}">Connexion</a>
                 `}
@@ -183,7 +183,7 @@ const Header = {
                 }
 
                 .nav-link.active {
-                    border-bottom-color: var(--cdg-orange);
+                    border-bottom-color: var(--cdg-navy);
                     opacity: 1;
                 }
 
@@ -294,13 +294,13 @@ const Header = {
 
                 .mobile-nav-link:hover {
                     background: rgba(255, 255, 255, 0.1);
-                    border-left-color: var(--cdg-orange);
+                    border-left-color: var(--cdg-navy);
                 }
 
                 .mobile-nav-link.active {
                     background: rgba(255, 107, 53, 0.1);
-                    border-left-color: var(--cdg-orange);
-                    color: var(--cdg-orange);
+                    border-left-color: var(--cdg-navy);
+                    color: var(--cdg-navy);
                 }
 
                 .mobile-logout-btn {
@@ -392,7 +392,7 @@ const Header = {
 
                 .nav-link.active {
                     color: var(--on-surface);
-                    border-bottom-color: var(--cdg-orange-bright);
+                    border-bottom-color: var(--cdg-navy);
                 }
 
                 .header-user-name,
@@ -437,7 +437,7 @@ const Header = {
                 .mobile-nav-link.active {
                     background: var(--secondary-fixed);
                     border-left-color: var(--cdg-orange-bright);
-                    color: var(--cdg-orange);
+                    color: var(--cdg-navy);
                 }
 
                 /* modele.html visual language overrides */
@@ -492,7 +492,7 @@ const Header = {
 
                 .nav-link.active {
                     color: var(--on-surface);
-                    border-bottom-color: var(--cdg-orange-bright);
+                    border-bottom-color: var(--cdg-navy);
                 }
 
                 .header-user-name,
@@ -537,7 +537,7 @@ const Header = {
                 .mobile-nav-link.active {
                     background: var(--secondary-fixed);
                     border-left-color: var(--cdg-orange-bright);
-                    color: var(--cdg-orange);
+                    color: var(--cdg-navy);
                 } 
                 /* modele.html visual language overrides */
                 .header-wrapper {
@@ -591,7 +591,7 @@ const Header = {
 
                 .nav-link.active {
                     color: var(--on-surface);
-                    border-bottom-color: var(--cdg-orange-bright);
+                    border-bottom-color: var(--cdg-navy);
                 }
 
                 .header-user-name,
@@ -636,7 +636,7 @@ const Header = {
                 .mobile-nav-link.active {
                     background: var(--secondary-fixed);
                     border-left-color: var(--cdg-orange-bright);
-                    color: var(--cdg-orange);
+                    color: var(--cdg-navy);
                 } 
                 /* modele.html visual language overrides */
                 .header-wrapper {
@@ -690,7 +690,7 @@ const Header = {
 
                 .nav-link.active {
                     color: var(--on-surface);
-                    border-bottom-color: var(--cdg-orange-bright);
+                    border-bottom-color: var(--cdg-navy);
                 }
 
                 .header-user-name,
@@ -735,7 +735,7 @@ const Header = {
                 .mobile-nav-link.active {
                     background: var(--secondary-fixed);
                     border-left-color: var(--cdg-orange-bright);
-                    color: var(--cdg-orange);
+                    color: var(--cdg-navy);
                 } 
                 /* modele.html visual language overrides */
                 .header-wrapper {
@@ -789,7 +789,7 @@ const Header = {
 
                 .nav-link.active {
                     color: var(--on-surface);
-                    border-bottom-color: var(--cdg-orange-bright);
+                    border-bottom-color: var(--cdg-navy);
                 }
 
                 .header-user-name,
@@ -834,7 +834,7 @@ const Header = {
                 .mobile-nav-link.active {
                     background: var(--secondary-fixed);
                     border-left-color: var(--cdg-orange-bright);
-                    color: var(--cdg-orange);
+                    color: var(--cdg-navy);
                 } 
                 /* modele.html visual language overrides */
                 .header-wrapper {
@@ -888,7 +888,7 @@ const Header = {
 
                 .nav-link.active {
                     color: var(--on-surface);
-                    border-bottom-color: var(--cdg-orange-bright);
+                    border-bottom-color: var(--cdg-navy);
                 }
 
                 .header-user-name,
@@ -933,7 +933,7 @@ const Header = {
                 .mobile-nav-link.active {
                     background: var(--secondary-fixed);
                     border-left-color: var(--cdg-orange-bright);
-                    color: var(--cdg-orange);
+                    color: var(--cdg-navy);
                 } 
                 /* modele.html visual language overrides */
                 .header-wrapper {
@@ -987,7 +987,7 @@ const Header = {
 
                 .nav-link.active {
                     color: var(--on-surface);
-                    border-bottom-color: var(--cdg-orange-bright);
+                    border-bottom-color: var(--cdg-navy);
                 }
 
                 .header-user-name,
@@ -1032,7 +1032,7 @@ const Header = {
                 .mobile-nav-link.active {
                     background: var(--secondary-fixed);
                     border-left-color: var(--cdg-orange-bright);
-                    color: var(--cdg-orange);
+                    color: var(--cdg-navy);
                 } 
                 /* modele.html visual language overrides */
                 .header-wrapper {
@@ -1086,7 +1086,7 @@ const Header = {
 
                 .nav-link.active {
                     color: var(--on-surface);
-                    border-bottom-color: var(--cdg-orange-bright);
+                    border-bottom-color: var(--cdg-navy);
                 }
 
                 .header-user-name,
@@ -1131,7 +1131,7 @@ const Header = {
                 .mobile-nav-link.active {
                     background: var(--secondary-fixed);
                     border-left-color: var(--cdg-orange-bright);
-                    color: var(--cdg-orange);
+                    color: var(--cdg-navy);
                 } 
                 /* modele.html visual language overrides */
                 .header-wrapper {
@@ -1185,7 +1185,7 @@ const Header = {
 
                 .nav-link.active {
                     color: var(--on-surface);
-                    border-bottom-color: var(--cdg-orange-bright);
+                    border-bottom-color: var(--cdg-navy);
                 }
 
                 .header-user-name,
@@ -1230,7 +1230,7 @@ const Header = {
                 .mobile-nav-link.active {
                     background: var(--secondary-fixed);
                     border-left-color: var(--cdg-orange-bright);
-                    color: var(--cdg-orange);
+                    color: var(--cdg-navy);
                 } 
                 /* modele.html visual language overrides */
                 .header-wrapper {
@@ -1284,7 +1284,7 @@ const Header = {
 
                 .nav-link.active {
                     color: var(--on-surface);
-                    border-bottom-color: var(--cdg-orange-bright);
+                    border-bottom-color: var(--cdg-navy);
                 }
 
                 .header-user-name,
@@ -1329,7 +1329,7 @@ const Header = {
                 .mobile-nav-link.active {
                     background: var(--secondary-fixed);
                     border-left-color: var(--cdg-orange-bright);
-                    color: var(--cdg-orange);
+                    color: var(--cdg-navy);
                 } 
                 /* modele.html visual language overrides */
                 .header-wrapper {
@@ -1383,7 +1383,7 @@ const Header = {
 
                 .nav-link.active {
                     color: var(--on-surface);
-                    border-bottom-color: var(--cdg-orange-bright);
+                    border-bottom-color: var(--cdg-navy);
                 }
 
                 .header-user-name,
@@ -1428,7 +1428,7 @@ const Header = {
                 .mobile-nav-link.active {
                     background: var(--secondary-fixed);
                     border-left-color: var(--cdg-orange-bright);
-                    color: var(--cdg-orange);
+                    color: var(--cdg-navy);
                 } 
                 /* modele.html visual language overrides */
                 .header-wrapper {
@@ -1482,7 +1482,7 @@ const Header = {
 
                 .nav-link.active {
                     color: var(--on-surface);
-                    border-bottom-color: var(--cdg-orange-bright);
+                    border-bottom-color: var(--cdg-navy);
                 }
 
                 .header-user-name,
@@ -1527,7 +1527,7 @@ const Header = {
                 .mobile-nav-link.active {
                     background: var(--secondary-fixed);
                     border-left-color: var(--cdg-orange-bright);
-                    color: var(--cdg-orange);
+                    color: var(--cdg-navy);
                 } 
                 /* modele.html visual language overrides */
                 .header-wrapper {
@@ -1581,7 +1581,7 @@ const Header = {
 
                 .nav-link.active {
                     color: var(--on-surface);
-                    border-bottom-color: var(--cdg-orange-bright);
+                    border-bottom-color: var(--cdg-navy);
                 }
 
                 .header-user-name,
@@ -1626,7 +1626,7 @@ const Header = {
                 .mobile-nav-link.active {
                     background: var(--secondary-fixed);
                     border-left-color: var(--cdg-orange-bright);
-                    color: var(--cdg-orange);
+                    color: var(--cdg-navy);
                 } 
                 /* modele.html visual language overrides */
                 .header-wrapper {
@@ -1680,7 +1680,7 @@ const Header = {
 
                 .nav-link.active {
                     color: var(--on-surface);
-                    border-bottom-color: var(--cdg-orange-bright);
+                    border-bottom-color: var(--cdg-navy);
                 }
 
                 .header-user-name,
@@ -1725,7 +1725,7 @@ const Header = {
                 .mobile-nav-link.active {
                     background: var(--secondary-fixed);
                     border-left-color: var(--cdg-orange-bright);
-                    color: var(--cdg-orange);
+                    color: var(--cdg-navy);
                 }</style>
         `;
     },
