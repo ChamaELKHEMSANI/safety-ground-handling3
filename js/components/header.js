@@ -47,7 +47,7 @@ const Header = {
                                     <span>Comparer</span>
                                 </a>
                                 <a href="/decider" class="nav-link ${currentPath === '/decider' ? 'active' : ''}">
-                                    <span>Decider</span>
+                                    <span>Décider</span>
                                 </a>
                             ` : `
                                 <a href="/connexion" class="nav-link ${currentPath === '/connexion' ? 'active' : ''}">
