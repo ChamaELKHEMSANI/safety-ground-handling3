@@ -175,7 +175,7 @@ pages.Edition = {
                     <aside class="edition-sidebar">
                         <div class="sidebar-top">
                             <button class="btn-new-track" data-edition-action="createNewTrack">
-                                 <span class="material-icons">add</span>
+                                 
                                  Nouvelle piste de sécurité
                            </button>
                             <div class="search-box">
